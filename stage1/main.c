@@ -40,6 +40,7 @@ void main(void) {
 	/* Main processing loop */
   	while (1) {
 
+		s4396122_hal_ledbar_write(counter_value);
 		counter_value++;	//Increment counter
 
 		/****************** Display counter. ***************/
@@ -53,8 +54,6 @@ void main(void) {
 
 			then call
 	*/
-			s4396122_hal_ledbar_write(counter_value);
-		//*/
 
 		BRD_LEDToggle();
     	HAL_Delay(1000);		//Delay for 1s (1000ms)
