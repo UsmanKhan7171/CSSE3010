@@ -42,6 +42,7 @@ void main(void) {
   	while (1) {
 
 		s4396122_hal_ledbar_write(counter_value);
+		debug_printf("0x%04x\n", counter_value);
 
 		if (left_bool) {
 			counter_value = counter_value << 1;
