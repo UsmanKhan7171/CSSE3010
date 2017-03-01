@@ -20,7 +20,8 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint16_t counter_value = 0;
+uint16_t counter_value = 0x03;
+unsigned char left_bool = 1;
 uint16_t press_counter_val = 0;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -41,7 +42,20 @@ void main(void) {
   	while (1) {
 
 		s4396122_hal_ledbar_write(counter_value);
-		counter_value++;	//Increment counter
+
+		if (left_bool) {
+			counter_value = counter_value << 1;
+		} else {
+			counter_value = counter_value >> 1;
+		}
+
+		if (counter_value == 3) {
+			left_bool = 1;
+			counter_value = 3;
+		} else if (counter_value == 768) {
+			left_bool = 0;
+			counter_value = 768;
+		}
 
 		/****************** Display counter. ***************/
 		/* First, turn off each LED light bar segment
