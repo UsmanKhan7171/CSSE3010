@@ -75,12 +75,6 @@ void Hardware_init(void) {
 
 	s4396122_hal_ledbar_init();
 
-	/* Initialise LED light-Bar
-       Call
-	   sxxxxxx_hal_ledbar_init();
-
-	*/
-
 	/* Configure the GPIO_D1 pin
 
 	 	....
