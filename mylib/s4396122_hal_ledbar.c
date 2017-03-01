@@ -55,9 +55,7 @@ void s4396122_hal_ledbar_init() {
 }
 
 void s4396122_hal_ledbar_write(unsigned short value) {
-    uint16_t pos = 1;
     for (int i = 0; i < 10; i++) {
-        ledbar_seg_set(i, value & pos);
-        pos *= 2;
+        ledbar_seg_set(i, (value >> i) & 1);
     }
 }
