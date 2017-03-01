@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stage1/main.c
-  * @author  MY_FIRST_NAME + SURNAME
+  * @author  Daniel Fitzmaurice
   * @date    10-January-2015
   * @brief   Prac 1 Template C main file - BCD timer and press counter.
   *			 NOTE: THIS CODE IS PSEUDOCODE AND DOES NOT COMPILE.
@@ -14,7 +14,7 @@
 #include <board.h>
 #include <stm32f4xx_hal_conf.h>
 #include <debug_printf.h>
-#include "s4396122_hal_ledbar.h"		////////CHANGE THIS//////////
+#include "s4396122_hal_ledbar.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
