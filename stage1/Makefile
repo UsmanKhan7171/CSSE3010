@@ -14,6 +14,7 @@ SRCS = $(PROJ_NAME).c
 #Include your mylib header files
 CFLAGS = -I$(MYLIB)
 CFLAGS += -DENABLE_VCP	#enable USB Virtual Com Port
+# CFLAGS += ‐DENABLE_DEBUG_UART #Enable UART4 for debug printf
 ###################################################
 ROOT=$(shell pwd)
 
