@@ -56,7 +56,7 @@ void main(void) {
 			s4396122_hal_ledbar_write(counter_value);
 		//*/
 
-		/* Toggle 'Keep Alive Indicator' BLUE LED */
+		BRD_LEDToggle();
     	HAL_Delay(1000);		//Delay for 1s (1000ms)
 
 	}
