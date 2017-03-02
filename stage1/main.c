@@ -23,6 +23,9 @@
 uint16_t counter_value = 0x03;
 unsigned char left_bool = 1;
 uint16_t press_counter_val = 0;
+unsigned int last_press = 0;
+unsigned char rising_val = 0;
+uint16_t delayFactor = 10000;
 
 /* Private function prototypes -----------------------------------------------*/
 void Hardware_init(void);
@@ -40,6 +43,8 @@ void main(void) {
 
 	/* Main processing loop */
   	while (1) {
+
+		debug_printf("%d\n", HAL_GetTick());
 
 		s4396122_hal_ledbar_write(counter_value);
 		debug_printf("0x%04x\n", counter_value);
@@ -71,7 +76,7 @@ void main(void) {
 	*/
 
 		BRD_LEDToggle();
-    	HAL_Delay(1000);		//Delay for 1s (1000ms)
+    	HAL_Delay(delayFactor);		//Delay for 1s (1000ms)
 
 	}
 }
@@ -90,6 +95,16 @@ void Hardware_init(void) {
 
 	s4396122_hal_ledbar_init();
 
+	__BRD_A2_GPIO_CLK();
+	HAL_NVIC_SetPriority(BRD_A2_EXTI_IRQ, 10, 0);
+	NVIC_SetVector(BRD_A2_EXTI_IRQ, (uint32_t) &exti_a2_interrupt_handler);
+	NVIC_EnableIRQ(BRD_A2_EXTI_IRQ);
+	GPIO_InitStructure.Pin = BRD_A2_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStructure.Pull = GPIO_PULLUP;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(BRD_A2_GPIO_PORT, &GPIO_InitStructure);
+
 	/* Configure the GPIO_D1 pin
 
 	 	....
@@ -107,8 +122,25 @@ void Hardware_init(void) {
   */
 void exti_a2_interrupt_handler(void) {
 
-
 	HAL_GPIO_EXTI_IRQHandler(BRD_A2_PIN);				//Clear A2 pin external interrupt flag
+
+	if (HAL_GetTick() > (last_press + 300)) {
+		if (rising_val) {
+			delayFactor *= 2;
+			if (delayFactor >= 1000) {
+				delayFactor = 1000;
+				rising_val = 0;
+			}
+		} else {
+			delayFactor /= 2;
+			if (delayFactor <= 100) {
+				delayFactor = 100;
+				rising_val = 1;
+			}
+		}
+	}
+
+	last_press = HAL_GetTick();
 
 	/* Speed up the counter by reducing the delay value */
 }
