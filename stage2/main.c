@@ -16,7 +16,12 @@
  * hardware
  */
 void Hardware_init() {
+    // Initialize and turn off the debug LED
+    BRD_LEDInit();
+    BRD_LEDOff();
 
+    s4396122_hal_ledbar_init(); // initializes the ledbar
+    s4396122_hal_pantilt_init(); // initializes the pantilt server
 }
 
 /**
