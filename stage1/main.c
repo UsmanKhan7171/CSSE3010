@@ -44,7 +44,7 @@ void main(void) {
 	/* Main processing loop */
   	while (1) {
 
-		debug_printf("%d\n", HAL_GetTick());
+		// debug_printf("%d\n", HAL_GetTick());
 
 		s4396122_hal_ledbar_write(counter_value);
 		debug_printf("0x%04x\n", counter_value);
