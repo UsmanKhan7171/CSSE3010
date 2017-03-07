@@ -44,8 +44,6 @@ void main(void) {
 	/* Main processing loop */
   	while (1) {
 
-		// debug_printf("%d\n", HAL_GetTick());
-
 		s4396122_hal_ledbar_write(counter_value);
 		debug_printf("0x%04x\n", counter_value);
 
@@ -63,18 +61,6 @@ void main(void) {
 			counter_value = 768;
 		}
 
-		/****************** Display counter. ***************/
-		/* First, turn off each LED light bar segment
-			write 0 to D0
-			Write 0 to D1
-			....
-			Write 0 to D9
-
-			Call sxxxxxx_hal_ledbar_write(0)
-
-			then call
-	*/
-
 		BRD_LEDToggle();
     	HAL_Delay(delayFactor);		//Delay for 1s (1000ms)
 
@@ -87,7 +73,6 @@ void main(void) {
   * @retval None
   */
 void Hardware_init(void) {
-
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
 	BRD_LEDInit();		//Initialise Blue LED
@@ -104,15 +89,6 @@ void Hardware_init(void) {
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
 	HAL_GPIO_Init(BRD_A2_GPIO_PORT, &GPIO_InitStructure);
-
-	/* Configure the GPIO_D1 pin
-
-	 	....
-
-		Configure the GPIO_D9 pin */
-
-	/* Configure A2 interrupt for Prac 1, Task 2 or 3 only */
-
 }
 
 /**
@@ -141,6 +117,4 @@ void exti_a2_interrupt_handler(void) {
 	}
 
 	last_press = HAL_GetTick();
-
-	/* Speed up the counter by reducing the delay value */
 }
