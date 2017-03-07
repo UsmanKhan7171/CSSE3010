@@ -1,5 +1,22 @@
 #include "s4396122_hal_ledbar.h"
 
+/**
+ * *****************************************************************************
+ *  @file
+ *  @author Daniel Fitzmaurice = 43961229
+ *  @date   010317
+ *  @brief  LED Light Bar peripheral driver
+ *          REFERENCE: LEDLightBar_datasheet.pdf
+ *******************************************************************************
+ *  s4396122_hal_ledbar_init() = initialise LED Light Bar
+ *  s4396122_hal_ledbar_write(unsigned short) = set LED Light Bar value
+ */
+
+/**
+ * Write an individual bit to the light bar
+ * @param segment       The position bit to write to
+ * @param segment_value Value to write (should be 1 or 0)
+ */
 void ledbar_seg_set(int segment, unsigned char segment_value) {
     unsigned char val = (segment_value > 0) ? 1 : 0;
     int seg_position = segment;
@@ -17,6 +34,9 @@ void ledbar_seg_set(int segment, unsigned char segment_value) {
     }
 }
 
+/**
+ * Initialize the IO pins for the LED bar
+ */
 void s4396122_hal_ledbar_init() {
     GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -54,6 +74,10 @@ void s4396122_hal_ledbar_init() {
     __BRD_D7_GPIO_CLK();
 }
 
+/**
+ * Writes the numeric value to the LED bar
+ * @param value The value to be written to the light bar
+ */
 void s4396122_hal_ledbar_write(unsigned short value) {
     for (int i = 0; i < 10; i++) {
         ledbar_seg_set(i, (value >> i) & 1);
