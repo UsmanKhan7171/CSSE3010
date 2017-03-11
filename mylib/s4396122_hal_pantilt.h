@@ -11,11 +11,11 @@
  * s4396122_hal_pantilt_pan_read() = returns the pan of the servo
  */
 
-#include <board.h>
-#include <stm32f4xx_hal_conf.h>
-
 #ifndef HAL_PANTILT_H
 #define HAL_PANTILT_H
+
+#include <board.h>
+#include <stm32f4xx_hal_conf.h>
 
 #define s4396122_hal_pantilt_pan_write(angle) pantilt_angle_write(0, angle)
 #define s4396122_hal_pantilt_pan_read() pantilt_angle_read(0)
