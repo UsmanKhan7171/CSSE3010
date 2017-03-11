@@ -14,7 +14,7 @@
 #ifndef HAL_PANTILT_H
 #define HAL_PANTILT_H
 
-#define s4396122_hal_pantilt_pan_write(int angle) pantilt_angle_write(0, angle)
+#define s4396122_hal_pantilt_pan_write(angle) pantilt_angle_write(0, angle)
 #define s4396122_hal_pantilt_pan_read() pantilt_angle_read(0)
 
 void s4396122_hal_pantilt_init();
