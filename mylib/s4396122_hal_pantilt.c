@@ -23,7 +23,6 @@ void s4396122_hal_pantilt_init() {
     // Require structures for initialization
     GPIO_InitTypeDef GPIO_InitStructure;
     TIM_OC_InitTypeDef PWMConfig;
-    TIM_HandleTypeDef TIM_Init;
 
     // Initialize the pan pin output
     GPIO_InitStructure.Pin = BRD_D2_PIN;
@@ -68,6 +67,17 @@ void s4396122_hal_pantilt_init() {
  * @param angle The angle to set the pan/tilt to
  */
 void pantilt_angle_write(int type, int angle) {
+    if (angle < -85 || angle > 85) {
+        // The angle is outside of what is allowed, so return and don't do
+        // anything
+        return;
+    }
+
+    if (type == 0) {
+        int centeredAngle = (angle * 8 / 9) + 95;
+        int pulseWidth = (((angle + 85) * 100) / 170) + 30;
+        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_4, pulseWidth);
+    }
 
 }
 
@@ -78,5 +88,5 @@ void pantilt_angle_write(int type, int angle) {
  * @return      The angle read from the server (from either pan or tilt)
  */
 int pantilt_angle_read(int type) {
-
+    // HAL_TIM_PWM_GetState
 }
