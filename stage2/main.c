@@ -36,14 +36,28 @@ int main(void) {
 
     debug_printf("Holla\n");
 
+    s4396122_hal_pantilt_pan_write(0);
+
+    int degree = 0;
+
     while (1) { // Main function loop
         BRD_LEDToggle();
-        
-        s4396122_hal_pantilt_pan_write(-85);
-        HAL_Delay(1000);
-        s4396122_hal_pantilt_pan_write(0);
-        HAL_Delay(1000);
-        s4396122_hal_pantilt_pan_write(85);
-        HAL_Delay(1000);
+
+        char c = debug_getc();
+        if (c != 0) {
+            if (c == 'n') {
+                degree -= 10;
+            } else if (c == 'p') {
+                degree += 10;
+            }
+
+            if (degree > 85) {
+                degree = 85;
+            } else if (degree < -85) {
+                degree = -85;
+            }
+
+            s4396122_hal_pantilt_pan_write(degree);
+        }
     }
 }
