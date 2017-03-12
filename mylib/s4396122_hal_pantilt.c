@@ -74,7 +74,6 @@ void pantilt_angle_write(int type, int angle) {
     }
 
     if (type == 0) {
-        int centeredAngle = (angle * 8 / 9) + 95;
         int pulseWidth = (((angle + 85) * 100) / 170) + 30;
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_4, pulseWidth);
     }
