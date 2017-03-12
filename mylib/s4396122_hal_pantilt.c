@@ -87,5 +87,6 @@ void pantilt_angle_write(int type, int angle) {
  * @return      The angle read from the server (from either pan or tilt)
  */
 int pantilt_angle_read(int type) {
-    // HAL_TIM_PWM_GetState
+    int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_4);
+    return (17 * (pulseWidth - 29) / 10) - 85;
 }
