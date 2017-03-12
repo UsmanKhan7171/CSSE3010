@@ -20,7 +20,6 @@
 #define s4396122_hal_pantilt_pan_write(angle) pantilt_angle_write(0, angle)
 #define s4396122_hal_pantilt_pan_read() pantilt_angle_read(0)
 
-TIM_OC_InitTypeDef PWMConfig;
 TIM_HandleTypeDef TIM_Init;
 
 void s4396122_hal_pantilt_init();
