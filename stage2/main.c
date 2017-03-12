@@ -34,8 +34,16 @@ int main(void) {
     BRD_init();
     Hardware_init();
 
+    debug_printf("Holla\n");
+
     while (1) { // Main function loop
         BRD_LEDToggle();
+        
+        s4396122_hal_pantilt_pan_write(-85);
+        HAL_Delay(1000);
+        s4396122_hal_pantilt_pan_write(0);
+        HAL_Delay(1000);
+        s4396122_hal_pantilt_pan_write(85);
         HAL_Delay(1000);
     }
 }
