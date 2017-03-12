@@ -74,6 +74,9 @@ void pantilt_angle_write(int type, int angle) {
     }
 
     if (type == 0) {
+        // Get the pulseWidth from the angle (This formula is taken from the
+        // Arduino Map function, but it has been simplified to help reduce
+        // processing time)
         int pulseWidth = (((angle + 85) * 100) / 170) + 30;
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_4, pulseWidth);
     }
@@ -88,5 +91,7 @@ void pantilt_angle_write(int type, int angle) {
  */
 int pantilt_angle_read(int type) {
     int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_4);
+    // Gets the angle from the pulseWidth (This is just the inverted function
+    // from angle_write)
     return (17 * (pulseWidth - 29) / 10) - 85;
 }
