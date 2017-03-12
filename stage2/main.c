@@ -51,10 +51,10 @@ int main(void) {
                 degree += 10;
             }
 
-            if (degree > 85) {
-                degree = 85;
-            } else if (degree < -85) {
-                degree = -85;
+            if (degree > 70) {
+                degree = 70;
+            } else if (degree < -70) {
+                degree = -70;
             }
 
             s4396122_hal_pantilt_pan_write(degree);
