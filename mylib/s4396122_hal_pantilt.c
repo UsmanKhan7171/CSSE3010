@@ -90,8 +90,11 @@ void pantilt_angle_write(int type, int angle) {
  * @return      The angle read from the server (from either pan or tilt)
  */
 int pantilt_angle_read(int type) {
-    int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_4);
-    // Gets the angle from the pulseWidth (This is just the inverted function
-    // from angle_write)
-    return (17 * (pulseWidth - 29) / 10) - 85;
+    if (type == 0) {
+        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_4);
+        // Gets the angle from the pulseWidth (This is just the inverted function
+        // from angle_write)
+        return (17 * (pulseWidth - 29) / 10) - 85;
+    }
+    return 0;
 }
