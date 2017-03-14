@@ -60,7 +60,7 @@ int main(void) {
             } else {
                 // Set the current degree as the degree of the servo and switch
                 // the states
-                degree = s4396122_hal_pantilt_pan_read();
+                // degree = s4396122_hal_pantilt_pan_read();
                 stageSwitch = 1;
                 s4396122_hal_ledbar_write(0); // Clear the ledbar
             }
@@ -92,36 +92,30 @@ int main(void) {
             }
         }
 
+        int ledbar_pos = 1;
+
         if (stageSwitch) {
             // run stage 2.2
-            s4396122_hal_pantilt_pan_write(degree); // update the degree
+            // Stage 2 runs at the very end of the if statement (code
+            // optimizations)
+            int pos = (degree + 70) / 14;
+            ledbar_pos = ledbar_pos << pos;
         } else {
             // run stage 2.3
             if (HAL_GetTick() > (lastTick + metronomeDelay)) {
-                // The delay period has expired and needs to be updated
-                s4396122_hal_pantilt_pan_write(40 * metronomeVal);
-                lastTick = HAL_GetTick(); // Update the tick track
-                // Sweep the ledbar either way depending on the direction the
-                // metronome swang
-                if (metronomeVal == -1) {
-                    uint16_t ledPos = 1;
-                    for (int i = 0; i < 10; i++) {
-                        s4396122_hal_ledbar_write(ledPos);
-                        ledPos = ledPos << 1;
-                        HAL_Delay(20);
-                    }
-                } else {
-                    uint16_t ledPos = (1 << 9);
-                    for (int i = 0; i < 10; i++) {
-                        s4396122_hal_ledbar_write(ledPos);
-                        ledPos = ledPos >> 1;
-                        HAL_Delay(20);
-                    }
-                }
-                // Invert the metronome direction so that it goes the opposite
-                // way next time
                 metronomeVal *= -1;
+                lastTick = HAL_GetTick();
             }
+
+            int step = 80 * ((lastTick + metronomeDelay) - HAL_GetTick()) / metronomeDelay;
+            step -= 40;
+            step *= metronomeVal;
+            degree = step;
+            int pos = (degree + 40) / 8;
+            ledbar_pos = ledbar_pos << pos;
         }
+
+        s4396122_hal_ledbar_write(ledbar_pos);
+        s4396122_hal_pantilt_pan_write(degree); // update the degree
     }
 }
