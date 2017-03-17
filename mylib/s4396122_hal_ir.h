@@ -22,8 +22,10 @@
 
 #define s4396122_hal_ir_carrieron() irhal_carrier(1);
 #define s4396122_hal_ir_carrieroff() irhal_carrier(0);
-#define s4396122_hal_ir_datamodulation_set() 0;
-#define s4396122_hal_ir_datamodulation_clr() 0;
+#define s4396122_hal_ir_datamodulation_set() HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 1);
+#define s4396122_hal_ir_datamodulation_cli() HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 0);
+
+TIM_HandleTypeDef TIM_Init;
 
 void s4396122_hal_ir_init();
 void irhal_carrier(int state);
