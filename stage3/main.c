@@ -17,10 +17,6 @@
 unsigned int lastSignal;
 int frequency;
 
-int map(int test, int oldMin, int oldMax, int newMin, int newMax) {
-    return ((test - oldMin) * (newMax - newMin) / (oldMax - oldMin)) + newMin;
-}
-
 void exti_d0_irqhandler() {
     HAL_GPIO_EXTI_IRQHandler(BRD_D0_PIN);
 
