@@ -18,7 +18,8 @@
  * Global variables (used for continuous interrupts)
  */
 unsigned int lastSignal;
-int frequency;
+unsigned int lastOutput;
+int IRfrequency;
 
 /**
  * Interrupt handler for pin D0. This handles the signal input from the ir
@@ -31,7 +32,7 @@ void exti_d0_irqhandler() {
     // Calculate the difference in time and then work out the frequency from
     // the difference
     unsigned int tickDiff = HAL_GetTick() - lastSignal;
-    frequency = 1000 / tickDiff;
+    IRfrequency = 1000 / tickDiff;
     lastSignal = HAL_GetTick();     // Update the signal tracker
 }
 
@@ -54,7 +55,7 @@ void Hardware_init() {
     // Attach a function to the interrupt
     NVIC_SetVector(BRD_D0_EXTI_IRQ, (uint32_t) &exti_d0_irqhandler);
     lastSignal = HAL_GetTick();
-    frequency = 0;
+    IRfrequency = 0;
     NVIC_EnableIRQ(BRD_D0_EXTI_IRQ);
 
     // Initialize the GPIO Pin to enable interrupts
@@ -72,18 +73,25 @@ int main() {
     // Set all the system runtime defaults to ensure there are no system ghosts
     // from the last boot
     unsigned int lastTick = HAL_GetTick();
+    lastOutput = HAL_GetTick();
     int lastState = 0;
     s4396122_hal_ir_datamodulation_cli();
 
     while (1) {     // System execution loop
 
-        s4396122_hal_ir_carrieron();    // Ensure the carrier signal is on
+        // s4396122_hal_ir_carrieron();    // Ensure the carrier signal is on
 
         // Capture the joystick input and map it to a frequency between 0 and 50
         int frequency = map(s4396122_hal_joystick_x_read(), 0, 4096, 0, 50);
-        int ledBar = 1 << (frequency / 5);  // Get the ledbar representation
-        // number
-        s4396122_hal_ledbar_write(ledBar);
+
+        // frequency = map(frequency, 0, 32, 0, 50);
+
+        if (HAL_GetTick() > (lastOutput + 500)) {
+            lastOutput = HAL_GetTick();
+            debug_printf("Frequency: %d\n", IRfrequency);
+            int ledBar = 1 << (frequency / 5);  // Get the ledbar representation
+            s4396122_hal_ledbar_write(ledBar);
+        }
 
         // Add a handler for if the frequency is below 1. ie is 0
         if (frequency >= 1) {
@@ -103,7 +111,6 @@ int main() {
             } else {
                 // If the system doesn't need to send a signal, send the
                 // current signal reading
-                debug_printf("Frequency: %d\n", frequency);
             }
         } else {
             // If the frequency is zero, just don't do anything
