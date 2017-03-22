@@ -1,13 +1,13 @@
 #include "s4396122_util_linkedlist.h"
 
-LinkedList* s4396122_util_create_list() {
+LinkedList* s4396122_util_list_create() {
     LinkedList *list = malloc(sizeof(LinkedList));
     list->size = 0;
     list->head = NULL;
     return list;
 }
 
-void s4396122_util_free_list(LinkedList *list) {
+void s4396122_util_list_free(LinkedList *list) {
     struct linkedlist *pos = list->head;
     for (int i = 0; i < list->size; i++) {
         struct linkedlist *temp = pos->next;
@@ -16,7 +16,7 @@ void s4396122_util_free_list(LinkedList *list) {
     }
 }
 
-void s4396122_util_add_data(LinkedList *list, void *data) {
+void s4396122_util_list_add(LinkedList *list, void *data) {
     // debug_printf("Got: %d\n", *((int*) data));
     struct linkedlist *pos = list->head;
     if (pos != NULL) {
@@ -41,7 +41,7 @@ void s4396122_util_add_data(LinkedList *list, void *data) {
     list->size++;
 }
 
-void* s4396122_util_get_data(LinkedList *list, int pos) {
+void* s4396122_util_list_get(LinkedList *list, int pos) {
     struct linkedlist *posList = list->head;
     if (pos > list->size) {
         return;
@@ -52,7 +52,7 @@ void* s4396122_util_get_data(LinkedList *list, int pos) {
     return posList->data;
 }
 
-void s4396122_util_remove_data(LinkedList *list, int pos) {
+void s4396122_util_list_remove(LinkedList *list, int pos) {
     struct linkedlist *posList = list->head;
     if (pos > list->size || posList == NULL) {
         return;
@@ -79,6 +79,6 @@ void s4396122_util_remove_data(LinkedList *list, int pos) {
     list->size--;
 }
 
-int s4396122_util_get_size(LinkedList *list) {
+int s4396122_util_list_size(LinkedList *list) {
     return list->size;
 }

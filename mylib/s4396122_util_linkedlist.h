@@ -15,11 +15,11 @@ typedef struct {
     int size;
 } LinkedList;
 
-LinkedList* s4396122_util_create_list();
-void s4396122_util_free_list(LinkedList *list);
-void s4396122_util_add_data(LinkedList *list, void *data);
-void* s4396122_util_get_data(LinkedList *list, int pos);
-void s4396122_util_remove_data(LinkedList *list, int pos);
-int s4396122_util_get_size(LinkedList *list);
+LinkedList* s4396122_util_list_create();
+void s4396122_util_list_free(LinkedList *list);
+void s4396122_util_list_add(LinkedList *list, void *data);
+void* s4396122_util_list_get(LinkedList *list, int pos);
+void s4396122_util_list_remove(LinkedList *list, int pos);
+int s4396122_util_list_size(LinkedList *list);
 
 #endif
