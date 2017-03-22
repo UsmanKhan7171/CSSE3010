@@ -14,6 +14,7 @@ void s4396122_util_list_free(LinkedList *list) {
         free(pos);
         pos = temp;
     }
+    free(list);
 }
 
 void s4396122_util_list_add(LinkedList *list, void *data) {
