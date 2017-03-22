@@ -1,5 +1,9 @@
 #include "s4396122_util_linkedlist.h"
 
+/**
+ * Creates and empty LinkedList in memory
+ * @return Pointer to LinkedList
+ */
 LinkedList* s4396122_util_list_create() {
     LinkedList *list = malloc(sizeof(LinkedList));
     list->size = 0;
@@ -7,6 +11,10 @@ LinkedList* s4396122_util_list_create() {
     return list;
 }
 
+/**
+ * Frees up the LinkedList and any list elements from memory
+ * @param list LinkedList to be freed from memory
+ */
 void s4396122_util_list_free(LinkedList *list) {
     struct linkedlist *pos = list->head;
     for (int i = 0; i < list->size; i++) {
@@ -17,6 +25,11 @@ void s4396122_util_list_free(LinkedList *list) {
     free(list);
 }
 
+/**
+ * Adds an element to the LinkedList
+ * @param list LinkedList for data to be added to
+ * @param data Pointer to data to be added to the list
+ */
 void s4396122_util_list_add(LinkedList *list, void *data) {
     struct linkedlist *pos = list->head;
     if (pos != NULL) {
@@ -39,6 +52,11 @@ void s4396122_util_list_add(LinkedList *list, void *data) {
     list->size++;
 }
 
+/**
+ * Gets an element from the position in the LinkedList
+ * @param list LinkedList to retreve the element from
+ * @param pos  Position in list to return
+ */
 void* s4396122_util_list_get(LinkedList *list, int pos) {
     struct linkedlist *posList = list->head;
     if (pos > list->size) {
@@ -50,6 +68,11 @@ void* s4396122_util_list_get(LinkedList *list, int pos) {
     return posList->data;
 }
 
+/**
+ * Removes an element from the LinkedList from position
+ * @param list LinkedList to remove the element from
+ * @param pos  Position in LinkedList to remove from
+ */
 void s4396122_util_list_remove(LinkedList *list, int pos) {
     struct linkedlist *posList = list->head;
     if (pos > list->size || posList == NULL) {
@@ -73,6 +96,11 @@ void s4396122_util_list_remove(LinkedList *list, int pos) {
     list->size--;
 }
 
+/**
+ * Returns the size of the LinkedList
+ * @param  list LinkedList for the size to be collected from
+ * @return      Number of elements in LinkedList
+ */
 int s4396122_util_list_size(LinkedList *list) {
     return list->size;
 }
