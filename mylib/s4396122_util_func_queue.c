@@ -18,14 +18,11 @@ void s4396122_util_func_queue_add(FuncQueue *queue, void (*function)(void), int 
 
 void s4396122_util_func_queue_tick(FuncQueue *queue) {
     int numQueues = s4396122_util_list_size(queue->queue);
-    // debug_printf("Num: %d\n");
     unsigned int currentTick = HAL_GetTick();
-    // debug_printf("Current: %d\n", currentTick);
     struct linkedlist *pos = queue->queue->head;
     for (int i = 0; i < numQueues; i++) {
         struct funcPair *pair = (struct funcPair *) pos->data;
         if (currentTick > (pair->lastTrigger + pair->intervalTime)) {
-            // debug_printf("Trigger: %d\n", currentTick - (pair->lastTrigger + pair->intervalTime));
             pair->lastTrigger = currentTick;
             if (pair->active) {
                 pair->function();
