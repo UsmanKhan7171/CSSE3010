@@ -39,3 +39,8 @@ void s4396122_util_func_queue_pause(FuncQueue *queue, int pos) {
     struct funcPair *pair = s4396122_util_list_get(queue->queue, pos);
     pair->active = 0;
 }
+
+void s4396122_util_func_queue_resume(FuncQueue *queue, int pos) {
+    struct funcPair *pair = s4396122_util_list_get(queue->queue, pos);
+    pair->active = 1;
+}
