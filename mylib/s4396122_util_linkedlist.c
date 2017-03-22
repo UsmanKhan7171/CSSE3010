@@ -17,11 +17,9 @@ void s4396122_util_list_free(LinkedList *list) {
 }
 
 void s4396122_util_list_add(LinkedList *list, void *data) {
-    // debug_printf("Got: %d\n", *((int*) data));
     struct linkedlist *pos = list->head;
     if (pos != NULL) {
         while (pos->next != NULL) {
-            // debug_printf("Loop\n");
             pos = pos->next;
         }
     }
@@ -31,7 +29,6 @@ void s4396122_util_list_add(LinkedList *list, void *data) {
     newList->next = NULL;
     newList->data = data;
     if (pos == NULL) {
-        // debug_printf("Creating first element\n");
         list->head = newList;
     } else {
         pos->next = newList;
@@ -61,10 +58,6 @@ void s4396122_util_list_remove(LinkedList *list, int pos) {
     for (int i = 0; i < pos; i++) {
         posList = posList->next;
     }
-
-    debug_printf("Got: %d\n", *((int *) posList->data));
-    debug_printf("Prev: %d\n", *((int *) posList->prev->data));
-    debug_printf("Next: %d\n", *((int *) posList->next->data));
 
     if (posList->prev != NULL) {
         posList->prev->next = posList->next;
