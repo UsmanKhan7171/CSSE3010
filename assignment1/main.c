@@ -12,6 +12,7 @@
 #include "s4396122_hal_pantilt.h"
 #include "s4396122_hal_joystick.h"
 #include "s4396122_hal_util.h"
+#include "s4396122_hal_ledbar.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -124,6 +125,7 @@ void Hardware_init() {
     BRD_LEDInit();
     s4396122_hal_pantilt_init();
     s4396122_hal_joystick_init();
+    s4396122_hal_ledbar_init();
 
     // Setup the global variables
     xDegree = 0;
