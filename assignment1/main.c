@@ -109,6 +109,13 @@ void handle_joystick_input() {
 }
 
 /**
+ * Prints out the pan and tilt settings
+ */
+void print_pantilt_readings() {
+    debug_printf("Pan: %d Tilt: %d\n", xDegree, yDegree);
+}
+
+/**
  * Initializes the hardware for Assignment 1
  */
 void Hardware_init() {
@@ -140,6 +147,7 @@ int main() {
     s4396122_util_func_queue_add(queue, &handle_serial_input, 20);
     s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
     s4396122_util_func_queue_add(queue, &update_pan_tilt_motor, 20);
+    s4396122_util_func_queue_add(queue, &print_pantilt_readings, 500);
 
     // Add a call to ensure that the system is not being overloaded with
     // functions
