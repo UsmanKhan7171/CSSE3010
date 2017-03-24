@@ -28,30 +28,43 @@ void s4396122_hal_joystick_init() {
     GPIO_InitStructure.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(BRD_A0_GPIO_PORT, &GPIO_InitStructure);
 
+    // Enable the A1 Pin for analog reading
+    __BRD_A1_GPIO_CLK();
+    GPIO_InitStructure.Pin = BRD_A1_PIN;
+    HAL_GPIO_Init(BRD_A1_GPIO_PORT, &GPIO_InitStructure);
+
     // Enable the adc1 and set up the required parameters for reading from the
     // A0 Pin
     __ADC1_CLK_ENABLE();
-    AdcHandle.Instance = (ADC_TypeDef*) ADC1_BASE;
-    AdcHandle.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
-    AdcHandle.Init.Resolution = ADC_RESOLUTION12b;
-    AdcHandle.Init.ScanConvMode = DISABLE;
-    AdcHandle.Init.ContinuousConvMode = DISABLE;
-    AdcHandle.Init.DiscontinuousConvMode = DISABLE;
-    AdcHandle.Init.NbrOfDiscConversion = 0;
-    AdcHandle.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-    AdcHandle.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC1;
-    AdcHandle.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-    AdcHandle.Init.NbrOfConversion = 1;
-    AdcHandle.Init.DMAContinuousRequests = DISABLE;
-    AdcHandle.Init.EOCSelection = DISABLE;
-    HAL_ADC_Init(&AdcHandle);
+    __ADC2_CLK_ENABLE();
+    xAdcHandle.Instance = (ADC_TypeDef*) ADC1_BASE;
+    xAdcHandle.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
+    xAdcHandle.Init.Resolution = ADC_RESOLUTION12b;
+    xAdcHandle.Init.ScanConvMode = DISABLE;
+    xAdcHandle.Init.ContinuousConvMode = DISABLE;
+    xAdcHandle.Init.DiscontinuousConvMode = DISABLE;
+    xAdcHandle.Init.NbrOfDiscConversion = 0;
+    xAdcHandle.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+    xAdcHandle.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC1;
+    xAdcHandle.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+    xAdcHandle.Init.NbrOfConversion = 1;
+    xAdcHandle.Init.DMAContinuousRequests = DISABLE;
+    xAdcHandle.Init.EOCSelection = DISABLE;
+    yAdcHandle = xAdcHandle;
+    yAdcHandle.Instance = (ADC_TypeDef*) ADC2_BASE;
+
+    HAL_ADC_Init(&xAdcHandle);
+    HAL_ADC_Init(&yAdcHandle);
 
     // Initialize the adc channel
     AdcChanConfig.Channel = BRD_A0_ADC_CHAN;
     AdcChanConfig.Rank = 1;
     AdcChanConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
     AdcChanConfig.Offset = 0;
-    HAL_ADC_ConfigChannel(&AdcHandle, &AdcChanConfig);
+    HAL_ADC_ConfigChannel(&xAdcHandle, &AdcChanConfig);
+    
+    AdcChanConfig.Channel = BRD_A1_ADC_CHAN;
+    HAL_ADC_ConfigChannel(&yAdcHandle, &AdcChanConfig);
 }
 
 /**

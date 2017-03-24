@@ -18,10 +18,11 @@
 #include <board.h>
 #include <stm32f4xx_hal_conf.h>
 
-#define s4396122_hal_joystick_x_read() joystick_read(AdcHandle)
-#define s4396122_hal_joystick_y_read() joystick_read(AdcHandle)
+#define s4396122_hal_joystick_x_read() joystick_read(xAdcHandle)
+#define s4396122_hal_joystick_y_read() joystick_read(yAdcHandle)
 
-ADC_HandleTypeDef AdcHandle;
+ADC_HandleTypeDef xAdcHandle;
+ADC_HandleTypeDef yAdcHandle;
 
 void s4396122_hal_joystick_init();
 int joystick_read(ADC_HandleTypeDef adc);
