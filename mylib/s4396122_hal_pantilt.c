@@ -32,6 +32,10 @@ void s4396122_hal_pantilt_init() {
     GPIO_InitStructure.Alternate = GPIO_AF1_TIM2;
     HAL_GPIO_Init(BRD_D2_GPIO_PORT, &GPIO_InitStructure); // Initialize
 
+    // Initialize the tile pin output
+    GPIO_InitStructure.Pin = BRD_D3_PIN;
+    HAL_GPIO_Init(BRD_D3_GPIO_PORT, &GPIO_InitStructure);
+
     // Timing prescaler value
     uint16_t PrescalerValue = (uint16_t) ((SystemCoreClock / 2) / 50000) - 1;
 
@@ -55,9 +59,11 @@ void s4396122_hal_pantilt_init() {
     // Initialize the timer and configure the pwm
     HAL_TIM_PWM_Init(&TIM_Init);
     HAL_TIM_PWM_ConfigChannel(&TIM_Init, &PWMConfig, TIM_CHANNEL_4);
+    HAL_TIM_PWM_ConfigChannel(&TIM_Init, &PWMConfig, TIM_CHANNEL_3);
 
     // Set the pwm pulse width
     HAL_TIM_PWM_Start(&TIM_Init, TIM_CHANNEL_4);
+    HAL_TIM_PWM_Start(&TIM_Init, TIM_CHANNEL_3);
 }
 
 /**
@@ -79,6 +85,9 @@ void pantilt_angle_write(int type, int angle) {
         // processing time)
         int pulseWidth = (((angle + 85) * 100) / 170) + 30;
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_4, pulseWidth);
+    } else if (type == 1) {
+        int pulseWidth = (((angle + 70) * 100) / 170) + 30;
+        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_3, pulseWidth);
     }
 
 }
@@ -95,6 +104,9 @@ int pantilt_angle_read(int type) {
         // Gets the angle from the pulseWidth (This is just the inverted function
         // from angle_write)
         return (17 * (pulseWidth - 29) / 10) - 85;
+    } else if (type == 1) {
+        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_3);
+        return (17 * (pulseWidth - 29) / 10) - 70;
     }
     return 0;
 }
