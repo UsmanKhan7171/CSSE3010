@@ -35,13 +35,13 @@ void s4396122_util_func_queue_add(FuncQueue *queue, void (*function)(void), int 
  */
 void s4396122_util_func_queue_tick(FuncQueue *queue) {
     int numQueues = s4396122_util_list_size(queue->queue);
-    // Set the current tick to a variable to try and reduce processing time
-    unsigned int currentTick = HAL_GetTick();
     struct linkedlist *pos = queue->queue->head;
     for (int i = 0; i < numQueues; i++) {
         // For all the pairs in the queue, check if the time has been set for a
         // trigger
         struct funcPair *pair = (struct funcPair *) pos->data;
+        // Set the current tick to a variable to try and reduce processing time
+        unsigned int currentTick = HAL_GetTick();
         if (currentTick > (pair->lastTrigger + pair->intervalTime)) {
             // If the trigger has been activated, then set trigger holder to
             // the current trigger
