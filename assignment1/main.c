@@ -10,6 +10,8 @@
 #include <stm32f4xx_hal_conf.h>
 #include "s4396122_util_func_queue.h"
 #include "s4396122_hal_pantilt.h"
+#include "s4396122_hal_joystick.h"
+#include "s4396122_hal_util.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -38,25 +40,25 @@ void check_func_accuracy() {
 void handle_serial_input() {
     switch (debug_getc()) {
         case 'w': // Move the tilt up
-            yDegree -= 5;
+            yDegree -= 2;
             if (yDegree < -80) {
                 yDegree = -80;
             }
             break;
         case 's': // Move the tilt down
-            yDegree += 5;
+            yDegree += 2;
             if (yDegree > 80) {
                 yDegree = 80;
             }
             break;
         case 'a': // Pan to the left
-            xDegree += 5;
+            xDegree += 2;
             if (xDegree > 85) {
                 xDegree = 85;
             }
             break;
         case 'd': // Pan to the right
-            xDegree -= 5;
+            xDegree -= 2;
             if (xDegree < -85) {
                 xDegree = -85;
             }
@@ -79,6 +81,34 @@ void update_pan_tilt_motor() {
 }
 
 /**
+ * Handles the joystick reading and input for the pantilt motors
+ */
+void handle_joystick_input() {
+    // The joystick input and map it to a value between -10 and 10
+    int x = map(s4396122_hal_joystick_x_read(), 0, 4096, 10, -10);
+    int y = map(s4396122_hal_joystick_y_read(), 0, 4096, -10, 10);
+    // If the value of x or y is greater or less then 2, the user has moved the
+    // joystick. Otherwise it is just noise
+    if (x >= 2 || x <= -2 || y >= 2 || y <= -2) {
+        xDegree += x;
+        yDegree -= y;
+
+        // Make sure the degrees are still within the required range
+        if (xDegree > 85) {
+            xDegree = 85;
+        } else if (xDegree < -85) {
+            xDegree = -85;
+        }
+
+        if (yDegree > 80) {
+            yDegree = 80;
+        } else if (yDegree < -80) {
+            yDegree = -80;
+        }
+    }
+}
+
+/**
  * Initializes the hardware for Assignment 1
  */
 void Hardware_init() {
@@ -86,6 +116,7 @@ void Hardware_init() {
     BRD_init();
     BRD_LEDInit();
     s4396122_hal_pantilt_init();
+    s4396122_hal_joystick_init();
 
     // Setup the global variables
     xDegree = 0;
@@ -107,6 +138,7 @@ int main() {
     s4396122_util_func_queue_add(queue, &BRD_LEDToggle, 250);
 
     s4396122_util_func_queue_add(queue, &handle_serial_input, 20);
+    s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
     s4396122_util_func_queue_add(queue, &update_pan_tilt_motor, 20);
 
     // Add a call to ensure that the system is not being overloaded with
