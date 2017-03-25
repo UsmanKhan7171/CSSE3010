@@ -40,12 +40,12 @@ void s4396122_hal_pantilt_init() {
     uint16_t PrescalerValue = (uint16_t) ((SystemCoreClock / 2) / 50000) - 1;
 
     // Initialize timer2
-    TIM_Init.Instance = TIM2;
-    TIM_Init.Init.Period = 50000 * 2/100; // Set a 20ms period
-    TIM_Init.Init.Prescaler = PrescalerValue;
-    TIM_Init.Init.ClockDivision = 0;
-    TIM_Init.Init.RepetitionCounter = 0;
-    TIM_Init.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TIM_PanTilt.Instance = TIM2;
+    TIM_PanTilt.Init.Period = 50000 * 2/100; // Set a 20ms period
+    TIM_PanTilt.Init.Prescaler = PrescalerValue;
+    TIM_PanTilt.Init.ClockDivision = 0;
+    TIM_PanTilt.Init.RepetitionCounter = 0;
+    TIM_PanTilt.Init.CounterMode = TIM_COUNTERMODE_UP;
 
     // Setup the pwm configuration
     PWMConfig.OCMode = TIM_OCMODE_PWM1;
@@ -57,13 +57,13 @@ void s4396122_hal_pantilt_init() {
     PWMConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
 
     // Initialize the timer and configure the pwm
-    HAL_TIM_PWM_Init(&TIM_Init);
-    HAL_TIM_PWM_ConfigChannel(&TIM_Init, &PWMConfig, TIM_CHANNEL_4);
-    HAL_TIM_PWM_ConfigChannel(&TIM_Init, &PWMConfig, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Init(&TIM_PanTilt);
+    HAL_TIM_PWM_ConfigChannel(&TIM_PanTilt, &PWMConfig, TIM_CHANNEL_4);
+    HAL_TIM_PWM_ConfigChannel(&TIM_PanTilt, &PWMConfig, TIM_CHANNEL_3);
 
     // Set the pwm pulse width
-    HAL_TIM_PWM_Start(&TIM_Init, TIM_CHANNEL_4);
-    HAL_TIM_PWM_Start(&TIM_Init, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Start(&TIM_PanTilt, TIM_CHANNEL_4);
+    HAL_TIM_PWM_Start(&TIM_PanTilt, TIM_CHANNEL_3);
 }
 
 /**
@@ -84,10 +84,10 @@ void pantilt_angle_write(int type, int angle) {
         // Arduino Map function, but it has been simplified to help reduce
         // processing time)
         int pulseWidth = (((angle + 85) * 100) / 170) + 30;
-        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_4, pulseWidth);
+        __HAL_TIM_SET_COMPARE(&TIM_PanTilt, TIM_CHANNEL_4, pulseWidth);
     } else if (type == 1) {
         int pulseWidth = (((angle + 70) * 100) / 170) + 30;
-        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_3, pulseWidth);
+        __HAL_TIM_SET_COMPARE(&TIM_PanTilt, TIM_CHANNEL_3, pulseWidth);
     }
 
 }
@@ -100,12 +100,12 @@ void pantilt_angle_write(int type, int angle) {
  */
 int pantilt_angle_read(int type) {
     if (type == 0) {
-        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_4);
+        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_PanTilt, TIM_CHANNEL_4);
         // Gets the angle from the pulseWidth (This is just the inverted function
         // from angle_write)
         return (17 * (pulseWidth - 29) / 10) - 85;
     } else if (type == 1) {
-        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_Init, TIM_CHANNEL_3);
+        int pulseWidth = __HAL_TIM_GET_COMPARE(&TIM_PanTilt, TIM_CHANNEL_3);
         return (17 * (pulseWidth - 29) / 10) - 70;
     }
     return 0;

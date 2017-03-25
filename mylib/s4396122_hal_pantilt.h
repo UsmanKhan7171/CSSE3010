@@ -23,7 +23,7 @@
 #define s4396122_hal_pantilt_tilt_read() pantilt_angle_read(1)
 
 // Global Variables:
-TIM_HandleTypeDef TIM_Init; // Used to store the information for the pan servo
+TIM_HandleTypeDef TIM_PanTilt; // Used to store the information for the pan servo
 
 void s4396122_hal_pantilt_init();
 
