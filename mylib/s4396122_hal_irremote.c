@@ -2,6 +2,9 @@
 
 TIM_HandleTypeDef TIM_Init; // Keep as a local definition
 
+/**
+ * Initializes the pins and timers needed for the irremote
+ */
 void s4396122_hal_irremote_init() {
 
     IRQueue = s4396122_util_queue_create();
@@ -44,7 +47,10 @@ void s4396122_hal_irremote_init() {
     HAL_TIM_IC_Start_IT(&TIM_Init, TIM_CHANNEL_2);
 }
 
-unsigned int lastTick;
+/**
+ * Called when the ir receiver gets a pulse. Add the pulse width to a queue for
+ * later processing, helps keep the interrupt time at a minimum
+ */
 void s4396122_hal_irremote_interrupt() {
     __HAL_TIM_CLEAR_IT(&TIM_Init, TIM_IT_TRIGGER);
 
@@ -55,6 +61,10 @@ void s4396122_hal_irremote_interrupt() {
     __HAL_TIM_SET_COUNTER(&TIM_Init, TIM_CHANNEL_2);
 }
 
+/**
+ * Processes an data stored inside the IRQueue and calculates the ir address
+ * and command
+ */
 void s4396122_hal_irremote_process() {
     for (int i = 0; i < s4396122_util_queue_size(IRQueue); i++) {
         unsigned int *temp = s4396122_util_queue_pop(IRQueue);
@@ -99,16 +109,30 @@ void s4396122_hal_irremote_process() {
     }
 }
 
+/**
+ * Returns the IR Command that was last received and sets the message to 0, can
+ * only be used once per command
+ * @return the IR Message that was last unread
+ */
 int s4396122_hal_irremote_get_input() {
     int oldMessage = newIRMessage;
     newIRMessage = 0;
     return oldMessage;
 }
 
+/**
+ * Checks if there a IR message command pending to be read
+ * @return 0 if there is no message, otherwise there is a message
+ */
 int s4396122_hal_irremote_input_available() {
     return newIRMessage;
 }
 
+/**
+ * Reads the IR message command and transforms it to a character symbolized by
+ * the remote
+ * @return A character mapped to the irremote
+ */
 char s4396122_hal_irremote_get_char() {
     char c;
     switch(s4396122_hal_irremote_get_input()) {
