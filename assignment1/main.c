@@ -21,6 +21,7 @@ int xDegree;    // Tracks the x and y degree of the pan and tilt motors
 int yDegree;
 unsigned int lastFuncAccuracy; // Stores the last time the check_func_accuracy
 // function was called
+int currentAngle;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -116,7 +117,77 @@ void handle_joystick_input() {
  */
 void handle_irremote_input() {
     if (s4396122_hal_irremote_input_available()) {
-        debug_printf("RECEIVED FROM REMOTE: %c\n", s4396122_hal_irremote_get_char());
+        char c = s4396122_hal_irremote_get_char();
+        debug_printf("RECEIVED FROM REMOTE: %c\n", c);
+        switch(c) {
+            case '<':
+                if (currentAngle == -1) {
+                    xDegree += 1;
+                } else {
+                    xDegree += currentAngle;
+                    currentAngle = -1;
+                }
+                if (xDegree > 85) {
+                    xDegree = 85;
+                }
+                break;
+            case '>':
+                if (currentAngle == -1) {
+                    xDegree -= 1;
+                } else {
+                    xDegree -= currentAngle;
+                    currentAngle = -1;
+                }
+                if (xDegree < -85) {
+                    xDegree = -85;
+                }
+                break;
+            case '+':
+                if (currentAngle == -1) {
+                    yDegree -= 1;
+                } else {
+                    yDegree -= currentAngle;
+                    currentAngle = -1;
+                }
+                if (yDegree < -80) {
+                    yDegree = -80;
+                }
+                break;
+            case '-':
+                if (currentAngle == -1) {
+                    yDegree += 1;
+                } else {
+                    yDegree += currentAngle;
+                    currentAngle = -1;
+                }
+                if (yDegree > 80) {
+                    yDegree = 80;
+                }
+                break;
+            case 'P':
+                xDegree = 0;
+                yDegree = 55;
+                break;
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                if (currentAngle == -1)
+                    currentAngle = 0;
+                int num = c - '0';
+                currentAngle *= 10;
+                currentAngle += num;
+                break;
+            case 'C':
+                currentAngle = -1;
+                break;
+        }
     }
 }
 
@@ -142,6 +213,7 @@ void Hardware_init() {
     // Setup the global variables
     xDegree = 0;
     yDegree = 0;
+    currentAngle = 0;
     lastFuncAccuracy = HAL_GetTick();
 }
 
