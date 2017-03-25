@@ -23,3 +23,21 @@
 int map(int test, int oldMin, int oldMax, int newMin, int newMax) {
     return ((test - oldMin) * (newMax - newMin) / (oldMax - oldMin)) + newMin;
 }
+
+/**
+ * Checks to see if the test value is within the expected range
+ * @param  test     The value to be tested on
+ * @param  expected The expected value
+ * @param  range    The range for the value to be tested within
+ * @return          Returns true if the test value is within the range of the
+ *                          expected value
+ */
+int approx(int test, int expected, int range) {
+    if (test > (expected + range)) {
+        return 0;
+    } else if (test < (expected - range)) {
+        return 0;
+    } else {
+        return 1;
+    }
+}

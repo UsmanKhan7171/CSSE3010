@@ -12,5 +12,6 @@
 #define HAL_UTIL_H
 
 int map(int test, int oldMin, int oldMax, int newMin, int newMax);
+int approx(int test, int expected, int range);
 
 #endif
