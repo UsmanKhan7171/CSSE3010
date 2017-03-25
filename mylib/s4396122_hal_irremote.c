@@ -74,7 +74,6 @@ void s4396122_hal_irremote_process() {
         }
 
         if (approx(*temp, 258, 3)) {
-            debug_printf("Got IR\n");
             transmitionState = 1;
             IRaddress = 0;
             IRcommand = 0;
