@@ -111,6 +111,9 @@ void handle_joystick_input() {
     }
 }
 
+/**
+ * Handles the irremote reading and input for the pantilt motors
+ */
 void handle_irremote_input() {
     if (s4396122_hal_irremote_input_available()) {
         debug_printf("RECEIVED FROM REMOTE: %c\n", s4396122_hal_irremote_get_char());
