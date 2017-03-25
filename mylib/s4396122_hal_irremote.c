@@ -134,70 +134,48 @@ int s4396122_hal_irremote_input_available() {
  * @return A character mapped to the irremote
  */
 char s4396122_hal_irremote_get_char() {
-    char c;
     switch(s4396122_hal_irremote_get_input()) {
         case 93:
-            c = '@';
-            break;
+            return '@';
         case 29:
-            c = 'M';
-            break;
+            return 'M';
         case 221:
-            c = 'T';
-            break;
+            return 'T';
         case 253:
-            c = '+';
-            break;
+            return '+';
         case 61:
-            c = 'B';
-            break;
+            return 'B';
         case 31:
-            c = '<';
-            break;
+            return '<';
         case 87:
-            c = 'P';
-            break;
+            return 'P';
         case 111:
-            c = '>';
-            break;
+            return '>';
         case 151:
-            c = '0';
-            break;
+            return '0';
         case 103:
-            c = '-';
-            break;
+            return '-';
         case 79:
-            c = 'C';
-            break;
+            return 'C';
         case 207:
-            c = '1';
-            break;
+            return '1';
         case 231:
-            c = '2';
-            break;
+            return '2';
         case 133:
-            c = '3';
-            break;
+            return '3';
         case 239:
-            c = '4';
-            break;
+            return '4';
         case 199:
-            c = '5';
-            break;
+            return '5';
         case 165:
-            c = '6';
-            break;
+            return '6';
         case 189:
-            c = '7';
-            break;
+            return '7';
         case 181:
-            c = '8';
-            break;
+            return '8';
         case 173:
-            c = '9';
-            break;
+            return '9';
         default:
             debug_printf("Unknown Code\n");
     }
-    return c;
 }
