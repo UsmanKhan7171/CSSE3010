@@ -13,6 +13,8 @@
 #include "s4396122_hal_joystick.h"
 #include "s4396122_hal_util.h"
 #include "s4396122_hal_ledbar.h"
+#include "s4396122_hal_irremote.h"
+#include "s4396122_util_queue.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -109,6 +111,12 @@ void handle_joystick_input() {
     }
 }
 
+void handle_irremote_input() {
+    if (s4396122_hal_irremote_input_available()) {
+        debug_printf("RECEIVED FROM REMOTE: %c\n", s4396122_hal_irremote_get_char());
+    }
+}
+
 /**
  * Prints out the pan and tilt settings
  */
@@ -126,6 +134,7 @@ void Hardware_init() {
     s4396122_hal_pantilt_init();
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();
+    s4396122_hal_irremote_init();
 
     // Setup the global variables
     xDegree = 0;
@@ -154,6 +163,9 @@ int main() {
     // Add a call to ensure that the system is not being overloaded with
     // functions
     s4396122_util_func_queue_add(queue, &check_func_accuracy, 50);
+
+    s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
+    s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
 
     while (1) { // Main execution loop
 
