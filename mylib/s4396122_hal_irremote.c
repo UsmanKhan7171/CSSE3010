@@ -1,44 +1,7 @@
 #include "s4396122_hal_irremote.h"
 
-// void s4396122_hal_irremote_init() {
-//
-//     lastInput = -1;
-//     newInput = 0;
-//     newMessage = 0;
-//     buffer = 0;
-//     lastInputTime = HAL_GetTick();
-//
-//     GPIO_InitTypeDef GPIO_InitStructure;
-//     __BRD_D0_GPIO_CLK();
-//     HAL_NVIC_SetPriority(BRD_D0_EXTI_IRQ, 10, 0);
-//
-//     NVIC_SetVector(BRD_D0_EXTI_IRQ, (uint32_t) &s4396122_hal_irremote_interrupt);
-//     NVIC_EnableIRQ(BRD_D0_EXTI_IRQ);
-//
-//     GPIO_InitStructure.Pin = BRD_D0_PIN;
-//     GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING_FALLING;
-//     GPIO_InitStructure.Pull = GPIO_PULLUP;
-//     GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
-//     HAL_GPIO_Init(BRD_D0_GPIO_PORT, &GPIO_InitStructure);
-// }
-//
-// void s4396122_hal_irremote_interrupt() {
-//
-//     HAL_GPIO_EXTI_IRQHandler(BRD_D0_PIN);
-//
-//     int diff = HAL_GetTick() - lastInputTime;
-//     lastInputTime = HAL_GetTick();
-//     // debug_printf("%d\n", diff);
-//     if (approx(diff, 9, 1)) {
-//         newMessage = 1;
-//         debug_printf("Got\n");
-//     } else {
-//         newMessage = 0;
-//     }
-//     // debug_printf("%d\n", diff);
-// }
+TIM_HandleTypeDef TIM_Init; // Keep as a local definition
 
-TIM_HandleTypeDef TIM_Init;
 void s4396122_hal_irremote_init() {
 
     IRQueue = s4396122_util_queue_create();
@@ -85,43 +48,16 @@ unsigned int lastTick;
 void s4396122_hal_irremote_interrupt() {
     __HAL_TIM_CLEAR_IT(&TIM_Init, TIM_IT_TRIGGER);
 
-    // unsigned int *input_malloc = malloc(sizeof(unsigned int));
-    // *input_malloc = HAL_TIM_ReadCapturedValue(&TIM_Init, TIM_CHANNEL_2);
-    // *input_malloc = HAL_GetTick() - lastTick;
-    // lastTick = HAL_GetTick();
-    // __HAL_TIM_SET_COUNTER(&TIM_Init, 0);
-    // // debug_printf("I:%d\n", *input_malloc);
-    //
-    // if (HAL_GPIO_ReadPin(BRD_D0_GPIO_PORT, BRD_D0_PIN)) {
-    //     s4396122_util_queue_push(IRQueue, input_malloc);
-    // }
-
     int tim = HAL_TIM_ReadCapturedValue(&TIM_Init, TIM_CHANNEL_2);
     unsigned int *diff = malloc(sizeof(unsigned int));
-    // *diff = HAL_GetTick() - lastTick;
     *diff = tim;
-    // lastTick = tim;
-    // debug_printf("%d\n", *diff);
     s4396122_util_queue_push(IRQueue, diff);
     __HAL_TIM_SET_COUNTER(&TIM_Init, TIM_CHANNEL_2);
-
-    // if (approx(input_capture_value, 9000, 200)) {
-    //     debug_printf("Yes\n");
-    //     newMessage = 1;
-    // } else if (newMessage == 1 && approx(input_capture_value, 2250, 200)) {
-    //     debug_printf("Repeat\n");
-    // } else if (approx(input_capture_value, 562, 100)) {
-    //     debug_printf("End\n");
-    // } else {
-    //     newMessage = 0;
-    // }
 }
 
 void s4396122_hal_irremote_process() {
-    // debug_printf("Processing IR\n");
     for (int i = 0; i < s4396122_util_queue_size(IRQueue); i++) {
         unsigned int *temp = s4396122_util_queue_pop(IRQueue);
-        // debug_printf("%d\n", *temp);
         if (*temp > 300) {
             free(temp);
             continue;
