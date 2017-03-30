@@ -81,6 +81,7 @@ void* s4396122_util_map_get(Map *m, int key) {
         if (pair->key == key) {
             return pair->data;
         }
+        posList = posList->next;
     }
 
     return NULL;
