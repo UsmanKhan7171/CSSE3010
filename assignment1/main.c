@@ -23,7 +23,9 @@ int yDegree;
 unsigned int lastFuncAccuracy; // Stores the last time the check_func_accuracy
 // function was called
 int currentAngle;
+// Maps for handling ir remote and serial input
 Map *remoteMap;
+Map *serialMap;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -36,54 +38,6 @@ void check_func_accuracy() {
     if (diff <= -5 || diff >= 5) {
         debug_printf("Lag %d\n", diff);
     }
-}
-
-/**
- * Captures the serial input and sets the x and y degree of the pan tilt motors
- * to the correct angle
- * This is a Function Queue function
- */
-void handle_serial_input() {
-    switch (debug_getc()) {
-        case 'w': // Move the tilt up
-            yDegree -= 2;
-            if (yDegree < -80) {
-                yDegree = -80;
-            }
-            break;
-        case 's': // Move the tilt down
-            yDegree += 2;
-            if (yDegree > 80) {
-                yDegree = 80;
-            }
-            break;
-        case 'a': // Pan to the left
-            xDegree += 2;
-            if (xDegree > 85) {
-                xDegree = 85;
-            }
-            break;
-        case 'd': // Pan to the right
-            xDegree -= 2;
-            if (xDegree < -85) {
-                xDegree = -85;
-            }
-            break;
-        case 'e': // Set the pantilt to a natural resting position
-            xDegree = 0;
-            yDegree = 55;
-        case 'r': // Prints out the degree of the pantilt
-            debug_printf("(%d, %d)\n", xDegree, yDegree);
-            break;
-    }
-}
-
-/**
- * Updates the pantilt motors to the correct angles using the pantilt library
- */
-void update_pan_tilt_motor() {
-    s4396122_hal_pantilt_pan_write(xDegree);
-    s4396122_hal_pantilt_tilt_write(yDegree);
 }
 
 /**
@@ -101,6 +55,35 @@ void handle_pantilt_angle_bounds() {
     } else if (yDegree > 80) {
         yDegree = 80;
     }
+}
+
+/**
+ * Captures the serial input and sets the x and y degree of the pan tilt motors
+ * to the correct angle
+ * This is a Function Queue function
+ */
+void handle_serial_input() {
+    char c = debug_getc();
+    if (c != 0) {
+        void (*f)(void) = s4396122_util_map_get(serialMap, (int) c);
+        if (f == NULL) {
+            debug_printf("Error Finding Function\n");
+            return;
+        }
+        int oldAngle = currentAngle;
+        currentAngle = -1;
+        f();
+        currentAngle = oldAngle;
+        handle_pantilt_angle_bounds();
+    }
+}
+
+/**
+ * Updates the pantilt motors to the correct angles using the pantilt library
+ */
+void update_pan_tilt_motor() {
+    s4396122_hal_pantilt_pan_write(xDegree);
+    s4396122_hal_pantilt_tilt_write(yDegree);
 }
 
 /**
@@ -255,6 +238,14 @@ void Hardware_init() {
         s4396122_util_map_add(remoteMap, i, &ir_handle_num);
     }
     s4396122_util_map_add(remoteMap, (int) 'C', &ir_handle_clear);
+
+    // Creates the serial control mapping
+    serialMap = s4396122_util_map_create();
+    s4396122_util_map_add(serialMap, (int) 'w', &ir_move_up);
+    s4396122_util_map_add(serialMap, (int) 's', &ir_move_down);
+    s4396122_util_map_add(serialMap, (int) 'a', &ir_move_left);
+    s4396122_util_map_add(serialMap, (int) 'd', &ir_move_right);
+
 }
 
 /**
