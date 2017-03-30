@@ -15,6 +15,7 @@
 #include "s4396122_hal_ledbar.h"
 #include "s4396122_hal_irremote.h"
 #include "s4396122_util_queue.h"
+#include "s4396122_util_map.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -22,6 +23,7 @@ int yDegree;
 unsigned int lastFuncAccuracy; // Stores the last time the check_func_accuracy
 // function was called
 int currentAngle;
+Map *remoteMap;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -85,6 +87,23 @@ void update_pan_tilt_motor() {
 }
 
 /**
+ * Makes sure that the pantilt is within the required bounds and if it is
+ * outside the bounds then make sure it stays within the bounds
+ */
+void handle_pantilt_angle_bounds() {
+    if (xDegree < -85) {
+        xDegree = -85;
+    } else if (xDegree > 85) {
+        xDegree = 85;
+    }
+    if (yDegree < -80) {
+        yDegree = -80;
+    } else if (yDegree > 80) {
+        yDegree = 80;
+    }
+}
+
+/**
  * Handles the joystick reading and input for the pantilt motors
  */
 void handle_joystick_input() {
@@ -98,17 +117,7 @@ void handle_joystick_input() {
         yDegree -= y;
 
         // Make sure the degrees are still within the required range
-        if (xDegree > 85) {
-            xDegree = 85;
-        } else if (xDegree < -85) {
-            xDegree = -85;
-        }
-
-        if (yDegree > 80) {
-            yDegree = 80;
-        } else if (yDegree < -80) {
-            yDegree = -80;
-        }
+        handle_pantilt_angle_bounds();
     }
 }
 
@@ -119,76 +128,95 @@ void handle_irremote_input() {
     if (s4396122_hal_irremote_input_available()) {
         char c = s4396122_hal_irremote_get_char();
         debug_printf("RECEIVED FROM REMOTE: %c\n", c);
-        switch(c) {
-            case '<':
-                if (currentAngle == -1) {
-                    xDegree += 1;
-                } else {
-                    xDegree += currentAngle;
-                    currentAngle = -1;
-                }
-                if (xDegree > 85) {
-                    xDegree = 85;
-                }
-                break;
-            case '>':
-                if (currentAngle == -1) {
-                    xDegree -= 1;
-                } else {
-                    xDegree -= currentAngle;
-                    currentAngle = -1;
-                }
-                if (xDegree < -85) {
-                    xDegree = -85;
-                }
-                break;
-            case '+':
-                if (currentAngle == -1) {
-                    yDegree -= 1;
-                } else {
-                    yDegree -= currentAngle;
-                    currentAngle = -1;
-                }
-                if (yDegree < -80) {
-                    yDegree = -80;
-                }
-                break;
-            case '-':
-                if (currentAngle == -1) {
-                    yDegree += 1;
-                } else {
-                    yDegree += currentAngle;
-                    currentAngle = -1;
-                }
-                if (yDegree > 80) {
-                    yDegree = 80;
-                }
-                break;
-            case 'P':
-                xDegree = 0;
-                yDegree = 55;
-                break;
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                if (currentAngle == -1)
-                    currentAngle = 0;
-                int num = c - '0';
-                currentAngle *= 10;
-                currentAngle += num;
-                break;
-            case 'C':
-                currentAngle = -1;
-                break;
+        void (*f)(char c) = s4396122_util_map_get(remoteMap, (int) c);
+        if (f == NULL) {
+            debug_printf("Error Finding Function\n");
+            return;
         }
+        f(c);
+        handle_pantilt_angle_bounds();
     }
+}
+
+/**
+ * Handles moving the pantilt motors left using ir
+ * @param c Character from the remote
+ */
+void ir_move_left(char c) {
+    if (currentAngle == -1) {
+        xDegree += 1;
+    } else {
+        xDegree += currentAngle;
+        currentAngle = -1;
+    }
+}
+
+/**
+ * Handles moving the pantilt motors right using ir
+ * @param c Character from the remote
+ */
+void ir_move_right(char c) {
+    if (currentAngle == -1) {
+        xDegree -= 1;
+    } else {
+        xDegree -= currentAngle;
+        currentAngle = -1;
+    }
+}
+
+/**
+ * Handles moving the pantilt motors up using ir
+ * @param c Character from the remote
+ */
+void ir_move_up(char c) {
+    if (currentAngle == -1) {
+        yDegree -= 1;
+    } else {
+        yDegree -= currentAngle;
+        currentAngle = -1;
+    }
+}
+
+/**
+ * Handles moving the pantilt motors down using ir
+ * @param c Character from the remote
+ */
+void ir_move_down(char c) {
+    if (currentAngle == -1) {
+        yDegree += 1;
+    } else {
+        yDegree += currentAngle;
+        currentAngle = -1;
+    }
+}
+
+/**
+ * Handles moving the pantilt motors back to the center using ir
+ * @param c Character from the remote
+ */
+void ir_move_center(char c) {
+    xDegree = 0;
+    yDegree = 55;
+}
+
+/**
+ * Handles the number input from the ir remote
+ * @param c Character from the remote
+ */
+void ir_handle_num(char c) {
+    if (currentAngle == -1) {
+        currentAngle = 0;
+    }
+    int num = c - '0';
+    currentAngle = currentAngle * 10 + num;
+}
+
+/**
+ * Handles clearing the number input from the ir remote
+ * @param c Character from the remote
+ */
+void ir_handle_clear(char c) {
+    currentAngle = -1;
 }
 
 /**
@@ -215,6 +243,18 @@ void Hardware_init() {
     yDegree = 0;
     currentAngle = 0;
     lastFuncAccuracy = HAL_GetTick();
+
+    // Creates the ir remote control mapping
+    remoteMap = s4396122_util_map_create();
+    s4396122_util_map_add(remoteMap, (int) '<', &ir_move_left);
+    s4396122_util_map_add(remoteMap, (int) '>', &ir_move_right);
+    s4396122_util_map_add(remoteMap, (int) '+', &ir_move_up);
+    s4396122_util_map_add(remoteMap, (int) '-', &ir_move_down);
+    s4396122_util_map_add(remoteMap, (int) 'P', &ir_move_center);
+    for (int i = '0'; i <= '9'; i++) {
+        s4396122_util_map_add(remoteMap, i, &ir_handle_num);
+    }
+    s4396122_util_map_add(remoteMap, (int) 'C', &ir_handle_clear);
 }
 
 /**
