@@ -16,6 +16,7 @@
 #include "s4396122_hal_irremote.h"
 #include "s4396122_util_queue.h"
 #include "s4396122_util_map.h"
+#include "s4396122_hal_accel.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -209,6 +210,11 @@ void print_pantilt_readings() {
     debug_printf("Pan: %d Tilt: %d\n", xDegree, yDegree);
 }
 
+void handle_accel_input() {
+    int accel_x = s4396122_hal_accel_read_addr(0x05);
+    debug_printf("X: %d\n", accel_x);
+}
+
 /**
  * Initializes the hardware for Assignment 1
  */
@@ -220,6 +226,7 @@ void Hardware_init() {
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();
     s4396122_hal_irremote_init();
+    s4396122_hal_accel_init();
 
     // Setup the global variables
     xDegree = 0;
@@ -272,6 +279,8 @@ int main() {
 
     s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
     s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
+
+    // s4396122_util_func_queue_add(queue, &handle_accel_input, 100);
 
     while (1) { // Main execution loop
 
