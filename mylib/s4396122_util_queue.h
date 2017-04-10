@@ -19,5 +19,6 @@ Queue* s4396122_util_queue_create();
 int s4396122_util_queue_size(Queue *queue);
 void s4396122_util_queue_push(Queue *queue, void *data);
 void* s4396122_util_queue_pop(Queue *queue);
+void s4396122_util_queue_free(Queue *queue);
 
 #endif

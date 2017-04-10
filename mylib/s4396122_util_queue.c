@@ -58,3 +58,18 @@ void* s4396122_util_queue_pop(Queue *q) {
     // debug_printf("Got: %d\n", *(int*) d);
     return d;
 }
+
+/**
+ * Frees the queue from memory, also frees the data stored in the queue
+ * @param queue The Queue to remove the data from
+ */
+void s4396122_util_queue_free(Queue *queue) {
+    while (1) {
+        void *d = s4396122_util_queue_pop(queue);
+        if (d == NULL) {
+            break;
+        }
+        free(d);
+    }
+    free(queue);
+}
