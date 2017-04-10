@@ -27,7 +27,9 @@ int s4396122_util_queue_size(Queue *q) {
  * @param d The data to be added
  */
 void s4396122_util_queue_push(Queue *q, void *d) {
+    // debug_printf("Got: %d\n", *(int*) d);
     struct queue *qElement = malloc(sizeof(struct queue));
+    qElement->next = NULL;
     qElement->data = d;
     if (q->size) {
         q->tail->next = qElement;
@@ -43,7 +45,7 @@ void s4396122_util_queue_push(Queue *q, void *d) {
  * @param q Queue to pop from
  */
 void* s4396122_util_queue_pop(Queue *q) {
-    if (q->head == NULL) {
+    if (q->head == NULL || q->size == 0) {
         return NULL;
     }
     struct queue *oldHead = q->head;
@@ -53,5 +55,6 @@ void* s4396122_util_queue_pop(Queue *q) {
     }
     free(oldHead);
     q->size--;
+    // debug_printf("Got: %d\n", *(int*) d);
     return d;
 }

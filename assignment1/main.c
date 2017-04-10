@@ -17,6 +17,7 @@
 #include "s4396122_util_queue.h"
 #include "s4396122_util_map.h"
 #include "s4396122_hal_accel.h"
+#include "s4396122_hal_hamming.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -27,6 +28,7 @@ int currentAngle;
 // Maps for handling ir remote and serial input
 Map *remoteMap;
 Map *serialMap;
+Queue *serialQueue;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -64,11 +66,14 @@ void handle_pantilt_angle_bounds() {
  * This is a Function Queue function
  */
 void handle_serial_input() {
-    char c = debug_getc();
+    int c = debug_getc();
     if (c != 0) {
-        void (*f)(void) = s4396122_util_map_get(serialMap, (int) c);
+        void (*f)(void) = s4396122_util_map_get(serialMap, c);
         if (f == NULL) {
-            debug_printf("Error Finding Function\n");
+            // debug_printf("Error Finding Function: '%d'\n", c);
+            int *newData = malloc(sizeof(int));
+            *newData = c;
+            s4396122_util_queue_push(serialQueue, newData);
             return;
         }
         int oldAngle = currentAngle;
@@ -215,6 +220,66 @@ void handle_accel_input() {
     debug_printf("X: %d\n", accel_x);
 }
 
+void hamming_newline() {
+    int encoding = 0;
+    int decoding = 0;
+    int convertedData = 0;
+    int gotH = 0;
+    Queue *inQueue = s4396122_util_queue_create();
+    while (1) {
+        int *queueData = s4396122_util_queue_pop(serialQueue);
+        if (queueData == NULL) {
+            break;
+        }
+        if (*queueData == 'H') {
+            gotH = 1;
+        } else if (*queueData == 'E' && gotH) {
+            encoding = 1;
+            gotH = 0;
+        } else if (*queueData == 'D' && gotH) {
+            decoding = 1;
+            gotH = 0;
+        } else if (*queueData >= '0' && *queueData <= '9' &&
+                (encoding || decoding)) {
+            int num = *queueData - '0';
+            int *qNum = malloc(sizeof(int));
+            *qNum = num;
+            s4396122_util_queue_push(inQueue, qNum);
+        } else if (*queueData >= 'A' && *queueData <= 'F' &&
+                (encoding || decoding)) {
+            int num = *queueData - 'A' + 10;
+            int *qNum = malloc(sizeof(int));
+            *qNum = num;
+            s4396122_util_queue_push(inQueue, qNum);
+        }
+        free(queueData);
+    }
+
+    while (1) {
+        int *val = s4396122_util_queue_pop(inQueue);
+        if (val == NULL) {
+            break;
+        }
+
+        int convertedVal = 0;
+        if (encoding) {
+            convertedVal = s4396122_hal_hamming_encode(*val);
+        } else if (decoding) {
+
+        } else {
+            debug_printf("Encoding or Decoding not selected!\n");
+            return;
+        }
+        convertedData <<= 8;
+        convertedData |= convertedVal;
+
+        free(val);
+    }
+
+    debug_printf("%X\n", convertedData);
+
+}
+
 /**
  * Initializes the hardware for Assignment 1
  */
@@ -227,6 +292,9 @@ void Hardware_init() {
     s4396122_hal_ledbar_init();
     s4396122_hal_irremote_init();
     s4396122_hal_accel_init();
+
+    // Create the serial queue for storing of unused characters
+    serialQueue = s4396122_util_queue_create();
 
     // Setup the global variables
     xDegree = 0;
@@ -252,6 +320,7 @@ void Hardware_init() {
     s4396122_util_map_add(serialMap, (int) 's', &ir_move_down);
     s4396122_util_map_add(serialMap, (int) 'a', &ir_move_left);
     s4396122_util_map_add(serialMap, (int) 'd', &ir_move_right);
+    s4396122_util_map_add(serialMap, 13, &hamming_newline);
 
 }
 
