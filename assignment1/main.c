@@ -36,6 +36,7 @@ Queue *serialQueue;
 // mode switch for ir input
 int NECIRInput;
 Queue *transmitQueue;
+Queue *lastTransmit;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -322,7 +323,7 @@ void process_character_list(int *encoding, int *decoding, int *manchesterMode, i
 
 void encode_hamming_manchester(Queue *inQueue) {
     Queue *totalQueue = s4396122_util_queue_create();
-    debug_printf("Transmitting: ");
+    // debug_printf("Transmitting: ");
     while (1) {
         int *val = s4396122_util_queue_pop(inQueue);
         if (val == NULL)  {
@@ -335,12 +336,12 @@ void encode_hamming_manchester(Queue *inQueue) {
             if (m == NULL) {
                 break;
             }
-            debug_printf("%d", *m);
+            // debug_printf("%d", *m);
             s4396122_util_queue_push(totalQueue, m);
         }
         s4396122_util_queue_free(manchesterQueue);
     }
-    debug_printf("\n");
+    // debug_printf("\n");
     s4396122_util_queue_push(transmitQueue, totalQueue);
 }
 
@@ -379,13 +380,16 @@ void hamming_newline() {
     s4396122_util_queue_free(inQueue);
 }
 
-void transmit_data() {
-    s4396122_hal_time_clear_micro();
-    Queue *q = s4396122_util_queue_pop(transmitQueue);
-    if (q == NULL) return;
-
+void transmit_queue(Queue *q, int recordTransmission) {
+    if (recordTransmission) {
+        s4396122_util_queue_free(lastTransmit);
+        lastTransmit = s4396122_util_queue_create();
+    }
     while (1) {
         int *d = s4396122_util_queue_pop(q);
+        if (recordTransmission) {
+            s4396122_util_queue_push(lastTransmit, d);
+        }
         if (d == NULL) break;
         while (s4396122_hal_time_get_micro() < 500);
 
@@ -397,6 +401,14 @@ void transmit_data() {
 
         s4396122_hal_time_clear_micro();
     }
+}
+
+void transmit_data() {
+    s4396122_hal_time_clear_micro();
+    Queue *q = s4396122_util_queue_pop(transmitQueue);
+    if (q == NULL) return;
+
+    transmit_queue(q, 1);
 
     s4396122_util_queue_free(q);
 }
@@ -455,10 +467,37 @@ void handle_ir_input() {
                     free(d);
                 }
                 finalResult <<= 4;
-                finalResult |= s4396122_hal_hamming_decode(result);
+                unsigned int hamResult = s4396122_hal_hamming_decode(result);
+                if (hamResult == 0xFFFF) {
+                    debug_printf("Sending NAK byte\n");
+                    Queue *errorQueue = s4396122_util_queue_create();
+                    int errorCode1 = 1;
+                    int errorCode2 = 5;
+                    s4396122_util_queue_push(errorQueue, &errorCode1);
+                    s4396122_util_queue_push(errorQueue, &errorCode2);
+                    encode_hamming_manchester(errorQueue);
+                    s4396122_util_queue_free(errorQueue);
+                    free(manchesterQueue);
+                    return;
+                }
+                finalResult |= hamResult;
                 free(s4396122_util_queue_pop(manchesterQueue));
             }
-            debug_printf("Got: %X\n", finalResult);
+            if (finalResult == 21) {
+                debug_printf("Resending last transmission\n");
+                transmit_queue(lastTransmit, 0);
+            } else if (finalResult == 6) {
+                // Do nothing cause the ack was accepted
+            } else {
+                debug_printf("Got: %X\n", finalResult);
+                Queue *ackQueue = s4396122_util_queue_create();
+                int ackCode1 = 0;
+                int ackCode2 = 6;
+                s4396122_util_queue_push(ackQueue, &ackCode1);
+                s4396122_util_queue_push(ackQueue, &ackCode2);
+                encode_hamming_manchester(ackQueue);
+                s4396122_util_queue_free(ackQueue);
+            }
         }
         s4396122_util_queue_free(manchesterQueue);
     }
@@ -498,6 +537,7 @@ void Hardware_init() {
     lastFuncAccuracy = HAL_GetTick();
     NECIRInput = 1;
     transmitQueue = s4396122_util_queue_create();
+    lastTransmit = s4396122_util_queue_create();
 
     // Creates the ir remote control mapping
     remoteMap = s4396122_util_map_create();
