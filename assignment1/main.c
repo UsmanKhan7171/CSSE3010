@@ -20,6 +20,7 @@
 #include "s4396122_hal_accel.h"
 #include "s4396122_hal_hamming.h"
 #include "s4396122_util_matrix.h"
+#include "s4396122_hal_ircoms.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -275,37 +276,22 @@ void hamming_newline() {
         free(queueData);
     }
 
-    if ((s4396122_util_queue_size(inQueue) % 2) == 1) {
-        // The queue contains uneven data, add a zero to the start to even the
-        // data
-        Queue *newQueue = s4396122_util_queue_create();
-        int *zero = malloc(sizeof(int));
-        *zero = 0;
-        s4396122_util_queue_push(newQueue, zero);
-        while (1) {
-            int *d = s4396122_util_queue_pop(inQueue);
-            if (d == NULL) {
-                break;
-            }
-            s4396122_util_queue_push(newQueue, d);
-        }
-        s4396122_util_queue_free(inQueue);
-        inQueue = newQueue;
-    }
-
     unsigned int lastDecodeVal = 0;
     int gotDecodeVal = 0;
     while (1) {
+        if (decoding && manchesterMode) {
+            convertedData = s4396122_hal_ircoms_decode(inQueue);
+        }
         int *val = s4396122_util_queue_pop(inQueue);
         if (val == NULL) {
             break;
         }
 
-        if (encoding) {
+        if (encoding && manchesterMode == 0) {
             int convertedVal = s4396122_hal_hamming_encode(*val);
             convertedData <<= 8;
             convertedData |= convertedVal;
-        } else if (decoding) {
+        } else if (decoding && manchesterMode == 0) {
             if (gotDecodeVal) {
                 // We have two words, start to decode the input
                 gotDecodeVal = 0;
@@ -318,6 +304,9 @@ void hamming_newline() {
                 lastDecodeVal = *val;
                 gotDecodeVal = 1;
             }
+        } else if (encoding && manchesterMode) {
+            convertedData <<= 4;
+            convertedData |= *val;
         } else {
             debug_printf("Encoding or Decoding not selected!\n");
             return;
@@ -328,7 +317,22 @@ void hamming_newline() {
 
     s4396122_util_queue_free(inQueue);
 
-    debug_printf("%X\n", convertedData);
+    if (manchesterMode && encoding) {
+        Queue *manchester = s4396122_hal_ircoms_encode(convertedData);
+        debug_printf("Size: %d\n", s4396122_util_queue_size(manchester));
+        while (1) {
+            int *d = s4396122_util_queue_pop(manchester);
+            if (d == NULL) {
+                break;
+            }
+            debug_printf("%d", *d);
+            free(d);
+        }
+        s4396122_util_queue_free(manchester);
+        debug_printf("\n");
+    } else {
+        debug_printf("%X\n", convertedData);
+    }
 
 }
 
@@ -389,8 +393,12 @@ void handle_ir_input() {
         // Handle manchester input
     }
 
-    for (int i = 0; i < s4396122_util_queue_size(s4396122_hal_ir_get_queue()); i++) {
-        free(s4396122_util_queue_pop(s4396122_hal_ir_get_queue()));
+    while (1) {
+        int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
+        if (d == NULL) {
+            break;
+        }
+        free(d);
     }
 }
 
