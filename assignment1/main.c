@@ -339,8 +339,6 @@ void Hardware_init() {
     // Initializes the Board and then call the library init functions
     BRD_init();
     BRD_LEDInit();
-    HAL_Delay(3000);
-    debug_printf("Hello\n");
     s4396122_hal_pantilt_init();
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();

@@ -21,8 +21,6 @@ void s4396122_hal_hamming_init() {
     int GRow3[3] = {1, 0, 1};
     int GRow4[3] = {1, 1, 1};
     GEncoder = s4396122_util_matrix_gen(3, 4, GRow1, GRow2, GRow3, GRow4);
-    debug_printf("Got G Matrix\n");
-    s4396122_util_matrix_print(GEncoder);
 
     // Create a hamming matrix and store it in memory
     int HRow1[7] = {1, 0, 1, 1, 1, 0, 0};
