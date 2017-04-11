@@ -18,6 +18,7 @@
 #include "s4396122_util_map.h"
 #include "s4396122_hal_accel.h"
 #include "s4396122_hal_hamming.h"
+#include "s4396122_util_matrix.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -255,26 +256,58 @@ void hamming_newline() {
         free(queueData);
     }
 
+    if ((s4396122_util_queue_size(inQueue) % 2) == 1) {
+        // The queue contains uneven data, add a zero to the start to even the
+        // data
+        Queue *newQueue = s4396122_util_queue_create();
+        int *zero = malloc(sizeof(int));
+        *zero = 0;
+        s4396122_util_queue_push(newQueue, zero);
+        while (1) {
+            int *d = s4396122_util_queue_pop(inQueue);
+            if (d == NULL) {
+                break;
+            }
+            s4396122_util_queue_push(newQueue, d);
+        }
+        s4396122_util_queue_free(inQueue);
+        inQueue = newQueue;
+    }
+
+    unsigned int lastDecodeVal = 0;
+    int gotDecodeVal = 0;
     while (1) {
         int *val = s4396122_util_queue_pop(inQueue);
         if (val == NULL) {
             break;
         }
 
-        int convertedVal = 0;
         if (encoding) {
-            convertedVal = s4396122_hal_hamming_encode(*val);
+            int convertedVal = s4396122_hal_hamming_encode(*val);
+            convertedData <<= 8;
+            convertedData |= convertedVal;
         } else if (decoding) {
-
+            if (gotDecodeVal) {
+                // We have two words, start to decode the input
+                gotDecodeVal = 0;
+                unsigned int totalVal = (lastDecodeVal << 4) | *val;
+                int convertedVal = s4396122_hal_hamming_decode(totalVal);
+                convertedData <<= 4;
+                convertedData |= convertedVal;
+            } else {
+                // We don't have enough start a decode, buffer the current input
+                lastDecodeVal = *val;
+                gotDecodeVal = 1;
+            }
         } else {
             debug_printf("Encoding or Decoding not selected!\n");
             return;
         }
-        convertedData <<= 8;
-        convertedData |= convertedVal;
 
         free(val);
     }
+
+    s4396122_util_queue_free(inQueue);
 
     debug_printf("%X\n", convertedData);
 
@@ -292,6 +325,7 @@ void Hardware_init() {
     s4396122_hal_ledbar_init();
     s4396122_hal_irremote_init();
     s4396122_hal_accel_init();
+    s4396122_hal_hamming_init();
 
     // Create the serial queue for storing of unused characters
     serialQueue = s4396122_util_queue_create();
