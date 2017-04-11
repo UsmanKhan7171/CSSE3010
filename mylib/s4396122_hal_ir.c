@@ -51,6 +51,7 @@ void s4396122_hal_ir_init() {
 
     // Initialize the Carrier Signal Pin and PWM Timer
     __TIM3_CLK_ENABLE();
+    __TIM8_CLK_ENABLE();
     __BRD_D1_GPIO_CLK();
 
     // Setup the carrier pin to work as a pwm pin
@@ -58,15 +59,15 @@ void s4396122_hal_ir_init() {
     GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStructure.Pull = GPIO_NOPULL;
     GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
-    GPIO_InitStructure.Alternate = GPIO_AF2_TIM3;
+    GPIO_InitStructure.Alternate = GPIO_AF3_TIM8;
     HAL_GPIO_Init(BRD_D1_GPIO_PORT, &GPIO_InitStructure);
 
     unsigned int PrescalerValue = (unsigned int)
             ((SystemCoreClock / 2) / 50000000) - 1;
 
     // Initialize the timer to a 38KHz square wave
-    TIM_Init.Instance = TIM3;
-    TIM_Init.Init.Period = 2205;
+    TIM_Init.Instance = TIM8;
+    TIM_Init.Init.Period = 4420;
     TIM_Init.Init.Prescaler = PrescalerValue;
     TIM_Init.Init.ClockDivision = 0;
     TIM_Init.Init.RepetitionCounter = 0;
