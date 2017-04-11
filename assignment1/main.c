@@ -418,6 +418,7 @@ int main() {
     s4396122_util_func_queue_add(queue, &handle_serial_input, 20);
     s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
     s4396122_util_func_queue_add(queue, &update_pan_tilt_motor, 20);
+    // TODO: Change this
     s4396122_util_func_queue_add(queue, &print_pantilt_readings, 500);
 
     // Add a call to ensure that the system is not being overloaded with
