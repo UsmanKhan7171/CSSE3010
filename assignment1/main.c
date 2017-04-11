@@ -17,7 +17,6 @@
 #include "s4396122_hal_ir.h"
 #include "s4396122_util_queue.h"
 #include "s4396122_util_map.h"
-#include "s4396122_hal_accel.h"
 #include "s4396122_hal_hamming.h"
 #include "s4396122_util_matrix.h"
 #include "s4396122_hal_ircoms.h"
@@ -594,7 +593,6 @@ void Hardware_init() {
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();
     s4396122_hal_irremote_init();
-    s4396122_hal_accel_init();
     s4396122_hal_hamming_init();
     s4396122_hal_ir_init();
     s4396122_hal_time_init();
