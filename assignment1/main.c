@@ -384,7 +384,6 @@ void transmit_data() {
     Queue *q = s4396122_util_queue_pop(transmitQueue);
     if (q == NULL) return;
 
-    debug_printf("Got Transmit Data\n");
     while (1) {
         int *d = s4396122_util_queue_pop(q);
         if (d == NULL) break;
@@ -402,6 +401,40 @@ void transmit_data() {
     s4396122_util_queue_free(q);
 }
 
+Queue* handle_manchester_ir_input(Queue *IRQueue) {
+    Queue *inputQueue = s4396122_util_queue_create();
+    free(s4396122_util_queue_pop(IRQueue));
+
+    int *c = malloc(sizeof(int));
+    *c = 1;
+    s4396122_util_queue_push(inputQueue, c);
+
+    int currentBit = 1;
+    int even = 1;
+    while (1) {
+        int *val = s4396122_util_queue_pop(IRQueue);
+        if (val == NULL) break;
+
+        if (approx(*val, 1000, 100)) {
+            currentBit = !currentBit;
+            int *d = malloc(sizeof(int));
+            *d = currentBit;
+            s4396122_util_queue_push(inputQueue, d);
+            even = 0;
+        } else if (approx(*val, 500, 100)) {
+            if (even) {
+                int *d = malloc(sizeof(int));
+                *d = currentBit;
+                s4396122_util_queue_push(inputQueue, d);
+            }
+            even = !even;
+        }
+
+        free(val);
+    }
+    return inputQueue;
+}
+
 void handle_ir_input() {
     if (NECIRInput) {
         // Handle IRRemote input
@@ -409,14 +442,25 @@ void handle_ir_input() {
         handle_irremote_input();
     } else {
         // Handle manchester input
-        while (1) {
-            int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
-            if (d == NULL) break;
-
-            debug_printf("%d\n", *d);
-
-            free(d);
+        Queue *manchesterQueue = handle_manchester_ir_input(s4396122_hal_ir_get_queue());
+        if (s4396122_util_queue_size(manchesterQueue) > 1) {
+            unsigned int finalResult = 0;
+            for (int i = 0; i < 2; i++) {
+                free(s4396122_util_queue_pop(manchesterQueue));
+                free(s4396122_util_queue_pop(manchesterQueue));
+                unsigned int result = 0;
+                for (int j = 0; j < 8; j++) {
+                    int *d = s4396122_util_queue_pop(manchesterQueue);
+                    result |= (*d << j);
+                    free(d);
+                }
+                finalResult <<= 4;
+                finalResult |= s4396122_hal_hamming_decode(result);
+                free(s4396122_util_queue_pop(manchesterQueue));
+            }
+            debug_printf("Got: %X\n", finalResult);
         }
+        s4396122_util_queue_free(manchesterQueue);
     }
 
     while (1) {
