@@ -6,6 +6,7 @@ TIM_HandleTypeDef TIM_Init; // Keep as a local definition
  * Initializes the pins and timers needed for the irremote
  */
 void s4396122_hal_irremote_init() {
+    transmitionState = 0;
     newIRMessage = 0;
 }
 
@@ -15,48 +16,64 @@ void s4396122_hal_irremote_init() {
  */
 void s4396122_hal_irremote_process(Queue *IRQueue) {
     while (1) {
-        unsigned int *temp = s4396122_util_queue_pop(IRQueue);
-        if (temp == NULL) {
-            break;
-        }
+        unsigned int *state = s4396122_util_queue_pop(IRQueue);
+        if (state == NULL) return;
 
-        if (*temp > 300) {
-            free(temp);
-            continue;
-        }
+        if (approx(*state, 9100, 100)) {
+            unsigned int *down = s4396122_util_queue_pop(IRQueue);
+            if (down == NULL) return;
 
-        if (approx(*temp, 258, 3)) {
-            transmitionState = 1;
-            IRaddress = 0;
-            IRcommand = 0;
-        } else {
-            int readBit = 0;
-            if (approx(*temp, 62, 2)) {
-                readBit = 1;
-            } else if (approx(*temp, 116, 2)) {
-                readBit = 0;
-            } else {
-                // debug_printf("IR Error\n");
-            }
-
-            if (transmitionState < 9) {
-                IRaddress <<= 1;
-                IRaddress |= readBit;
-                transmitionState++;
-            } else if (transmitionState < 17) {
-                transmitionState++;
-            } else if (transmitionState < 25) {
-                IRcommand <<= 1;
-                IRcommand |= readBit;
-                transmitionState++;
-            } else if (transmitionState < 33) {
-                transmitionState++;
-            } else if (transmitionState == 33) {
+            if (approx(*down, 4520, 100)) {
+                break;
+            } else if (approx(*down, 2250, 100)) {
                 newIRMessage = IRcommand;
             }
         }
+    }
+    transmitionState = 0;
+    IRaddress = 0;
+    IRcommand = 0;
+    while (1) {
+        unsigned int *high = s4396122_util_queue_pop(IRQueue);
+        unsigned int *low = s4396122_util_queue_pop(IRQueue);
+        if (high == NULL || low == NULL) {
+            break;
+        }
 
-        free(temp);
+        // debug_printf("(%d, %d)\n", *high, *low);
+
+        int bit = -1;
+        if (approx(*high, 562, 100) && approx(*low, 562, 100)) {
+            bit = 1;
+        } else if (approx(*high, 562, 100) && approx(*low, 1687, 100)) {
+            bit  = 0;
+        } else {
+            debug_printf("Invalid Pair: (%d, %d)\n", *high, *low);
+            free(high);
+            free(low);
+            break;
+        }
+
+        if (transmitionState < 8) {
+            IRaddress <<= 1;
+            IRaddress |= bit;
+        } else if (transmitionState < 16) {
+        } else if (transmitionState < 24) {
+            IRcommand <<= 1;
+            IRcommand |= bit;
+        } else if (transmitionState < 32) {
+        }
+        transmitionState++;
+
+        if (transmitionState == 32) {
+            newIRMessage = IRcommand;
+            free(high);
+            free(low);
+            break;
+        }
+
+        free(high);
+        free(low);
     }
 }
 

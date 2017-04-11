@@ -459,6 +459,14 @@ void handle_ir_input() {
         handle_irremote_input();
     } else {
         // Handle manchester input
+        while (1) {
+            int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
+            if (d == NULL) break;
+
+            debug_printf("%d\n", *d);
+
+            free(d);
+        }
     }
 
     while (1) {
@@ -489,7 +497,7 @@ int main() {
     s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
     s4396122_util_func_queue_add(queue, &update_pan_tilt_motor, 20);
     // TODO: Change the pantilt printout
-    s4396122_util_func_queue_add(queue, &print_pantilt_readings, 5000);
+    // s4396122_util_func_queue_add(queue, &print_pantilt_readings, 500);
 
     // Add a call to ensure that the system is not being overloaded with
     // functions
@@ -497,7 +505,7 @@ int main() {
 
     // s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
     // s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
-    s4396122_util_func_queue_add(queue, &handle_ir_input, 50);
+    s4396122_util_func_queue_add(queue, &handle_ir_input, 200);
 
     // s4396122_util_func_queue_add(queue, &handle_accel_input, 100);
 

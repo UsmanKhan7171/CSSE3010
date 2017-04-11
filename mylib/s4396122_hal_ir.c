@@ -95,15 +95,15 @@ void s4396122_hal_ir_init() {
     GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
     GPIO_InitStructure.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(BRD_D0_GPIO_PORT, &GPIO_InitStructure);
-    PrescalerValue = (uint16_t) ((SystemCoreClock / 2) / 50000) - 1;
+    PrescalerValue = (uint16_t) ((SystemCoreClock / 2) / 1000000) - 1;
     IR_Input_Init.Instance = TIM3;
-    IR_Input_Init.Init.Period = 2 * 50000 / 10;
+    IR_Input_Init.Init.Period = 1000000;
     IR_Input_Init.Init.Prescaler = PrescalerValue;
     IR_Input_Init.Init.ClockDivision = 0;
     IR_Input_Init.Init.RepetitionCounter = 0;
     IR_Input_Init.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_IC_InitTypeDef TIM_ICInitStructure;
-    TIM_ICInitStructure.ICPolarity = TIM_ICPOLARITY_RISING;
+    TIM_ICInitStructure.ICPolarity = TIM_ICPOLARITY_BOTHEDGE;
     TIM_ICInitStructure.ICSelection = TIM_ICSELECTION_DIRECTTI;
     TIM_ICInitStructure.ICPrescaler = TIM_ICPSC_DIV1;
     TIM_ICInitStructure.ICFilter = 0;
