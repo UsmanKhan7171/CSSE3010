@@ -402,6 +402,32 @@ void transmit_data() {
     s4396122_util_queue_free(q);
 }
 
+void handle_ir_input() {
+    if (NECIRInput) {
+        // Handle IRRemote input
+        s4396122_hal_irremote_process(s4396122_hal_ir_get_queue());
+        handle_irremote_input();
+    } else {
+        // Handle manchester input
+        while (1) {
+            int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
+            if (d == NULL) break;
+
+            debug_printf("%d\n", *d);
+
+            free(d);
+        }
+    }
+
+    while (1) {
+        int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
+        if (d == NULL) {
+            break;
+        }
+        free(d);
+    }
+}
+
 /**
  * Initializes the hardware for Assignment 1
  */
@@ -450,32 +476,6 @@ void Hardware_init() {
     s4396122_util_map_add(serialMap, (int) '`', &handle_mode_switch);
     s4396122_util_map_add(serialMap, 13, &hamming_newline);
 
-}
-
-void handle_ir_input() {
-    if (NECIRInput) {
-        // Handle IRRemote input
-        s4396122_hal_irremote_process(s4396122_hal_ir_get_queue());
-        handle_irremote_input();
-    } else {
-        // Handle manchester input
-        while (1) {
-            int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
-            if (d == NULL) break;
-
-            debug_printf("%d\n", *d);
-
-            free(d);
-        }
-    }
-
-    while (1) {
-        int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
-        if (d == NULL) {
-            break;
-        }
-        free(d);
-    }
 }
 
 /**
