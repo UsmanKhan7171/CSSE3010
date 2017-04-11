@@ -255,7 +255,6 @@ void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *deco
         } else if (*queueData == 'T') {
             *gotH = 1;
             *bothMode = 1;
-            *encoding = 1;
         } else if (*queueData == 'E' && *gotH) {
             *encoding = 1;
             *gotH = 0;
@@ -263,13 +262,13 @@ void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *deco
             *decoding = 1;
             *gotH = 0;
         } else if (*queueData >= '0' && *queueData <= '9' &&
-                (*encoding || *decoding)) {
+                (*encoding || *decoding || *bothMode)) {
             int num = *queueData - '0';
             int *qNum = malloc(sizeof(int));
             *qNum = num;
             s4396122_util_queue_push(inQueue, qNum);
         } else if (*queueData >= 'A' && *queueData <= 'F' &&
-                (*encoding || *decoding)) {
+                (*encoding || *decoding || *bothMode)) {
             int num = *queueData - 'A' + 10;
             int *qNum = malloc(sizeof(int));
             *qNum = num;
@@ -355,7 +354,29 @@ void hamming_newline() {
     Queue *inQueue = s4396122_util_queue_create();
 
     get_character_list(&gotH, &manchesterMode, &encoding, &decoding, &bothMode, inQueue);
-    if (bothMode) {
+    if (bothMode && encoding) {
+        Queue *totalQueue = s4396122_util_queue_create();
+        while (1) {
+            int *left = s4396122_util_queue_pop(inQueue);
+            int *right = s4396122_util_queue_pop(inQueue);
+            if (left == NULL || right == NULL) break;
+
+            int hamCode = (*left << 4) | *right;
+            Queue *manchesterQueue = s4396122_hal_ircoms_encode(hamCode);
+
+            while (1) {
+                int *d = s4396122_util_queue_pop(manchesterQueue);
+                if (d == NULL) break;
+                s4396122_util_queue_push(totalQueue, d);
+            }
+            s4396122_util_queue_free(manchesterQueue);
+
+            // s4396122_util_queue_push(transmitQueue, manchesterQueue);
+
+            free(left); free(right);
+        }
+        s4396122_util_queue_push(transmitQueue, totalQueue);
+    } else if (bothMode) {
         encode_hamming_manchester(inQueue);
     } else {
         process_character_list(&encoding, &decoding, &manchesterMode, &convertedData, inQueue);

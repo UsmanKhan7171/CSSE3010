@@ -109,10 +109,10 @@ unsigned int s4396122_hal_hamming_decode(unsigned int in) {
         }
         // Fix the error bit
         if ((in & 1) == p0) {
-            debug_printf("Too many errors\n");
+            debug_printf("Too many errors 1: %X\n", in);
             data = 0xFFFF;
         } else if (keyLocation == -1) {
-            debug_printf("Too many errors\n");
+            debug_printf("Too many errors 2: %X\n", in);
             data = 0xFFFF;
         } else if (keyLocation < 4) {
             data ^= (1 << (3 - keyLocation));
