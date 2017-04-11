@@ -237,37 +237,31 @@ void handle_accel_input() {
     debug_printf("X: %d\n", accel_x);
 }
 
-void hamming_newline() {
-    int encoding = 0;
-    int decoding = 0;
-    int convertedData = 0;
-    int gotH = 0;
-    int manchesterMode = 0;
-    Queue *inQueue = s4396122_util_queue_create();
+void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *decoding, Queue *inQueue) {
     while (1) {
         int *queueData = s4396122_util_queue_pop(serialQueue);
         if (queueData == NULL) {
             break;
         }
         if (*queueData == 'H') {
-            gotH = 1;
+            *gotH = 1;
         } else if (*queueData == 'M') {
-            gotH = 1;
-            manchesterMode = 1;
-        } else if (*queueData == 'E' && gotH) {
-            encoding = 1;
-            gotH = 0;
-        } else if (*queueData == 'D' && gotH) {
-            decoding = 1;
-            gotH = 0;
+            *gotH = 1;
+            *manchesterMode = 1;
+        } else if (*queueData == 'E' && *gotH) {
+            *encoding = 1;
+            *gotH = 0;
+        } else if (*queueData == 'D' && *gotH) {
+            *decoding = 1;
+            *gotH = 0;
         } else if (*queueData >= '0' && *queueData <= '9' &&
-                (encoding || decoding)) {
+                (*encoding || *decoding)) {
             int num = *queueData - '0';
             int *qNum = malloc(sizeof(int));
             *qNum = num;
             s4396122_util_queue_push(inQueue, qNum);
         } else if (*queueData >= 'A' && *queueData <= 'F' &&
-                (encoding || decoding)) {
+                (*encoding || *decoding)) {
             int num = *queueData - 'A' + 10;
             int *qNum = malloc(sizeof(int));
             *qNum = num;
@@ -275,38 +269,41 @@ void hamming_newline() {
         }
         free(queueData);
     }
+}
 
+void process_character_list(int *encoding, int *decoding, int *manchesterMode, int *convertedData,
+        Queue *inQueue) {
     unsigned int lastDecodeVal = 0;
     int gotDecodeVal = 0;
     while (1) {
-        if (decoding && manchesterMode) {
-            convertedData = s4396122_hal_ircoms_decode(inQueue);
+        if (*decoding && *manchesterMode) {
+            *convertedData = s4396122_hal_ircoms_decode(inQueue);
         }
         int *val = s4396122_util_queue_pop(inQueue);
         if (val == NULL) {
             break;
         }
 
-        if (encoding && manchesterMode == 0) {
+        if (*encoding && *manchesterMode == 0) {
             int convertedVal = s4396122_hal_hamming_encode(*val);
-            convertedData <<= 8;
-            convertedData |= convertedVal;
-        } else if (decoding && manchesterMode == 0) {
+            *convertedData <<= 8;
+            *convertedData |= convertedVal;
+        } else if (*decoding && *manchesterMode == 0) {
             if (gotDecodeVal) {
                 // We have two words, start to decode the input
                 gotDecodeVal = 0;
                 unsigned int totalVal = (lastDecodeVal << 4) | *val;
                 int convertedVal = s4396122_hal_hamming_decode(totalVal);
-                convertedData <<= 4;
-                convertedData |= convertedVal;
+                *convertedData <<= 4;
+                *convertedData |= convertedVal;
             } else {
                 // We don't have enough start a decode, buffer the current input
                 lastDecodeVal = *val;
                 gotDecodeVal = 1;
             }
-        } else if (encoding && manchesterMode) {
-            convertedData <<= 4;
-            convertedData |= *val;
+        } else if (*encoding && *manchesterMode) {
+            *convertedData <<= 4;
+            *convertedData |= *val;
         } else {
             debug_printf("Encoding or Decoding not selected!\n");
             return;
@@ -314,6 +311,17 @@ void hamming_newline() {
 
         free(val);
     }
+}
+
+void hamming_newline() {
+    int encoding = 0;
+    int decoding = 0;
+    int convertedData = 0;
+    int gotH = 0;
+    int manchesterMode = 0;
+    Queue *inQueue = s4396122_util_queue_create();
+    get_character_list(&gotH, &manchesterMode, &encoding, &decoding, inQueue);
+    process_character_list(&encoding, &decoding, &manchesterMode, &convertedData, inQueue);
 
     s4396122_util_queue_free(inQueue);
 
