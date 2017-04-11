@@ -590,9 +590,6 @@ void Hardware_init() {
     BRD_init();
     BRD_LEDInit();
 
-    HAL_Delay(2000);
-    debug_printf("Here\n");
-
     s4396122_hal_pantilt_init();
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();
