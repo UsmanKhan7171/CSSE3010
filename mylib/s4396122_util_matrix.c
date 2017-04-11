@@ -36,15 +36,12 @@ Matrix* s4396122_util_matrix_multi(Matrix *a, Matrix *b) {
         return NULL;
     }
     Matrix *result = s4396122_util_matrix_create(width, height);
-    debug_printf("Creating matrix: %d %d\n", width, height);
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             int sum = 0;
             for (int k = 0; k < a->width; k++) {
                 sum += s4396122_util_matrix_get(b, i, k) * s4396122_util_matrix_get(a, k, j);
-                // debug_printf("%d * %d, ", s4396122_util_matrix_get(b, i, k), s4396122_util_matrix_get(a, k, j));
             }
-            // debug_printf("\n");
             s4396122_util_matrix_set(result, j, i, sum);
         }
     }
