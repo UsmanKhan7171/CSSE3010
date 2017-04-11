@@ -17,7 +17,6 @@
 #include "s4396122_hal_ir.h"
 #include "s4396122_util_queue.h"
 #include "s4396122_util_map.h"
-#include "s4396122_hal_accel.h"
 #include "s4396122_hal_hamming.h"
 #include "s4396122_util_matrix.h"
 #include "s4396122_hal_ircoms.h"
