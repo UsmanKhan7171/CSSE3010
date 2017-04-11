@@ -21,6 +21,7 @@
 #include "s4396122_hal_hamming.h"
 #include "s4396122_util_matrix.h"
 #include "s4396122_hal_ircoms.h"
+#include "s4396122_hal_time.h"
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
@@ -340,8 +341,7 @@ void encode_hamming_manchester(Queue *inQueue) {
         s4396122_util_queue_free(manchesterQueue);
     }
     debug_printf("\n");
-    while (transmitQueue != NULL);
-    transmitQueue = totalQueue;
+    s4396122_util_queue_push(transmitQueue, totalQueue);
 }
 
 void hamming_newline() {
@@ -379,6 +379,29 @@ void hamming_newline() {
     s4396122_util_queue_free(inQueue);
 }
 
+void transmit_data() {
+    s4396122_hal_time_clear_micro();
+    Queue *q = s4396122_util_queue_pop(transmitQueue);
+    if (q == NULL) return;
+
+    debug_printf("Got Transmit Data\n");
+    while (1) {
+        int *d = s4396122_util_queue_pop(q);
+        if (d == NULL) break;
+        while (s4396122_hal_time_get_micro() < 500);
+
+        if (*d) {
+            s4396122_hal_ir_datamodulation_set();
+        } else {
+            s4396122_hal_ir_datamodulation_cli();
+        }
+
+        s4396122_hal_time_clear_micro();
+    }
+
+    s4396122_util_queue_free(q);
+}
+
 /**
  * Initializes the hardware for Assignment 1
  */
@@ -393,6 +416,7 @@ void Hardware_init() {
     s4396122_hal_accel_init();
     s4396122_hal_hamming_init();
     s4396122_hal_ir_init();
+    s4396122_hal_time_init();
 
     // Create the serial queue for storing of unused characters
     serialQueue = s4396122_util_queue_create();
@@ -403,7 +427,7 @@ void Hardware_init() {
     currentAngle = 0;
     lastFuncAccuracy = HAL_GetTick();
     NECIRInput = 1;
-    transmitQueue = NULL;
+    transmitQueue = s4396122_util_queue_create();
 
     // Creates the ir remote control mapping
     remoteMap = s4396122_util_map_create();
@@ -458,6 +482,8 @@ int main() {
 
     // Make sure the system is still alive
     s4396122_util_func_queue_add(queue, &BRD_LEDToggle, 250);
+
+    s4396122_util_func_queue_add(queue, &transmit_data, 50);
 
     s4396122_util_func_queue_add(queue, &handle_serial_input, 20);
     s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
