@@ -7,7 +7,6 @@
 #include "s4396122_util_queue.h"
 #include <stdlib.h>
 
-Queue *IRQueue;
 int transmitionState;
 int IRaddress;
 int IRcommand;

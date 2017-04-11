@@ -14,6 +14,7 @@
 #include "s4396122_hal_util.h"
 #include "s4396122_hal_ledbar.h"
 #include "s4396122_hal_irremote.h"
+#include "s4396122_hal_ir.h"
 #include "s4396122_util_queue.h"
 #include "s4396122_util_map.h"
 #include "s4396122_hal_accel.h"
@@ -30,6 +31,8 @@ int currentAngle;
 Map *remoteMap;
 Map *serialMap;
 Queue *serialQueue;
+// mode switch for ir input
+int NECIRInput;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -210,6 +213,18 @@ void ir_handle_clear(char c) {
 }
 
 /**
+ * Handles switching of NECIRInput using the serial input
+ */
+void handle_mode_switch() {
+    NECIRInput = !NECIRInput;
+    if (NECIRInput) {
+        debug_printf("In NEC IR Remote input\n");
+    } else {
+        debug_printf("In Manchester input\n");
+    }
+}
+
+/**
  * Prints out the pan and tilt settings
  */
 void print_pantilt_readings() {
@@ -226,6 +241,7 @@ void hamming_newline() {
     int decoding = 0;
     int convertedData = 0;
     int gotH = 0;
+    int manchesterMode = 0;
     Queue *inQueue = s4396122_util_queue_create();
     while (1) {
         int *queueData = s4396122_util_queue_pop(serialQueue);
@@ -234,6 +250,9 @@ void hamming_newline() {
         }
         if (*queueData == 'H') {
             gotH = 1;
+        } else if (*queueData == 'M') {
+            gotH = 1;
+            manchesterMode = 1;
         } else if (*queueData == 'E' && gotH) {
             encoding = 1;
             gotH = 0;
@@ -320,12 +339,15 @@ void Hardware_init() {
     // Initializes the Board and then call the library init functions
     BRD_init();
     BRD_LEDInit();
+    HAL_Delay(3000);
+    debug_printf("Hello\n");
     s4396122_hal_pantilt_init();
     s4396122_hal_joystick_init();
     s4396122_hal_ledbar_init();
     s4396122_hal_irremote_init();
     s4396122_hal_accel_init();
     s4396122_hal_hamming_init();
+    s4396122_hal_ir_init();
 
     // Create the serial queue for storing of unused characters
     serialQueue = s4396122_util_queue_create();
@@ -335,6 +357,7 @@ void Hardware_init() {
     yDegree = 0;
     currentAngle = 0;
     lastFuncAccuracy = HAL_GetTick();
+    NECIRInput = 1;
 
     // Creates the ir remote control mapping
     remoteMap = s4396122_util_map_create();
@@ -354,8 +377,23 @@ void Hardware_init() {
     s4396122_util_map_add(serialMap, (int) 's', &ir_move_down);
     s4396122_util_map_add(serialMap, (int) 'a', &ir_move_left);
     s4396122_util_map_add(serialMap, (int) 'd', &ir_move_right);
+    s4396122_util_map_add(serialMap, (int) '`', &handle_mode_switch);
     s4396122_util_map_add(serialMap, 13, &hamming_newline);
 
+}
+
+void handle_ir_input() {
+    if (NECIRInput) {
+        // Handle IRRemote input
+        s4396122_hal_irremote_process(s4396122_hal_ir_get_queue());
+        handle_irremote_input();
+    } else {
+        // Handle manchester input
+    }
+
+    for (int i = 0; i < s4396122_util_queue_size(s4396122_hal_ir_get_queue()); i++) {
+        free(s4396122_util_queue_pop(s4396122_hal_ir_get_queue()));
+    }
 }
 
 /**
@@ -380,8 +418,9 @@ int main() {
     // functions
     s4396122_util_func_queue_add(queue, &check_func_accuracy, 50);
 
-    s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
-    s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
+    // s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
+    // s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
+    s4396122_util_func_queue_add(queue, &handle_ir_input, 50);
 
     // s4396122_util_func_queue_add(queue, &handle_accel_input, 100);
 
