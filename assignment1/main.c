@@ -34,6 +34,7 @@ Map *serialMap;
 Queue *serialQueue;
 // mode switch for ir input
 int NECIRInput;
+Queue *transmitQueue;
 
 /**
  * Checks to ensure that the function queue is running at optimal speeds and
@@ -237,7 +238,8 @@ void handle_accel_input() {
     debug_printf("X: %d\n", accel_x);
 }
 
-void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *decoding, Queue *inQueue) {
+void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *decoding, int *bothMode,
+        Queue *inQueue) {
     while (1) {
         int *queueData = s4396122_util_queue_pop(serialQueue);
         if (queueData == NULL) {
@@ -248,6 +250,10 @@ void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *deco
         } else if (*queueData == 'M') {
             *gotH = 1;
             *manchesterMode = 1;
+        } else if (*queueData == 'T') {
+            *gotH = 1;
+            *bothMode = 1;
+            *encoding = 1;
         } else if (*queueData == 'E' && *gotH) {
             *encoding = 1;
             *gotH = 0;
@@ -313,35 +319,64 @@ void process_character_list(int *encoding, int *decoding, int *manchesterMode, i
     }
 }
 
+void encode_hamming_manchester(Queue *inQueue) {
+    Queue *totalQueue = s4396122_util_queue_create();
+    debug_printf("Transmitting: ");
+    while (1) {
+        int *val = s4396122_util_queue_pop(inQueue);
+        if (val == NULL)  {
+            break;
+        }
+        unsigned int hamCode = s4396122_hal_hamming_encode(*val);
+        Queue *manchesterQueue = s4396122_hal_ircoms_encode(hamCode);
+        while (1) {
+            int *m = s4396122_util_queue_pop(manchesterQueue);
+            if (m == NULL) {
+                break;
+            }
+            debug_printf("%d", *m);
+            s4396122_util_queue_push(totalQueue, m);
+        }
+        s4396122_util_queue_free(manchesterQueue);
+    }
+    debug_printf("\n");
+    while (transmitQueue != NULL);
+    transmitQueue = totalQueue;
+}
+
 void hamming_newline() {
     int encoding = 0;
     int decoding = 0;
     int convertedData = 0;
     int gotH = 0;
     int manchesterMode = 0;
+    int bothMode = 0;
     Queue *inQueue = s4396122_util_queue_create();
-    get_character_list(&gotH, &manchesterMode, &encoding, &decoding, inQueue);
-    process_character_list(&encoding, &decoding, &manchesterMode, &convertedData, inQueue);
 
-    s4396122_util_queue_free(inQueue);
-
-    if (manchesterMode && encoding) {
-        Queue *manchester = s4396122_hal_ircoms_encode(convertedData);
-        debug_printf("Size: %d\n", s4396122_util_queue_size(manchester));
-        while (1) {
-            int *d = s4396122_util_queue_pop(manchester);
-            if (d == NULL) {
-                break;
-            }
-            debug_printf("%d", *d);
-            free(d);
-        }
-        s4396122_util_queue_free(manchester);
-        debug_printf("\n");
+    get_character_list(&gotH, &manchesterMode, &encoding, &decoding, &bothMode, inQueue);
+    if (bothMode) {
+        encode_hamming_manchester(inQueue);
     } else {
-        debug_printf("%X\n", convertedData);
+        process_character_list(&encoding, &decoding, &manchesterMode, &convertedData, inQueue);
+        if (manchesterMode && encoding) {
+            Queue *manchester = s4396122_hal_ircoms_encode(convertedData);
+            // debug_printf("Size: %d\n", s4396122_util_queue_size(manchester));
+            while (1) {
+                int *d = s4396122_util_queue_pop(manchester);
+                if (d == NULL) {
+                    break;
+                }
+                debug_printf("%d", *d);
+                free(d);
+            }
+            s4396122_util_queue_free(manchester);
+            debug_printf("\n");
+        } else {
+            debug_printf("%X\n", convertedData);
+        }
     }
 
+    s4396122_util_queue_free(inQueue);
 }
 
 /**
@@ -368,6 +403,7 @@ void Hardware_init() {
     currentAngle = 0;
     lastFuncAccuracy = HAL_GetTick();
     NECIRInput = 1;
+    transmitQueue = NULL;
 
     // Creates the ir remote control mapping
     remoteMap = s4396122_util_map_create();
