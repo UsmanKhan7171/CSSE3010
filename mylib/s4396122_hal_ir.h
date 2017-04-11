@@ -24,8 +24,10 @@
 
 #define s4396122_hal_ir_carrieron() irhal_carrier(1);
 #define s4396122_hal_ir_carrieroff() irhal_carrier(0);
-#define s4396122_hal_ir_datamodulation_set() HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 1);
-#define s4396122_hal_ir_datamodulation_cli() HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 0);
+#define s4396122_hal_ir_datamodulation_set() \
+        HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 1);
+#define s4396122_hal_ir_datamodulation_cli() \
+        HAL_GPIO_WritePin(BRD_D8_GPIO_PORT, BRD_D8_PIN, 0);
 
 Queue *IRQueue; // Global variable for storing and accessing the IR data
 

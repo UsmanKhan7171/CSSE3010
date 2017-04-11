@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_hal_irremote.c
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for processing and reporting of the irremote
+ */
 #include "s4396122_hal_irremote.h"
 
 TIM_HandleTypeDef TIM_Init; // Keep as a local definition
@@ -39,8 +45,6 @@ void s4396122_hal_irremote_process(Queue *IRQueue) {
         if (high == NULL || low == NULL) {
             break;
         }
-
-        // debug_printf("(%d, %d)\n", *high, *low);
 
         int bit = -1;
         if (approx(*high, 562, 100) && approx(*low, 562, 100)) {

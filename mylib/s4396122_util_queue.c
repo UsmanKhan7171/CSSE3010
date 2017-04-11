@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_queue.c
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding Queue functionality
+ */
 #include "s4396122_util_queue.h"
 
 /**
@@ -55,7 +61,6 @@ void* s4396122_util_queue_pop(Queue *q) {
     }
     free(oldHead);
     q->size--;
-    // debug_printf("Got: %d\n", *(int*) d);
     return d;
 }
 

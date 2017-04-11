@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_map.c
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding HashMap functionality
+ */
 #include "s4396122_util_map.h"
 
 /**
@@ -36,8 +42,8 @@ void s4396122_util_map_free(Map *m) {
 }
 
 /**
- * Adds an element to the map, if the key exists in memory than the old pair will be
- * removed from memory
+ * Adds an element to the map, if the key exists in memory than the old pair
+ * will be removed from memory
  * @param m   The Map to add the data to
  * @param key The key for the new data to be referenced from
  * @param d   Data to be added with the key

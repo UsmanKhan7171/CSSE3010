@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_func_queue.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for function queue / scheduler
+ */
 #ifndef UTIL_FUNC_QUEUE_H
 #define UTIL_FUNC_QUEUE_H
 

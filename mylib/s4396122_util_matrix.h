@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_matrix.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding Matrix functionality
+ */
 #ifndef UTIL_MATRIX_H
 #define UTIL_MATRIX_H
 

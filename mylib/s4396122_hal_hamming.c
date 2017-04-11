@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_hal_hamming.c
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for encoding and decoding of hamming codes
+ */
 #include "s4396122_hal_hamming.h"
 
 /**
@@ -101,8 +107,12 @@ unsigned int s4396122_hal_hamming_decode(unsigned int in) {
         // Find the column that contains the sym bits
         int keyLocation = -1;
         for (int i = 0; i < 7; i++) {
-            if (s4396122_util_matrix_get(result, 0, 0) == s4396122_util_matrix_get(HDecoder, i, 0)) {
-                if (s4396122_util_matrix_get(result, 1, 0) == s4396122_util_matrix_get(HDecoder, i, 1) && s4396122_util_matrix_get(result, 2, 0) == s4396122_util_matrix_get(HDecoder, i, 2)) {
+            if (s4396122_util_matrix_get(result, 0, 0) ==
+                    s4396122_util_matrix_get(HDecoder, i, 0)) {
+                if (s4396122_util_matrix_get(result, 1, 0) ==
+                        s4396122_util_matrix_get(HDecoder, i, 1) &&
+                        s4396122_util_matrix_get(result, 2, 0) ==
+                        s4396122_util_matrix_get(HDecoder, i, 2)) {
                     keyLocation = i;
                 }
             }

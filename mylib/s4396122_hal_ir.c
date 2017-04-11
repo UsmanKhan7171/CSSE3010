@@ -111,7 +111,8 @@ void s4396122_hal_ir_init() {
     NVIC_SetVector(TIM3_IRQn, (uint32_t) &s4396122_hal_ir_interrupt);
     NVIC_EnableIRQ(TIM3_IRQn);
     HAL_TIM_IC_Init(&IR_Input_Init);
-    HAL_TIM_IC_ConfigChannel(&IR_Input_Init, &TIM_ICInitStructure, TIM_CHANNEL_2);
+    HAL_TIM_IC_ConfigChannel(&IR_Input_Init, &TIM_ICInitStructure,
+            TIM_CHANNEL_2);
     HAL_TIM_IC_Start_IT(&IR_Input_Init, TIM_CHANNEL_2);
 }
 

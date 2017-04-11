@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_linkedlist.c
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding linkedlist functionality
+ */
 #include "s4396122_util_linkedlist.h"
 
 /**

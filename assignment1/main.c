@@ -35,6 +35,7 @@ Map *serialMap;
 Queue *serialQueue;
 // mode switch for ir input
 int NECIRInput;
+// Queues for data to be sent and queue for data that was last sent
 Queue *transmitQueue;
 Queue *lastTransmit;
 
@@ -78,7 +79,6 @@ void handle_serial_input() {
     if (c != 0) {
         void (*f)(void) = s4396122_util_map_get(serialMap, c);
         if (f == NULL) {
-            // debug_printf("Error Finding Function: '%d'\n", c);
             int *newData = malloc(sizeof(int));
             *newData = c;
             s4396122_util_queue_push(serialQueue, newData);
@@ -235,13 +235,17 @@ void print_pantilt_readings() {
     debug_printf("Pan: %d Tilt: %d\n", xDegree, yDegree);
 }
 
-void handle_accel_input() {
-    int accel_x = s4396122_hal_accel_read_addr(0x05);
-    debug_printf("X: %d\n", accel_x);
-}
-
-void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *decoding, int *bothMode,
-        Queue *inQueue) {
+/**
+ * Used for handling encoding and decoding of the newline command feature
+ * @param gotH           Progress state storage
+ * @param manchesterMode If the user has chosen to use manchester or not
+ * @param encoding       If the user wants to encode data
+ * @param decoding       If the user wants to decode data
+ * @param bothMode       If the user wants to transmit data over ir
+ * @param inQueue        The resulting Queue of the data extracted
+ */
+void get_character_list(int *gotH, int *manchesterMode, int *encoding,
+        int *decoding, int *bothMode, Queue *inQueue) {
     while (1) {
         int *queueData = s4396122_util_queue_pop(serialQueue);
         if (queueData == NULL) {
@@ -277,9 +281,16 @@ void get_character_list(int *gotH, int *manchesterMode, int *encoding, int *deco
         free(queueData);
     }
 }
-
-void process_character_list(int *encoding, int *decoding, int *manchesterMode, int *convertedData,
-        Queue *inQueue) {
+/**
+ * Encodes and decodes the data parsed in based on the input parameters
+ * @param encoding       If the user wants to encode data
+ * @param decoding       If the user wants to decode data
+ * @param manchesterMode If the user has chosen to use manchester or not
+ * @param convertedData  The resulting conversion of the encoded/decoded data
+ * @param inQueue        The resulting Queue of the data extracted
+ */
+void process_character_list(int *encoding, int *decoding, int *manchesterMode,
+        int *convertedData, Queue *inQueue) {
     unsigned int lastDecodeVal = 0;
     int gotDecodeVal = 0;
     while (1) {
@@ -304,7 +315,8 @@ void process_character_list(int *encoding, int *decoding, int *manchesterMode, i
                 *convertedData <<= 4;
                 *convertedData |= convertedVal;
             } else {
-                // We don't have enough start a decode, buffer the current input
+                // We don't have enough start a decode, buffer the current
+                // input
                 lastDecodeVal = *val;
                 gotDecodeVal = 1;
             }
@@ -320,9 +332,13 @@ void process_character_list(int *encoding, int *decoding, int *manchesterMode, i
     }
 }
 
+/**
+ * Encodes the data in the Queue with hamming and then matches the manchester
+ * waveform and adds the data to the transmission queue
+ * @param inQueue Queue of data to be encoded and sent
+ */
 void encode_hamming_manchester(Queue *inQueue) {
     Queue *totalQueue = s4396122_util_queue_create();
-    // debug_printf("Transmitting: ");
     while (1) {
         int *val = s4396122_util_queue_pop(inQueue);
         if (val == NULL)  {
@@ -335,15 +351,16 @@ void encode_hamming_manchester(Queue *inQueue) {
             if (m == NULL) {
                 break;
             }
-            // debug_printf("%d", *m);
             s4396122_util_queue_push(totalQueue, m);
         }
         s4396122_util_queue_free(manchesterQueue);
     }
-    // debug_printf("\n");
     s4396122_util_queue_push(transmitQueue, totalQueue);
 }
 
+/**
+ * Handles the newline serial character input
+ */
 void hamming_newline() {
     int encoding = 0;
     int decoding = 0;
@@ -353,8 +370,9 @@ void hamming_newline() {
     int bothMode = 0;
     Queue *inQueue = s4396122_util_queue_create();
 
-    get_character_list(&gotH, &manchesterMode, &encoding, &decoding, &bothMode, inQueue);
-    if (bothMode && encoding) {
+    get_character_list(&gotH, &manchesterMode, &encoding, &decoding, &bothMode,
+            inQueue);
+    if (bothMode && encoding) { // The user transmits post hamming data
         Queue *totalQueue = s4396122_util_queue_create();
         while (1) {
             int *left = s4396122_util_queue_pop(inQueue);
@@ -371,18 +389,17 @@ void hamming_newline() {
             }
             s4396122_util_queue_free(manchesterQueue);
 
-            // s4396122_util_queue_push(transmitQueue, manchesterQueue);
-
             free(left); free(right);
         }
         s4396122_util_queue_push(transmitQueue, totalQueue);
     } else if (bothMode) {
         encode_hamming_manchester(inQueue);
     } else {
-        process_character_list(&encoding, &decoding, &manchesterMode, &convertedData, inQueue);
+        process_character_list(&encoding, &decoding, &manchesterMode,
+                &convertedData, inQueue);
         if (manchesterMode && encoding) {
+            // Print out the manchester waveform in binary form
             Queue *manchester = s4396122_hal_ircoms_encode(convertedData);
-            // debug_printf("Size: %d\n", s4396122_util_queue_size(manchester));
             while (1) {
                 int *d = s4396122_util_queue_pop(manchester);
                 if (d == NULL) {
@@ -401,6 +418,12 @@ void hamming_newline() {
     s4396122_util_queue_free(inQueue);
 }
 
+/**
+ * Handles transmitting manchester waveform from queue
+ * @param q                  Queue to send data from
+ * @param recordTransmission Whether the transmission is to be added to the
+ * lastTransmit Queue
+ */
 void transmit_queue(Queue *q, int recordTransmission) {
     if (recordTransmission) {
         s4396122_util_queue_free(lastTransmit);
@@ -420,10 +443,18 @@ void transmit_queue(Queue *q, int recordTransmission) {
             s4396122_hal_ir_datamodulation_cli();
         }
 
+        if (!recordTransmission) {
+            free(d);
+        }
+
         s4396122_hal_time_clear_micro();
     }
 }
 
+/**
+ * Function to be called by the function queue for going through the function
+ * queue and transmitting any queued data
+ */
 void transmit_data() {
     s4396122_hal_time_clear_micro();
     Queue *q = s4396122_util_queue_pop(transmitQueue);
@@ -434,6 +465,11 @@ void transmit_data() {
     s4396122_util_queue_free(q);
 }
 
+/**
+ * Converts the ir input timing queue to a decoded manchester waveform
+ * @param  IRQueue IR Timing Queue to be scanned and decoded
+ * @return         Queue of decoded manchester waveform result
+ */
 Queue* handle_manchester_ir_input(Queue *IRQueue) {
     Queue *inputQueue = s4396122_util_queue_create();
     free(s4396122_util_queue_pop(IRQueue));
@@ -468,6 +504,10 @@ Queue* handle_manchester_ir_input(Queue *IRQueue) {
     return inputQueue;
 }
 
+/**
+ * Checks which mode the ir receiver should be in (manchester or NEC) and
+ * handles the code for those according functions
+ */
 void handle_ir_input() {
     if (NECIRInput) {
         // Handle IRRemote input
@@ -475,21 +515,27 @@ void handle_ir_input() {
         handle_irremote_input();
     } else {
         // Handle manchester input
-        Queue *manchesterQueue = handle_manchester_ir_input(s4396122_hal_ir_get_queue());
+        Queue *manchesterQueue =
+            handle_manchester_ir_input(s4396122_hal_ir_get_queue());
         if (s4396122_util_queue_size(manchesterQueue) > 1) {
+            // There is input to be handled
             unsigned int finalResult = 0;
             for (int i = 0; i < 2; i++) {
+                // Remove the two start bits
                 free(s4396122_util_queue_pop(manchesterQueue));
                 free(s4396122_util_queue_pop(manchesterQueue));
+                // Loop through the Queue and store in an int for easy
+                // manipulation later
                 unsigned int result = 0;
                 for (int j = 0; j < 8; j++) {
                     int *d = s4396122_util_queue_pop(manchesterQueue);
                     result |= (*d << j);
                     free(d);
                 }
-                finalResult <<= 4;
                 unsigned int hamResult = s4396122_hal_hamming_decode(result);
                 if (hamResult == 0xFFFF) {
+                    // If there is an error in the ham decoding, send the NAK
+                    // byte
                     debug_printf("Sending NAK byte\n");
                     Queue *errorQueue = s4396122_util_queue_create();
                     int errorCode1 = 1;
@@ -501,7 +547,10 @@ void handle_ir_input() {
                     free(manchesterQueue);
                     return;
                 }
+                // Move the final result to the left to allow for the right
+                finalResult <<= 4;
                 finalResult |= hamResult;
+                // Remove the last stop bit
                 free(s4396122_util_queue_pop(manchesterQueue));
             }
             if (finalResult == 21) {
@@ -510,6 +559,7 @@ void handle_ir_input() {
             } else if (finalResult == 6) {
                 // Do nothing cause the ack was accepted
             } else {
+                // There was no problems so send the ACK byte
                 debug_printf("Got: %X\n", finalResult);
                 Queue *ackQueue = s4396122_util_queue_create();
                 int ackCode1 = 0;
@@ -523,6 +573,7 @@ void handle_ir_input() {
         s4396122_util_queue_free(manchesterQueue);
     }
 
+    // Clear out the left over IR input for a clean input for the next call
     while (1) {
         int *d = s4396122_util_queue_pop(s4396122_hal_ir_get_queue());
         if (d == NULL) {
@@ -601,18 +652,13 @@ int main() {
     s4396122_util_func_queue_add(queue, &handle_serial_input, 20);
     s4396122_util_func_queue_add(queue, &handle_joystick_input, 40);
     s4396122_util_func_queue_add(queue, &update_pan_tilt_motor, 20);
-    // TODO: Change the pantilt printout
-    // s4396122_util_func_queue_add(queue, &print_pantilt_readings, 500);
+    s4396122_util_func_queue_add(queue, &print_pantilt_readings, 500);
+
+    s4396122_util_func_queue_add(queue, &handle_ir_input, 200);
 
     // Add a call to ensure that the system is not being overloaded with
     // functions
     s4396122_util_func_queue_add(queue, &check_func_accuracy, 50);
-
-    // s4396122_util_func_queue_add(queue, &s4396122_hal_irremote_process, 50);
-    // s4396122_util_func_queue_add(queue, &handle_irremote_input, 50);
-    s4396122_util_func_queue_add(queue, &handle_ir_input, 200);
-
-    // s4396122_util_func_queue_add(queue, &handle_accel_input, 100);
 
     while (1) { // Main execution loop
 

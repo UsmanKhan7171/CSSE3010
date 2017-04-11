@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_map.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding HashMap functionality
+ */
 #ifndef UTIL_MAP_H
 #define UTIL_MAP_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_hal_time.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for time related functions
+ */
 #ifndef HAL_TIME_H
 #define HAL_TIME_H
 

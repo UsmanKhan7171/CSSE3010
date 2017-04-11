@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_hal_irremote.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for processing and reporting of the irremote
+ */
 #ifndef HAL_IRREMOTE_H
 #define HAL_IRREMOTE_H
 

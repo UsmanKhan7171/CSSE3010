@@ -1,3 +1,9 @@
+/**
+ * @file   s4396122_util_queue.h
+ * @author Daniel Fitzmaurice = 43961229
+ * @date   120417
+ * @brief  Library for adding Queue functionality
+ */
 #ifndef UTIL_QUEUE_H
 #define UTIL_QUEUE_H
 
