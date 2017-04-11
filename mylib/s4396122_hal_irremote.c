@@ -14,8 +14,12 @@ void s4396122_hal_irremote_init() {
  * and command
  */
 void s4396122_hal_irremote_process(Queue *IRQueue) {
-    for (int i = 0; i < s4396122_util_queue_size(IRQueue); i++) {
+    while (1) {
         unsigned int *temp = s4396122_util_queue_pop(IRQueue);
+        if (temp == NULL) {
+            break;
+        }
+
         if (*temp > 300) {
             free(temp);
             continue;
