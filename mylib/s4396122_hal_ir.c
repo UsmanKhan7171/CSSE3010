@@ -121,7 +121,7 @@ void s4396122_hal_ir_init() {
  */
 void irhal_carrier(int state) {
     if (state) {
-        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_1, 1102);
+        __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_1, 4420);
     } else {
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_1, 0);
     }
