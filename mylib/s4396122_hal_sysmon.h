@@ -1,3 +1,6 @@
+#ifndef HAL_SYSMON_H
+#define HAL_SYSMON_H
+
 #include <board.h>
 #include <stm32f4xx_hal_conf.h>
 
@@ -18,3 +21,5 @@ extern void s4396122_hal_sysmon_init();
 
 #define s4396122_hal_sysmon_chan2_clr() HAL_GPIO_WritePin(LA_CHANNEL_2_PORT, LA_CHANNEL_2_PIN, 0)
 #define s4396122_hal_sysmon_chan2_set() HAL_GPIO_WritePin(LA_CHANNEL_2_PORT, LA_CHANNEL_2_PIN, 1)
+
+#endif

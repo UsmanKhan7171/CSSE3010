@@ -17,7 +17,7 @@ CFLAGS += -I$(MYLIB)
 CFLAGS += -DENABLE_VCP #enable USB Virtual Com Port
 
 #Extra files from the src folder must ONLY be added to LIBSRCS
-LIBSRCS = $(FREERTOS_PATH)/portable/MemMang/heap_1.c
+LIBSRCS = $(FREERTOS_PATH)/portable/MemMang/heap_3.c
 
 ###################################################
 ROOT=$(shell pwd)

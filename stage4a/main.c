@@ -11,6 +11,8 @@
 #include "FreeRTOSConfig.h"
 #include "board.h"
 #include "s4396122_hal_sysmon.h"
+#include "s4396122_os_joystick.h"
+#include "s4396122_hal_joystick.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
@@ -21,18 +23,25 @@
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 2)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 #define task1_PRIORITY (tskIDLE_PRIORITY + 2)
-#define task1_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
+#define task1_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 0.3)
 #define task2_PRIORITY (tskIDLE_PRIORITY + 2)
 #define task2_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 #define task3_PRIORITY (tskIDLE_PRIORITY + 1)
 #define task3_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 
+int task2Exists = 1;
+TaskHandle_t task2Handle;
+
 void Hardware_init() {
     portDISABLE_INTERRUPTS();
+
+    BRD_init();
 
     BRD_LEDInit();
     BRD_LEDOff();
     s4396122_hal_sysmon_init();
+    s4396122_os_joystick_init();
+    s4396122_hal_joystick_init();
 
     portENABLE_INTERRUPTS();
 }
@@ -84,6 +93,18 @@ void Task3_Task() {
         vTaskDelay(0);
 
         s4396122_hal_sysmon_chan2_clr();
+
+        if (s4396122_SemaphoreJoystickZ != NULL) {
+            if (xSemaphoreTake(s4396122_SemaphoreJoystickZ, 10) == pdTRUE) {
+                if (task2Exists) {
+                    vTaskDelay(0);
+                    vTaskDelete(task2Handle);
+                } else {
+                    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL, task2_PRIORITY, &task2Handle);
+                }
+                task2Exists ^= 1;
+            }
+        }
     }
 }
 
@@ -96,7 +117,7 @@ int main() {
     xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL, mainLED_PRIORITY, NULL);
 
     xTaskCreate(&Task1_Task, "Task1", task1_TASK_STACK_SIZE, NULL, task1_PRIORITY, NULL);
-    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL, task2_PRIORITY, NULL);
+    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL, task2_PRIORITY, &task2Handle);
     xTaskCreate(&Task3_Task, "Task3", task3_TASK_STACK_SIZE, NULL, task3_PRIORITY, NULL);
 
     vTaskStartScheduler();
