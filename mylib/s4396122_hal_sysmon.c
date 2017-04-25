@@ -1,8 +1,19 @@
+/**
+ * @file    s4396122_hal_sysmon.h
+ * @author  Daniel Fitzmaurice
+ * @date    250417
+ * @brief   Library for interface between 3 LA channels and the netduino
+ */
+
 #include "s4396122_hal_sysmon.h"
 
+/**
+ * Initializes the sysmon pins for interface
+ */
 void s4396122_hal_sysmon_init() {
     GPIO_InitTypeDef GPIO_InitStructure;
 
+    // Enable the clocks
     __BRD_D9_GPIO_CLK();
     __BRD_D10_GPIO_CLK();
     __BRD_D12_GPIO_CLK();

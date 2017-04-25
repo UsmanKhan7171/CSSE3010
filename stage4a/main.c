@@ -29,9 +29,13 @@
 #define task3_PRIORITY (tskIDLE_PRIORITY + 1)
 #define task3_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 
+// Global Variables
 int task2Exists = 1;
 TaskHandle_t task2Handle;
 
+/**
+ * Initializes the hardware
+ */
 void Hardware_init() {
     portDISABLE_INTERRUPTS();
 
@@ -46,7 +50,13 @@ void Hardware_init() {
     portENABLE_INTERRUPTS();
 }
 
-void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName) {
+/**
+ * vApplicationStackOverflowHook
+ * @param pxTask     Task Handler
+ * @param pcTaskName Task Name
+ */
+void vApplicationStackOverflowHook(xTaskHandle pxTask,
+        signed char *pcTaskName) {
     BRD_LEDOff();
     (void) pxTask;
     (void) pcTaskName;
@@ -54,6 +64,9 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName) 
     while (1);
 }
 
+/**
+ * Blinking LED Task to ensure a visual feedback that system is alive
+ */
 void LED_Task() {
     while (1) {
         BRD_LEDToggle();
@@ -61,6 +74,9 @@ void LED_Task() {
     }
 }
 
+/**
+ * Task 1 for managing output of sysmon channel 1
+ */
 void Task1_Task() {
     s4396122_hal_sysmon_chan0_clr();
 
@@ -73,6 +89,10 @@ void Task1_Task() {
     }
 }
 
+/**
+ * Task 2 for managing output of sysmon channel 2. This is dynamically created
+ * and deleted
+ */
 void Task2_Task() {
     s4396122_hal_sysmon_chan1_clr();
 
@@ -85,6 +105,10 @@ void Task2_Task() {
     }
 }
 
+/**
+ * Task 3 for managing output of sysmon channel 3. As well as processing the
+ * Z input of the joystick
+ */
 void Task3_Task() {
     s4396122_hal_sysmon_chan2_clr();
 
@@ -100,7 +124,8 @@ void Task3_Task() {
                     vTaskDelay(0);
                     vTaskDelete(task2Handle);
                 } else {
-                    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL, task2_PRIORITY, &task2Handle);
+                    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE,
+                        NULL, task2_PRIORITY, &task2Handle);
                 }
                 task2Exists ^= 1;
             }
@@ -108,17 +133,26 @@ void Task3_Task() {
     }
 }
 
+/**
+ * Main system loop
+ * @return Exit code status
+ */
 int main() {
-    BRD_init();
-    Hardware_init();
+    BRD_init(); // Initialise the board
+    Hardware_init(); // Initialise peripherials
 
-    // s4396122_hal_sysmon_chan1_set();
+    // Create the LED Task
+    xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL,
+        mainLED_PRIORITY, NULL);
 
-    xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL, mainLED_PRIORITY, NULL);
+    // Initialise the Sysmon Channel Tasks
+    xTaskCreate(&Task1_Task, "Task1", task1_TASK_STACK_SIZE, NULL,
+        task1_PRIORITY, NULL);
+    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL,
+        task2_PRIORITY, &task2Handle);
+    xTaskCreate(&Task3_Task, "Task3", task3_TASK_STACK_SIZE, NULL,
+        task3_PRIORITY, NULL);
 
-    xTaskCreate(&Task1_Task, "Task1", task1_TASK_STACK_SIZE, NULL, task1_PRIORITY, NULL);
-    xTaskCreate(&Task2_Task, "Task2", task2_TASK_STACK_SIZE, NULL, task2_PRIORITY, &task2Handle);
-    xTaskCreate(&Task3_Task, "Task3", task3_TASK_STACK_SIZE, NULL, task3_PRIORITY, NULL);
-
+    // Hands main loop control over to freertos. This should never exit
     vTaskStartScheduler();
 }
