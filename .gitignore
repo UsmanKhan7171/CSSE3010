@@ -6,3 +6,4 @@
 *.pdf
 .tags
 .tags*
+*.gch
