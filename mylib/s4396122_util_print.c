@@ -25,7 +25,6 @@ void s4396122_util_print_reverse() {
 }
 
 void error(const char *s, const char *fileName, int lineNo) {
-    s4396122_util_print_move(numOfFormatRows + 3, 1);
     s4396122_util_print_color(s4396122_util_print_red);
     s4396122_util_print_bold();
     debug_printf("%s - %s:%d\n", s, fileName, lineNo);
@@ -33,7 +32,6 @@ void error(const char *s, const char *fileName, int lineNo) {
 }
 
 void warn(const char *s, const char *fileName, int lineNo) {
-    s4396122_util_print_move(numOfFormatRows + 3, 1);
     s4396122_util_print_color(s4396122_util_print_yellow);
     s4396122_util_print_bold();
     debug_printf("%s - %s:%d\n", s, fileName, lineNo);
@@ -42,7 +40,6 @@ void warn(const char *s, const char *fileName, int lineNo) {
 
 void info(const char *s, const char *fileName, int lineNo) {
     #ifdef DEBUG
-        s4396122_util_print_move(numOfFormatRows + 3, 1);
         s4396122_util_print_color(s4396122_util_print_blue);
         s4396122_util_print_bold();
         debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
@@ -52,7 +49,6 @@ void info(const char *s, const char *fileName, int lineNo) {
 
 void debug(const char *s, const char *fileName, int lineNo) {
     #ifdef DEBUG
-        s4396122_util_print_move(numOfFormatRows + 3, 1);
         debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
     #endif
 }
