@@ -66,6 +66,48 @@ void toggle_metronome(IntQueue *q) {
         xSemaphoreGive(s4396122_SemaphorePanMetronome);
     }
 }
+int process_to_integer(IntQueue *q) {
+    int negate = 0;
+    int totalVal = 0;
+    while (s4396122_util_int_queue_size(q)) {
+        int c = s4396122_util_int_queue_pop(q);
+        if (c == '-') {
+            negate = 1;
+        } else if (c > '9' || c < '0') {
+            s4396122_util_print_error("Unsupported character range");
+        } else {
+            totalVal = (totalVal * 10) + (c - '0');
+        }
+    }
+    if (negate) {
+        totalVal *= -1;
+    }
+    return totalVal;
+}
+void move_pan(IntQueue *q) {
+    struct PanTiltMessage message;
+    message.type = 'p';
+    message.angle = process_to_integer(q);
+    if (message.angle > 90 || message.angle < -90) {
+        s4396122_util_print_error("Angle outside bounds");
+        return;
+    }
+    if (xQueueSendToFront(s4396122_QueuePanTilt, &message, 10) != pdPASS) {
+        s4396122_util_print_error("Failed to post message");
+    }
+}
+void move_tilt(IntQueue *q) {
+    struct PanTiltMessage message;
+    message.type = 't';
+    message.angle = process_to_integer(q);
+    if (message.angle > 90 || message.angle < -90) {
+        s4396122_util_print_error("Angle outside bounds");
+        return;
+    }
+    if (xQueueSendToFront(s4396122_QueuePanTilt, &message, 10) != pdPASS) {
+        s4396122_util_print_error("Failed to post message");
+    }
+}
 
 /**
  * Initializes the hardware
@@ -85,6 +127,8 @@ void Hardware_init() {
     s4396122_util_map_add(serialMap, (int) 'a', &move_left);
     s4396122_util_map_add(serialMap, (int) 'd', &move_right);
     s4396122_util_map_add(serialMap, (int) 'm', &toggle_metronome);
+    s4396122_util_map_add(serialMap, (int) 'p', &move_pan);
+    s4396122_util_map_add(serialMap, (int) 't', &move_tilt);
 
     portENABLE_INTERRUPTS();
 }
