@@ -34,11 +34,13 @@ lib:
 proj: 	$(PROJ_NAME).elf
 
 $(PROJ_NAME).elf:	$(NP2OBJ) $(OBJS)
+	@echo "HEllo\n"
 	$(CC) $(LDFLAGS) -o $@ -Llib $(OBJS) $(NP2OBJ) $(LD_SYS_LIBS)
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 
 %.o:
+	@echo "Here\n"
 	$(CC) $(CFLAGS) -c $< -o $@
 
 depend: .depend
@@ -46,6 +48,7 @@ depend: .depend
 .depend: $(SRCS)
 	rm -f ./.depend
 	mkdir -p obj
+	@echo "Here"
 	$(CC) $(CFLAGS) -MM $^>>./.depend;
 
 prog:
