@@ -39,12 +39,10 @@ void warn(const char *s, const char *fileName, int lineNo) {
 }
 
 void info(const char *s, const char *fileName, int lineNo) {
-    #ifdef DEBUG
-        s4396122_util_print_color(s4396122_util_print_blue);
-        s4396122_util_print_bold();
-        debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
-        s4396122_util_print_reset();
-    #endif
+    s4396122_util_print_color(s4396122_util_print_blue);
+    s4396122_util_print_bold();
+    debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
+    s4396122_util_print_reset();
 }
 
 void debug(const char *s, const char *fileName, int lineNo) {

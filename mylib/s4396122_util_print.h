@@ -4,8 +4,6 @@
 #include <debug_printf.h>
 #include <stdarg.h>
 
-#define DEBUG 1
-
 #define s4396122_util_print_black 30
 #define s4396122_util_print_red 31
 #define s4396122_util_print_green 32
