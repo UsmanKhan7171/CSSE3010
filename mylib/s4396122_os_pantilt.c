@@ -9,8 +9,12 @@ void s4396122_TaskPanTilt() {
     while (1) {
         if (s4396122_SemaphorePanMetronome != NULL && xSemaphoreTake(s4396122_SemaphorePanMetronome, 10) == pdTRUE) {
             // Toggle Metronome value
-            s4396122_util_print_debug("Toggle Metronome");
             metronomeMode ^= 1;
+            if (metronomeMode) {
+                s4396122_util_print_debug("Metronome On");
+            } else {
+                s4396122_util_print_debug("Metronome Off");
+            }
         } else if (s4396122_SemaphorePanLeft != NULL && xSemaphoreTake(s4396122_SemaphorePanLeft, 10) == pdTRUE) {
             // Move Pan Left
             s4396122_util_print_debug("Pan Left");
@@ -27,6 +31,13 @@ void s4396122_TaskPanTilt() {
         } else if (s4396122_SemaphoreTiltDown != NULL && xSemaphoreTake(s4396122_SemaphoreTiltDown, 10) == pdTRUE) {
             s4396122_util_print_debug("Tilt Down");
             tiltVal += 10;
+        }
+
+        if (metronomeMode) {
+            int position = (HAL_GetTick() % 6000) - 3000;
+            if (position < 0)
+                position *= -1;
+            panVal = map(position, 0, 3000, -80, 80);
         }
 
         if (tiltVal > 80) {
