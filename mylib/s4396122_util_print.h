@@ -2,6 +2,7 @@
 #define UTIL_PRINT_H
 
 #include <debug_printf.h>
+#include <stdarg.h>
 
 #define DEBUG 1
 
@@ -27,6 +28,7 @@
 #define s4396122_util_print_warn(s) warn(s, __FILE__, __LINE__)
 #define s4396122_util_print_info(s) info(s, __FILE__, __LINE__)
 #define s4396122_util_print_debug(s) debug(s, __FILE__, __LINE__)
+#define s4396122_util_print(s, f, args...) print(s, __FILE__, __LINE__, f, args)
 
 extern void s4396122_util_print_move(int x, int y);
 extern void s4396122_util_print_clear();
@@ -38,6 +40,8 @@ extern void s4396122_util_print_reverse();
 void error(const char *s, const char *fileName, int lineNo);
 void warn(const char *s, const char *fileName, int lineNo);
 void info(const char *s, const char *fileName, int lineNo);
-void debug(const char *s, const char fileName, int lineNo);
+void debug(const char *s, const char *fileName, int lineNo);
+
+void print(int errorType, const char *fileName, int lineNo, const char *format, ...);
 
 #endif

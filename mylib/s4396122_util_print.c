@@ -52,3 +52,24 @@ void debug(const char *s, const char *fileName, int lineNo) {
         debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
     #endif
 }
+
+void print(int errorType, const char *fileName, int lineNo, const char *format, ...) {
+    va_list valist;
+    char buffer[50];
+    vsprintf(&buffer, format, valist);
+    switch (errorType) {
+        case 0:
+            error(buffer, fileName, lineNo);
+            break;
+        case 1:
+            warn(buffer, fileName, lineNo);
+            break;
+        case 2:
+            info(buffer, fileName, lineNo);
+            break;
+        default:
+            debug(buffer, fileName, lineNo);
+            break;
+    }
+    debug_flush();
+}
