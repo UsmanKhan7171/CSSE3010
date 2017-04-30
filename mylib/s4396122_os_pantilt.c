@@ -6,7 +6,11 @@ int panVal = 0;
 int tiltVal = 0;
 
 void s4396122_TaskPanTilt() {
+    s4396122_hal_sysmon_chan0_clr();
+
     while (1) {
+        s4396122_hal_sysmon_chan0_set();
+
         if (s4396122_SemaphorePanMetronome != NULL && xSemaphoreTake(s4396122_SemaphorePanMetronome, 1) == pdTRUE) {
             // Toggle Metronome value
             metronomeMode ^= 1;
@@ -68,6 +72,8 @@ void s4396122_TaskPanTilt() {
         s4396122_hal_pantilt_pan_write(panVal);
         s4396122_hal_pantilt_tilt_write(tiltVal);
 
+        s4396122_hal_sysmon_chan0_clr();
+
         vTaskDelay(10);
     }
 }
@@ -75,6 +81,7 @@ void s4396122_TaskPanTilt() {
 void s4396122_os_pantilt_init() {
     s4396122_util_print_debug("Init PanTilt");
     s4396122_hal_pantilt_init();
+    s4396122_hal_sysmon_init();
 
     s4396122_SemaphorePanMetronome = xSemaphoreCreateBinary();
     s4396122_SemaphorePanLeft = xSemaphoreCreateBinary();

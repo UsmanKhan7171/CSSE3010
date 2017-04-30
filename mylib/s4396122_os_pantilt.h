@@ -8,6 +8,7 @@
 #include "semphr.h"
 #include "s4396122_util_print.h"
 #include "s4396122_hal_util.h"
+#include "s4396122_hal_sysmon.h"
 
 #define pantilt_PRIORITY (tskIDLE_PRIORITY + 2)
 #define pantilt_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
