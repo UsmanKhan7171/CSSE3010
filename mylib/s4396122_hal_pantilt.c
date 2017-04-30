@@ -66,6 +66,10 @@ void s4396122_hal_pantilt_init() {
     HAL_TIM_PWM_Start(&TIM_PanTilt, TIM_CHANNEL_3);
 }
 
+/**
+ * @brief DeInitializes the pantilt peripherals. This includes; stopping the
+ * pwm, deinit the pwm, and deinit the GPIO pins
+ */
 void s4396122_hal_pantilt_deinit() {
     HAL_TIM_PWM_Stop(&TIM_PanTilt, TIM_CHANNEL_4);
     HAL_TIM_PWM_Stop(&TIM_PanTilt, TIM_CHANNEL_3);

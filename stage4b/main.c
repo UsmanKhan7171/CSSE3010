@@ -42,31 +42,64 @@
 Map *serialMap;
 int ptInitialized = 1;
 
+/**
+ * @brief Function for handling input for 'w'
+ *
+ * @param q
+ */
 void move_up(IntQueue *q) {
     if (s4396122_SemaphoreTiltUp != NULL) {
         xSemaphoreGive(s4396122_SemaphoreTiltUp);
     }
 }
+/**
+ * @brief Function for handling input for 's'
+ *
+ * @param q
+ */
 void move_down(IntQueue *q) {
     if (s4396122_SemaphoreTiltDown != NULL) {
         xSemaphoreGive(s4396122_SemaphoreTiltDown);
     }
 }
+/**
+ * @brief Function for handling input for 'a'
+ *
+ * @param q
+ */
 void move_left(IntQueue *q) {
     if (s4396122_SemaphorePanLeft != NULL) {
         xSemaphoreGive(s4396122_SemaphorePanLeft);
     }
 }
+/**
+ * @brief Function for handling input for 'd'
+ *
+ * @param q
+ */
 void move_right(IntQueue *q) {
     if (s4396122_SemaphorePanRight != NULL) {
         xSemaphoreGive(s4396122_SemaphorePanRight);
     }
 }
+/**
+ * @brief Function for handling input for 'm'
+ *
+ * @param q
+ */
 void toggle_metronome(IntQueue *q) {
     if (s4396122_SemaphorePanMetronome != NULL) {
         xSemaphoreGive(s4396122_SemaphorePanMetronome);
     }
 }
+/**
+ * @brief Converts an integer queue of number characters to a single integer 
+ * output
+ *
+ * @param q Integer Queue for data to be extracted from
+ *
+ * @return integer processed from queue
+ */
 int process_to_integer(IntQueue *q) {
     int negate = 0;
     int totalVal = 0;
@@ -85,6 +118,11 @@ int process_to_integer(IntQueue *q) {
     }
     return totalVal;
 }
+/**
+ * @brief Function for handling input for 'p'
+ *
+ * @param q
+ */
 void move_pan(IntQueue *q) {
     struct PanTiltMessage message;
     message.type = 'p';
@@ -97,6 +135,11 @@ void move_pan(IntQueue *q) {
         s4396122_util_print_error("Failed to post message");
     }
 }
+/**
+ * @brief Function for handling input for 't'
+ *
+ * @param q
+ */
 void move_tilt(IntQueue *q) {
     struct PanTiltMessage message;
     message.type = 't';
@@ -109,6 +152,11 @@ void move_tilt(IntQueue *q) {
         s4396122_util_print_error("Failed to post message");
     }
 }
+/**
+ * @brief Function for handling input for 'c'
+ *
+ * @param q
+ */
 void init_pt(IntQueue *q) {
     if (ptInitialized) {
         s4396122_util_print_error("PT already initialized");
@@ -117,6 +165,11 @@ void init_pt(IntQueue *q) {
     s4396122_os_pantilt_init();
     ptInitialized = 1;
 }
+/**
+ * @brief Function for handling input for 'x'
+ *
+ * @param q
+ */
 void deinit_pt(IntQueue *q) {
     if (!ptInitialized) {
         s4396122_util_print_error("PT already de-initialized");
@@ -136,8 +189,11 @@ void Hardware_init() {
 
     BRD_LEDInit();
     BRD_LEDOn();
+    // Initialize libraries
     s4396122_os_pantilt_init();
 
+    // Create a map of commands and functions for easily lookup of commands and
+    // actions
     serialMap = s4396122_util_map_create();
     s4396122_util_map_add(serialMap, (int) 'w', &move_up);
     s4396122_util_map_add(serialMap, (int) 's', &move_down);
@@ -166,6 +222,13 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask,
     while (1);
 }
 
+/**
+ * @brief Looks up the command for the first element in the IntQueue. If the
+ * action exists then the action function is called and the remainder queue is
+ * passed as a parameter
+ *
+ * @param q IntQueue of the action and any following arguments
+ */
 void process_command_queue(IntQueue *q) {
     int command = s4396122_util_int_queue_pop(q);
     void (*f)(IntQueue *) = s4396122_util_map_get(serialMap, command);
@@ -177,12 +240,10 @@ void process_command_queue(IntQueue *q) {
 }
 
 /**
- * @brief Task to handle the input and process it through hashmap function 
- * lookup
+ * @brief Task for handling the network input and sending the input to the 
+ * process functions
  */
 void input_Task() {
-
-    /*vTaskDelay(3000);*/
     s4396122_util_print_debug("Starting Networking");
     
     int sock = 0;

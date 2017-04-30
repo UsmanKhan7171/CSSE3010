@@ -1,3 +1,10 @@
+/**
+ * @file s4396122_util_int_queue.h
+ * @brief Library for easily creating and managing a Queue of integers
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1.0
+ * @date 2017-04-30
+ */
 #ifndef UTIL_INT_QUEUE_H
 #define UTIL_INT_QUEUE_H
 

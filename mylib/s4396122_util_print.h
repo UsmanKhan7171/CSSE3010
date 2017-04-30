@@ -1,3 +1,10 @@
+/**
+ * @file s4396122_util_print.h
+ * @brief Function for handling the serial print and cursor magic
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1.0
+ * @date 2017-04-30
+ */
 #ifndef UTIL_PRINT_H
 #define UTIL_PRINT_H
 

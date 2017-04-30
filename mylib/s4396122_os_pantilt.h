@@ -1,3 +1,10 @@
+/**
+ * @file s4396122_os_pantilt.h
+ * @brief OS library for controlling the pantilt
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1.0
+ * @date 2017-04-30
+ */
 #ifndef OS_PANTILT_H
 #define OS_PANTILT_H
 
