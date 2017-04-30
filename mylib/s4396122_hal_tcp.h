@@ -1,3 +1,10 @@
+/**
+ * @file s4396122_hal_tcp.h
+ * @brief Library for reading and writing to a tcp connection
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-04-30
+ */
 #ifndef HAL_TCP_H
 #define HAL_TCP_H
 
