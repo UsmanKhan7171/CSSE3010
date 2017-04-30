@@ -42,6 +42,7 @@
 
 // Global Variables
 Map *serialMap;
+int ptInitialized = 1;
 
 void move_up(IntQueue *q) {
     if (s4396122_SemaphoreTiltUp != NULL) {
@@ -110,6 +111,22 @@ void move_tilt(IntQueue *q) {
         s4396122_util_print_error("Failed to post message");
     }
 }
+void init_pt(IntQueue *q) {
+    if (ptInitialized) {
+        s4396122_util_print_error("PT already initialized");
+        return;
+    }
+    s4396122_os_pantilt_init();
+    ptInitialized = 1;
+}
+void deinit_pt(IntQueue *q) {
+    if (!ptInitialized) {
+        s4396122_util_print_error("PT already de-initialized");
+        return;
+    }
+    s4396122_os_pantilt_deinit();
+    ptInitialized = 0;
+}
 
 /**
  * Initializes the hardware
@@ -131,6 +148,8 @@ void Hardware_init() {
     s4396122_util_map_add(serialMap, (int) 'm', &toggle_metronome);
     s4396122_util_map_add(serialMap, (int) 'p', &move_pan);
     s4396122_util_map_add(serialMap, (int) 't', &move_tilt);
+    s4396122_util_map_add(serialMap, (int) 'c', &init_pt);
+    s4396122_util_map_add(serialMap, (int) 'x', &deinit_pt);
 
     portENABLE_INTERRUPTS();
 }

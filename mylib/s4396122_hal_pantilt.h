@@ -26,5 +26,6 @@
 TIM_HandleTypeDef TIM_PanTilt; // Used to store the information for the pan servo
 
 void s4396122_hal_pantilt_init();
+void s4396122_hal_pantilt_deinit();
 
 #endif

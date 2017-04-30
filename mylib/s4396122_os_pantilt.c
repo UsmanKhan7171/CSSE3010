@@ -73,6 +73,7 @@ void s4396122_TaskPanTilt() {
 }
 
 void s4396122_os_pantilt_init() {
+    s4396122_util_print_debug("Init PanTilt");
     s4396122_hal_pantilt_init();
 
     s4396122_SemaphorePanMetronome = xSemaphoreCreateBinary();
@@ -86,7 +87,14 @@ void s4396122_os_pantilt_init() {
 }
 
 void s4396122_os_pantilt_deinit() {
-    vTaskDelete(s4396122_TaskPanTilt);
+    s4396122_util_print_debug("DeInit PanTilt");
+    vTaskDelete(s4396122_TaskPanTiltHandle);
+    vQueueDelete(s4396122_SemaphorePanMetronome);
+    vQueueDelete(s4396122_SemaphorePanLeft);
+    vQueueDelete(s4396122_SemaphorePanRight);
+    vQueueDelete(s4396122_SemaphoreTiltUp);
+    vQueueDelete(s4396122_SemaphoreTiltDown);
+    vQueueDelete(s4396122_QueuePanTilt);
     // TODO: Add this function in
-    /*s4396122_hal_pantilt_deinit();*/
+    s4396122_hal_pantilt_deinit();
 }

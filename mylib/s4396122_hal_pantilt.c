@@ -66,6 +66,14 @@ void s4396122_hal_pantilt_init() {
     HAL_TIM_PWM_Start(&TIM_PanTilt, TIM_CHANNEL_3);
 }
 
+void s4396122_hal_pantilt_deinit() {
+    HAL_TIM_PWM_Stop(&TIM_PanTilt, TIM_CHANNEL_4);
+    HAL_TIM_PWM_Stop(&TIM_PanTilt, TIM_CHANNEL_3);
+    HAL_TIM_PWM_DeInit(&TIM_PanTilt);
+    HAL_GPIO_DeInit(BRD_D2_GPIO_PORT, BRD_D2_PIN);
+    HAL_GPIO_DeInit(BRD_D3_GPIO_PORT, BRD_D3_PIN);
+}
+
 /**
  * Writes the angle to the server for pan or tilt
  * @param type  Controls whether the pan or tilt should be affected by the value
