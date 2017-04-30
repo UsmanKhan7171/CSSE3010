@@ -83,32 +83,6 @@ void toggle_metronome(IntQueue *q) {
     }
 }
 /**
- * @brief Converts an integer queue of number characters to a single integer 
- * output
- *
- * @param q Integer Queue for data to be extracted from
- *
- * @return integer processed from queue
- */
-int process_to_integer(IntQueue *q) {
-    int negate = 0;
-    int totalVal = 0;
-    while (s4396122_util_int_queue_size(q)) {
-        int c = s4396122_util_int_queue_pop(q);
-        if (c == '-') {
-            negate = 1;
-        } else if (c > '9' || c < '0') {
-            s4396122_util_print_error("Unsupported character range");
-        } else {
-            totalVal = (totalVal * 10) + (c - '0');
-        }
-    }
-    if (negate) {
-        totalVal *= -1;
-    }
-    return totalVal;
-}
-/**
  * @brief Function for handling input for 'p'
  *
  * @param q
@@ -116,7 +90,7 @@ int process_to_integer(IntQueue *q) {
 void move_pan(IntQueue *q) {
     struct PanTiltMessage message;
     message.type = 'p';
-    message.angle = process_to_integer(q);
+    message.angle = s4396122_util_int_queue_to_integer(q);
     if (message.angle > 90 || message.angle < -90) {
         s4396122_util_print_error("Angle outside bounds");
         return;
@@ -133,7 +107,7 @@ void move_pan(IntQueue *q) {
 void move_tilt(IntQueue *q) {
     struct PanTiltMessage message;
     message.type = 't';
-    message.angle = process_to_integer(q);
+    message.angle = s4396122_util_int_queue_to_integer(q);
     if (message.angle > 90 || message.angle < -90) {
         s4396122_util_print_error("Angle outside bounds");
         return;
@@ -229,16 +203,6 @@ void process_command_queue(IntQueue *q) {
     f(q);
 }
 
-IntQueue* string_to_queue(char *message) {
-    IntQueue *buffer = s4396122_util_int_queue_create();
-    for (int i = 0; ; i++) {
-        if (message[i] == '\0')
-            break;
-        s4396122_util_int_queue_push(buffer, message[i]);
-    }
-    return buffer;
-}
-
 /**
  * @brief Task for handling the network input and sending the input to the 
  * process functions
@@ -251,7 +215,11 @@ void input_Task() {
 
         struct tcpConnection conn = s4396122_hal_tcp_accept();
 
-        s4396122_hal_tcp_print(&conn, string_to_queue("Hello there"));
+        char buffer[50];
+        IntQueue *iq = s4396122_util_int_queue_create();
+        s4396122_util_int_queue_from_string(iq, 
+                "Network Connection Completed\n");
+        s4396122_hal_tcp_print(&conn, iq);
 
         while (1) {
             s4396122_hal_tcp_read(&conn, &process_command_queue);

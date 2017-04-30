@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "s4396122_util_print.h"
 
 struct intQueue {
     struct intQueue *next;
@@ -27,5 +28,9 @@ int s4396122_util_int_queue_size(IntQueue *q);
 void s4396122_util_int_queue_push(IntQueue *q, int d);
 int s4396122_util_int_queue_pop(IntQueue *q);
 void s4396122_util_int_queue_free(IntQueue *q);
+
+void s4396122_util_int_queue_from_string(IntQueue *q, char *message);
+void s4396122_util_int_queue_to_string(IntQueue *q, char *buffer);
+int s4396122_util_int_queue_to_integer(IntQueue *q);
 
 #endif

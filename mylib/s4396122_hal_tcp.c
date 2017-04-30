@@ -67,10 +67,7 @@ void s4396122_hal_tcp_read(struct tcpConnection *conn, void (*f)(IntQueue *)) {
 
 void s4396122_hal_tcp_print(struct tcpConnection *conn, IntQueue *message) {
     int size = s4396122_util_int_queue_size(message);
-    unsigned char buffer[size+1];
-    for (int i = 0; i < size; i++) {
-        buffer[i] = s4396122_util_int_queue_pop(message);
-    }
-    buffer[size] = '\0';
+    char buffer[50];
+    s4396122_util_int_queue_to_string(message, buffer);
     write(conn->fp, buffer, size);
 }

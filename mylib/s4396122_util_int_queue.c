@@ -76,7 +76,41 @@ int s4396122_util_int_queue_pop(IntQueue *q) {
  */
 void s4396122_util_int_queue_free(IntQueue *q) {
     while (q->size > 0) {
-        s4396122_util_queue_pop(q);
+        s4396122_util_int_queue_pop(q);
     }
     free(q);
+}
+
+void s4396122_util_int_queue_from_string(IntQueue *q, char *message) {
+    for (int i = 0; ; i++) {
+        if (message[i] == '\0')
+            break;
+        s4396122_util_int_queue_push(q, message[i]);
+    }
+}
+
+void s4396122_util_int_queue_to_string(IntQueue *q, char *buffer) {
+    int size = s4396122_util_int_queue_size(q);
+    for (int i = 0; i < size; i++) {
+        buffer[i] = s4396122_util_int_queue_pop(q);
+    }
+}
+
+int s4396122_util_int_queue_to_integer(IntQueue *q) {
+    int negate = 0;
+    int totalVal = 0;
+    while (s4396122_util_int_queue_size(q)) {
+        int c = s4396122_util_int_queue_pop(q);
+        if (c == '-') {
+            negate = 1;
+        } else if (c > '9' || c < '0') {
+            s4396122_util_print_error("Unsupported character range");
+        } else {
+            totalVal = (totalVal * 10) + (c - '0');
+        }
+    }
+    if (negate) {
+        totalVal *= -1;
+    }
+    return totalVal;
 }
