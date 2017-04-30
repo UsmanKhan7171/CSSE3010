@@ -7,8 +7,6 @@
  * *****************************************************************************
  */
 
-#define DEBUG 1
-
 // Includes
 #include "FreeRTOSConfig.h"
 #include "board.h"

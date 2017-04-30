@@ -46,7 +46,7 @@ void info(const char *s, const char *fileName, int lineNo) {
 }
 
 void debug(const char *s, const char *fileName, int lineNo) {
-    #ifdef DEBUG
+    #ifdef SDEBUG
         debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
     #endif
 }

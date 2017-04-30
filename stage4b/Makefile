@@ -15,6 +15,7 @@ PROJ_NAME=main
 SRCS = $(PROJ_NAME).c
 CFLAGS += -I$(MYLIB)
 CFLAGS += -DENABLE_VCP #enable USB Virtual Com Port
+CFLAGS += -DSDEBUG
 
 #Extra files from the src folder must ONLY be added to LIBSRCS
 LIBSRCS = $(FREERTOS_PATH)/portable/MemMang/heap_3.c
