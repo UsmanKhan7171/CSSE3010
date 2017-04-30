@@ -10,33 +10,23 @@
 // Includes
 #include "FreeRTOSConfig.h"
 #include "board.h"
-#include "usbd_cdc_vcp.h"
 #include <stdio.h>
 
 // Scheduler includes
 #include "FreeRTOS.h"
-#include "netconf.h"
 #include "task.h"
 #include "queue.h"
 #include "s4396122_os_pantilt.h"
 #include "s4396122_util_map.h"
 #include "s4396122_util_print.h"
 #include "s4396122_util_int_queue.h"
-
-#include "tcpip.h"
-#include "lwip/opt.h"
-#include "lwip/api.h"
-#include "lwip/sys.h"
-#include "lwip/sockets.h"
+#include "s4396122_hal_tcp.h"
 
 // Task Priorities
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 3)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 #define inputTask_PRIORITY (tskIDLE_PRIORITY + 2)
 #define inputTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 6)
-
-// Networking defines
-#define TCP_SOCKET_PORT 10
 
 // Global Variables
 Map *serialMap;
@@ -239,58 +229,38 @@ void process_command_queue(IntQueue *q) {
     f(q);
 }
 
+IntQueue* string_to_queue(char *message) {
+    IntQueue *buffer = s4396122_util_int_queue_create();
+    for (int i = 0; ; i++) {
+        if (message[i] == '\0')
+            break;
+        s4396122_util_int_queue_push(buffer, message[i]);
+    }
+    return buffer;
+}
+
 /**
  * @brief Task for handling the network input and sending the input to the 
  * process functions
  */
 void input_Task() {
-    s4396122_util_print_debug("Starting Networking");
-    
-    int sock = 0;
-
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        s4396122_util_print_error("Can not create socket");
-        /*VCP_txflush();*/
-        return;
-    }
-
-    struct sockaddr_in address;
-    address.sin_family = AF_INET;
-    address.sin_port = htons(TCP_SOCKET_PORT);
-    address.sin_addr.s_addr = INADDR_ANY;
-
-    if (bind(sock, (const struct sockaddr *) &address, sizeof(address)) < 0) {
-        s4396122_util_print_error("Can not bind socket");
-        /*VCP_txflush();*/
-        return;
-    }
-
-    listen(sock, 5);
-    long size = sizeof(struct sockaddr_in);
+    vTaskDelay(1000);
+    s4396122_hal_tcp_init();
 
     while (1) {
-        struct sockaddr_in remotehost;
-        int tcpconn = accept(sock, (struct sockaddr *) &remotehost, (socklen_t *) &size);
-        s4396122_util_print_info("Got a new connection");
-        unsigned char buffer[20];
-        memset(buffer, 0, sizeof(buffer));
-        int ret;
-        IntQueue *commandBuf = s4396122_util_int_queue_create();
-        while ((ret = read(tcpconn, buffer, sizeof(buffer))) > 0) {
-            for (int i = 0; i < ret; i++) {
-                if (buffer[i] == '\n') {
-                    process_command_queue(commandBuf);
-                    s4396122_util_int_queue_free(commandBuf);
-                    commandBuf = s4396122_util_int_queue_create();
-                    continue;
-                }
-                s4396122_util_int_queue_push(commandBuf, buffer[i]);
+
+        struct tcpConnection conn = s4396122_hal_tcp_accept();
+
+        s4396122_hal_tcp_print(&conn, string_to_queue("Hello there"));
+
+        while (1) {
+            s4396122_hal_tcp_read(&conn, &process_command_queue);
+            if (!conn.open) {
+                break;
             }
+            vTaskDelay(10);
         }
-        s4396122_util_int_queue_free(commandBuf);
-        s4396122_util_print_info("Connection closed");
-        close(tcpconn);
-        vTaskDelay(100);
+
     }
 }
 
@@ -310,16 +280,17 @@ void LED_Task() {
  */
 int main() {
 
-
     Hardware_init(); // Initialise peripherials
     LwIP_Init();
-
+    
     // Create the LED Task
     xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL,
         mainLED_PRIORITY, NULL);
 
     // Create Task to handle the serial/network input
     xTaskCreate(&input_Task, "Input", inputTask_TASK_STACK_SIZE, NULL, inputTask_PRIORITY, NULL);
+
+    s4396122_util_print_info("Initialized");
 
     // Hands main loop control over to freertos. This should never exit
     vTaskStartScheduler();
