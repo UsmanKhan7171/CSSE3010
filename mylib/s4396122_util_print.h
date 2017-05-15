@@ -8,8 +8,8 @@
 #ifndef UTIL_PRINT_H
 #define UTIL_PRINT_H
 
-#include <debug_printf.h>
 #include <stdarg.h>
+#include "s4396122_os_print.h"
 
 #define s4396122_util_print_black 30
 #define s4396122_util_print_red 31

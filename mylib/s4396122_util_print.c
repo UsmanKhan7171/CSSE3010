@@ -14,14 +14,14 @@
  * @param y position on the y to move the cursor to
  */
 void s4396122_util_print_move(int x, int y) {
-    debug_printf("\033[%d;%dH", x, y);
+    s4396122_os_print("\033[%d;%dH", x, y);
 }
 
 /**
  * @brief Clears the serial screen
  */
 void s4396122_util_print_clear() {
-    debug_printf("\033[2J");
+    s4396122_os_print("\033[2J");
 }
 
 /**
@@ -30,7 +30,7 @@ void s4396122_util_print_clear() {
  * @param sgr The color to set to
  */
 void s4396122_util_print_color(int sgr) {
-    debug_printf("\033[%dm", sgr);
+    s4396122_os_print("\033[%dm", sgr);
 }
 
 /**
@@ -64,7 +64,7 @@ void s4396122_util_print_reverse() {
 void error(const char *s, const char *fileName, int lineNo) {
     s4396122_util_print_color(s4396122_util_print_red);
     s4396122_util_print_bold();
-    debug_printf("%s - %s:%d\n", s, fileName, lineNo);
+    s4396122_os_print("%s - %s:%d\n", s, fileName, lineNo);
     s4396122_util_print_reset();
 }
 
@@ -78,7 +78,7 @@ void error(const char *s, const char *fileName, int lineNo) {
 void warn(const char *s, const char *fileName, int lineNo) {
     s4396122_util_print_color(s4396122_util_print_yellow);
     s4396122_util_print_bold();
-    debug_printf("%s - %s:%d\n", s, fileName, lineNo);
+    s4396122_os_print("%s - %s:%d\n", s, fileName, lineNo);
     s4396122_util_print_reset();
 }
 
@@ -92,7 +92,7 @@ void warn(const char *s, const char *fileName, int lineNo) {
 void info(const char *s, const char *fileName, int lineNo) {
     s4396122_util_print_color(s4396122_util_print_blue);
     s4396122_util_print_bold();
-    debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
+    s4396122_os_print("[%s:%d] %s\n", fileName, lineNo, s);
     s4396122_util_print_reset();
 }
 
@@ -105,7 +105,7 @@ void info(const char *s, const char *fileName, int lineNo) {
  */
 void debug(const char *s, const char *fileName, int lineNo) {
     #ifdef SDEBUG
-        debug_printf("[%s:%d] %s\n", fileName, lineNo, s);
+        s4396122_os_print("[%s:%d] %s\n", fileName, lineNo, s);
     #endif
 }
 
@@ -134,9 +134,11 @@ void print(int errorType, const char *fileName, int lineNo, const char *format, 
         case 2:
             info(buffer, fileName, lineNo);
             break;
-        default:
+        case 3:
             debug(buffer, fileName, lineNo);
             break;
+        default:
+            s4396122_os_print("%s\n", buffer);
     }
     debug_flush();
 }
