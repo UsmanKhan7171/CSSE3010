@@ -25,8 +25,19 @@
 #define mainTask_PRIORITY (tskIDLE_PRIORITY + 2)
 #define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 6)
 
+// Task Holding struct
+struct TaskHolder {
+    char *name;
+    TaskFunction_t function;
+    unsigned short stackDepth;
+    UBaseType_t priority;
+};
+
+// Global variables
 struct tcpConnection currentConn;
 char *pcOutputString;
+struct TaskHolder deleteTasks[20];
+int deleteTasksPos;
 
 // Commands
 static BaseType_t prvTimeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
@@ -119,6 +130,8 @@ void Hardware_init() {
 
     BRD_LEDInit();
     BRD_LEDOn();
+
+    deleteTasksPos = 0;
 
     portENABLE_INTERRUPTS();
 }
@@ -317,10 +330,49 @@ static BaseType_t prvResumeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
 }
 
 static BaseType_t prvDeleteCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    
+    long paramLen;
+    const char *taskName = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    TaskHandle_t taskHandle = xTaskGetHandle(taskName);
+    if (taskHandle == NULL) {
+        xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid Task Name\n");
+        return pdFALSE;
+    }
+    TaskStatus_t taskStatus;
+    vTaskGetInfo(taskHandle, &taskStatus, pdFALSE, eRunning);
+
+    struct TaskHolder currentTask;
+    currentTask.name = taskStatus.pcTaskName;
+    currentTask.priority = taskStatus.uxCurrentPriority;
+    currentTask.stackDepth = configMINIMAL_STACK_SIZE * 4;
+    currentTask.function = &LED_Task;
+
+    deleteTasks[deleteTasksPos++] = currentTask;
+    if (deleteTasksPos >= 20)
+        deleteTasksPos = 19;
+
+    vTaskDelete(taskHandle);
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+
     return pdFALSE;
 }
 
 static BaseType_t prvCreateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *taskName = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    for (int i = 0; i < deleteTasksPos; i++) {
+        if (strcmp(taskName, deleteTasks[i].name) == 0) {
+            xTaskCreate(deleteTasks[i].function, deleteTasks[i].name, deleteTasks[i].stackDepth, NULL, deleteTasks[i].priority, NULL);
+            xWriteBufferLen = sprintf(pcWriteBuffer, "");
+            return pdFALSE;
+        }
+    }
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "Could not create task\n");
     return pdFALSE;
 }
 
