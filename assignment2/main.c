@@ -36,8 +36,8 @@ struct TaskHolder {
 // Global variables
 struct tcpConnection currentConn;
 char *pcOutputString;
-struct TaskHolder deleteTasks[20];
-int deleteTasksPos;
+struct TaskHolder tasks[20];
+int tasksPos;
 
 // Commands
 static BaseType_t prvTimeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
@@ -131,7 +131,7 @@ void Hardware_init() {
     BRD_LEDInit();
     BRD_LEDOn();
 
-    deleteTasksPos = 0;
+    tasksPos = 0;
 
     portENABLE_INTERRUPTS();
 }
@@ -212,13 +212,22 @@ int main() {
 
     Hardware_init(); // Initialise peripherials
     LwIP_Init();
+
+    struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, mainLED_PRIORITY};
+    struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, mainTask_PRIORITY};
+    
+    tasks[tasksPos++] = LEDTask;
+    tasks[tasksPos++] = MainTask;
+
+    for (int i = 0; i < tasksPos; i++) {
+        xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);
+    }
     
     // Create the LED Task
-    xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL,
-        mainLED_PRIORITY, NULL);
+    /*xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL, mainLED_PRIORITY, NULL);*/
 
     // Create Task to handle the serial/network input
-    xTaskCreate(&main_Task, "Main", mainTask_TASK_STACK_SIZE, NULL, mainTask_PRIORITY, NULL);
+    /*xTaskCreate(&main_Task, "Main", mainTask_TASK_STACK_SIZE, NULL, mainTask_PRIORITY, NULL);*/
 
     // Register CLI commands
     FreeRTOS_CLIRegisterCommand(&xTime);
@@ -227,6 +236,11 @@ int main() {
     FreeRTOS_CLIRegisterCommand(&xResume);
     FreeRTOS_CLIRegisterCommand(&xDelete);
     FreeRTOS_CLIRegisterCommand(&xCreate);
+    FreeRTOS_CLIRegisterCommand(&xChar);
+    FreeRTOS_CLIRegisterCommand(&xColour);
+    FreeRTOS_CLIRegisterCommand(&xText);
+    FreeRTOS_CLIRegisterCommand(&xPoly);
+    FreeRTOS_CLIRegisterCommand(&xClear);
 
     // Hands main loop control over to freertos. This should never exit
     vTaskStartScheduler();
@@ -339,23 +353,10 @@ static BaseType_t prvDeleteCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
         xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid Task Name\n");
         return pdFALSE;
     }
-    TaskStatus_t taskStatus;
-    vTaskGetInfo(taskHandle, &taskStatus, pdFALSE, eRunning);
-
-    struct TaskHolder currentTask;
-    currentTask.name = taskStatus.pcTaskName;
-    currentTask.priority = taskStatus.uxCurrentPriority;
-    currentTask.stackDepth = configMINIMAL_STACK_SIZE * 4;
-    currentTask.function = &LED_Task;
-
-    deleteTasks[deleteTasksPos++] = currentTask;
-    if (deleteTasksPos >= 20)
-        deleteTasksPos = 19;
 
     vTaskDelete(taskHandle);
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
-
     return pdFALSE;
 }
 
@@ -364,9 +365,9 @@ static BaseType_t prvCreateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
     long paramLen;
     const char *taskName = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
 
-    for (int i = 0; i < deleteTasksPos; i++) {
-        if (strcmp(taskName, deleteTasks[i].name) == 0) {
-            xTaskCreate(deleteTasks[i].function, deleteTasks[i].name, deleteTasks[i].stackDepth, NULL, deleteTasks[i].priority, NULL);
+    for (int i = 0; i < tasksPos; i++) {
+        if (strcmp(taskName, tasks[i].name) == 0) {
+            xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);
             xWriteBufferLen = sprintf(pcWriteBuffer, "");
             return pdFALSE;
         }
