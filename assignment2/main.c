@@ -246,10 +246,38 @@ static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
 }
 
 static BaseType_t prvSuspendCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *taskName = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    TaskHandle_t taskHandle = xTaskGetHandle(taskName);
+    if (taskHandle == NULL) {
+        xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid Task Name\n");
+        return pdFALSE;
+    }
+
+    vTaskSuspend(taskHandle);
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+
     return pdFALSE;
 }
 
 static BaseType_t prvResumeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *taskName = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    TaskHandle_t taskHandle = xTaskGetHandle(taskName);
+    if (taskHandle == NULL) {
+        xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid Task Name\n");
+        return pdFALSE;
+    }
+
+    vTaskResume(taskHandle);
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+
     return pdFALSE;
 }
 
