@@ -35,6 +35,11 @@ static BaseType_t prvSuspendCommand(char *pcWriteBuffer, size_t xWriteBufferLen,
 static BaseType_t prvResumeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 static BaseType_t prvDeleteCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 static BaseType_t prvCreateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvCharCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvColourCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvTextCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvPolyCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvClearCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 
 // Command Variables
 CLI_Command_Definition_t xTime = {
@@ -71,6 +76,36 @@ CLI_Command_Definition_t xCreate = {
     "create",
     "create:\n Create a mylib OS peripheral task with a given name\n\n",
     prvCreateCommand,
+    1
+};
+CLI_Command_Definition_t xChar = {
+    "char",
+    "char:\n Draw an alphanumeric character\n\n",
+    prvCharCommand,
+    1
+};
+CLI_Command_Definition_t xColour = {
+    "colour",
+    "colour:\n Change the colour of the pen\n\n",
+    prvColourCommand,
+    1
+};
+CLI_Command_Definition_t xText = {
+    "text",
+    "text:\n Draw a text string, up to 10 characters long\n\n",
+    prvTextCommand,
+    1
+};
+CLI_Command_Definition_t xPoly = {
+    "poly",
+    "poly:\n Draw a regular polygon\n\n",
+    prvPolyCommand,
+    1
+};
+CLI_Command_Definition_t xClear = {
+    "clear",
+    "clear:\n Clear the last drawn command\n\n",
+    prvClearCommand,
     1
 };
 
@@ -286,5 +321,30 @@ static BaseType_t prvDeleteCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
 }
 
 static BaseType_t prvCreateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    return pdFALSE;
+}
+
+static BaseType_t prvCharCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    return pdFALSE;
+}
+
+static BaseType_t prvColourCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    return pdFALSE;
+}
+
+static BaseType_t prvTextCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    return pdFALSE;
+}
+
+static BaseType_t prvPolyCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    return pdFALSE;
+}
+
+static BaseType_t prvClearCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
