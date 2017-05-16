@@ -41,6 +41,26 @@ void s4396122_util_iter_add_tail(Iter *i, int d) {
     i->size++;
 }
 
+void s4396122_util_iter_remove_head(Iter *i) {
+    struct IterElement *e = i->head;
+    if (e == NULL)
+        return;
+    i->head = i->head->next;
+    if (i->pos == e)
+        i->pos = i->head;
+    free(e);
+}
+
+void s4396122_util_iter_remove_tail(Iter *i) {
+    struct IterElement *e = i->tail;
+    if (e == NULL)
+        return;
+    i->tail = i->tail->prev;
+    if (i->pos == e)
+        i->pos = i->tail;
+    free(e);
+}
+
 int s4396122_util_iter_get_pos(Iter *i) {
     return i->pos->data;
 }

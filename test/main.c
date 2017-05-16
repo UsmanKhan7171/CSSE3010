@@ -86,6 +86,11 @@ void test_iter() {
     s4396122_util_iter_add_head(i, 2);
     TEST(s4396122_util_iter_get_next(i) == 2);
     TEST(s4396122_util_iter_jump_head(i) == 2);
+    // Array: 2, 0, 1
+    s4396122_util_iter_remove_head(i);
+    TEST(s4396122_util_iter_get_next(i) == 1);
+    s4396122_util_iter_remove_tail(i);
+    TEST(s4396122_util_iter_get_pos(i) == 0);
 }
 
 /**
