@@ -87,10 +87,12 @@
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 120 )
 #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 18 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 16 )
-#define configUSE_TRACE_FACILITY	0
+#define configUSE_TRACE_FACILITY	1
 #define configUSE_16_BIT_TICKS		0
 #define configIDLE_SHOULD_YIELD		1
-#define configCOMMAND_INT_MAX_OUTPUT_SIZE 100
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE 1024
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (0)
+#define portGET_RUN_TIME_COUNTER_VALUE() HAL_GetTick()
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 		0
@@ -102,7 +104,7 @@
 #define configCHECK_FOR_STACK_OVERFLOW	2
 #define configUSE_RECURSIVE_MUTEXES		1
 #define configQUEUE_REGISTRY_SIZE		0
-#define configGENERATE_RUN_TIME_STATS	0
+#define configGENERATE_RUN_TIME_STATS	1
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */

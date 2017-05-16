@@ -190,6 +190,58 @@ static BaseType_t prvTimeCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
 }
 
 static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    unsigned long ulTotalRunTime;
+    UBaseType_t uxArraySize = uxTaskGetNumberOfTasks();
+    TaskStatus_t *pxTaskStatusArray = pvPortMalloc(uxArraySize * sizeof(TaskStatus_t));
+    uxArraySize = uxTaskGetSystemState(pxTaskStatusArray, uxArraySize, &ulTotalRunTime);
+    ulTotalRunTime /= 100UL;
+
+    char *pcWriteBufferPos = pcWriteBuffer;
+    int bufferSize = 0;
+
+    int writeSize = sprintf(pcWriteBufferPos, "   %-9s  %9s  %9s  %9s  %9s  %9s\n", "Name", "Priority", "Run Time", "CPU Usage", "Stack Rem", "Status");
+    pcWriteBufferPos += writeSize;
+    bufferSize += writeSize;
+
+    for (UBaseType_t i = 0; i < uxArraySize; i++) {
+        unsigned long ulStatsAsPercentage = pxTaskStatusArray[i].ulRunTimeCounter / ulTotalRunTime;
+        char *stateName;
+        switch(pxTaskStatusArray[i].eCurrentState) {
+            case eReady:
+                stateName = "Ready";
+                break;
+            case eRunning:
+                stateName = "Running";
+                break;
+            case eBlocked:
+                stateName = "Blocked";
+                break;
+            case eSuspended:
+                stateName = "Suspended";
+                break;
+            case eDeleted:
+                stateName = "Deleted";
+                break;
+            default:
+                stateName = "Unknown";
+                break;
+        }
+        int writeSize = sprintf(pcWriteBufferPos, "%2d:%-9s  %9lu  %9lu  %8lu%%  %9u  %9s\n",
+                pxTaskStatusArray[i].xTaskNumber,
+                pxTaskStatusArray[i].pcTaskName,
+                pxTaskStatusArray[i].uxCurrentPriority,
+                pxTaskStatusArray[i].ulRunTimeCounter,
+                ulStatsAsPercentage,
+                pxTaskStatusArray[i].usStackHighWaterMark,
+                stateName
+                );
+        pcWriteBufferPos += writeSize;
+        bufferSize += writeSize;
+    }
+
+    xWriteBufferLen = bufferSize;
+
     return pdFALSE;
 }
 
