@@ -11,12 +11,13 @@
 #include "FreeRTOSConfig.h"
 #include "board.h"
 #include <stdio.h>
+#include "s4396122_hal_tcp.h"
+#include "s4396122_os_draw.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "s4396122_hal_tcp.h"
 #include "FreeRTOS_CLI.h"
 
 // Task Priorities
@@ -91,9 +92,9 @@ CLI_Command_Definition_t xCreate = {
 };
 CLI_Command_Definition_t xChar = {
     "char",
-    "char:\n Draw an alphanumeric character\n\n",
+    "char:\n Draw an alphanumeric character. (x, y, c)\n\n",
     prvCharCommand,
-    1
+    3
 };
 CLI_Command_Definition_t xColour = {
     "colour",
@@ -103,21 +104,21 @@ CLI_Command_Definition_t xColour = {
 };
 CLI_Command_Definition_t xText = {
     "text",
-    "text:\n Draw a text string, up to 10 characters long\n\n",
+    "text:\n Draw a text string, up to 10 characters long. (x, y, str)\n\n",
     prvTextCommand,
-    1
+    3
 };
 CLI_Command_Definition_t xPoly = {
     "poly",
-    "poly:\n Draw a regular polygon\n\n",
+    "poly:\n Draw a regular polygon. (x, y, l, o)\n\n",
     prvPolyCommand,
-    1
+    4
 };
 CLI_Command_Definition_t xClear = {
     "clear",
     "clear:\n Clear the last drawn command\n\n",
     prvClearCommand,
-    1
+    0
 };
 
 /**
@@ -127,6 +128,7 @@ void Hardware_init() {
     portDISABLE_INTERRUPTS();
 
     BRD_init();
+    s4396122_os_draw_init();
 
     BRD_LEDInit();
     BRD_LEDOn();
@@ -378,26 +380,62 @@ static BaseType_t prvCreateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
 }
 
 static BaseType_t prvCharCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    int x, y;
+    char c;
+    sscanf(arguments, "%d %d %c", &x, &y, &c);
+    s4396122_os_draw_add_char(x, y, c);
+
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
 
 static BaseType_t prvColourCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *colour = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+    s4396122_os_draw_change_pen(colour[0]);
+
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
 
 static BaseType_t prvTextCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    int x, y;
+    char str[12];
+    sscanf(arguments, "%d %d %s", &x, &y, str);
+    for (int i = 0; i < strlen(str); i++) {
+        s4396122_os_draw_add_char(x + i, y, str[i]);
+    }
+
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
 
 static BaseType_t prvPolyCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    long paramLen;
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    int x, y, length, degree;
+    sscanf(arguments, "%d %d %d %d", &x, &y, &length, &degree);
+    s4396122_os_draw_add_poly(x, y, length, degree);
+
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
 
 static BaseType_t prvClearCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    s4396122_os_draw_remove_top();
+
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }
