@@ -19,6 +19,10 @@
 #include "task.h"
 #include "queue.h"
 #include "FreeRTOS_CLI.h"
+#include "usbd_hid.h"
+#include "usbd_conf.h"
+#include "usbd_core.h"
+#include "usbd_desc.h"
 
 // Task Priorities
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 3)
@@ -121,6 +125,200 @@ CLI_Command_Definition_t xClear = {
     0
 };
 
+#define USBD_VID                   0x0483
+#define USBD_PID                   0x572B
+#define USBD_LANGID_STRING         0x409
+#define USBD_MANUFACTURER_STRING   "STMicroelectronics"
+#define USBD_PRODUCT_HS_STRING        "HID Joystick in HS Mode"
+#define USBD_SERIALNUMBER_HS_STRING   "00000000001A"
+#define USBD_PRODUCT_FS_STRING        "HID Joystick in FS Mode"
+#define USBD_SERIALNUMBER_FS_STRING   "00000000001B"
+#define USBD_CONFIGURATION_HS_STRING  "HID Config"
+#define USBD_INTERFACE_HS_STRING      "HID Interface"
+#define USBD_CONFIGURATION_FS_STRING  "HID Config"
+#define USBD_INTERFACE_FS_STRING      "HID Interface"
+
+uint8_t *     USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_ManufacturerStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_ProductStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *     USBD_HID_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+
+#ifdef USB_SUPPORT_USER_STRING_DESC
+uint8_t *     USBD_HID_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uint16_t *length);  
+#endif /* USB_SUPPORT_USER_STRING_DESC */  
+
+
+USBD_DescriptorsTypeDef HID_Desc =
+{
+  USBD_HID_DeviceDescriptor,
+  USBD_HID_LangIDStrDescriptor, 
+  USBD_HID_ManufacturerStrDescriptor,
+  USBD_HID_ProductStrDescriptor,
+  USBD_HID_SerialStrDescriptor,
+  USBD_HID_ConfigStrDescriptor,
+  USBD_HID_InterfaceStrDescriptor,
+  
+};
+
+/* USB Standard Device Descriptor */
+#if defined ( __ICCARM__ ) /*!< IAR Compiler */
+  #pragma data_alignment=4   
+#endif
+__ALIGN_BEGIN uint8_t hUSBDDeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END;
+
+/* USB Standard Device Descriptor */
+#if defined ( __ICCARM__ ) /*!< IAR Compiler */
+  #pragma data_alignment=4   
+#endif
+__ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END;
+
+#if defined ( __ICCARM__ ) /*!< IAR Compiler */
+  #pragma data_alignment=4   
+#endif
+__ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
+/**
+  * @}
+  */ 
+
+
+/** @defgroup USBD_DESC_Private_FunctionPrototypes
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+
+/** @defgroup USBD_DESC_Private_Functions
+  * @{
+  */ 
+
+/**
+* @brief  USBD_HID_DeviceDescriptor 
+*         return the device descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  *length = sizeof(hUSBDDeviceDesc);
+  return hUSBDDeviceDesc;
+}
+
+/**
+* @brief  USBD_HID_LangIDStrDescriptor 
+*         return the LangID string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  *length =  sizeof(USBD_LangIDDesc);  
+  return USBD_LangIDDesc;
+}
+
+
+/**
+* @brief  USBD_HID_ProductStrDescriptor 
+*         return the product string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_ProductStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  if(speed == 0)
+  {   
+    USBD_GetString ((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
+  }
+  else
+  {
+    USBD_GetString ((uint8_t *)USBD_PRODUCT_FS_STRING, USBD_StrDesc, length);
+  }
+  return USBD_StrDesc;
+}
+
+/**
+* @brief  USBD_HID_ManufacturerStrDescriptor 
+*         return the manufacturer string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_ManufacturerStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  USBD_GetString ((uint8_t *)USBD_MANUFACTURER_STRING, USBD_StrDesc, length);
+  return USBD_StrDesc;
+}
+
+/**
+* @brief  USBD_HID_SerialStrDescriptor 
+*         return the serial number string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  if(speed  == USBD_SPEED_HIGH)
+  {    
+    USBD_GetString ((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
+  }
+  else
+  {
+    USBD_GetString ((uint8_t *)USBD_SERIALNUMBER_FS_STRING, USBD_StrDesc, length);
+  }
+  return USBD_StrDesc;
+}
+
+/**
+* @brief  USBD_HID_ConfigStrDescriptor 
+*         return the configuration string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  if(speed  == USBD_SPEED_HIGH)
+  {  
+    USBD_GetString ((uint8_t *)USBD_CONFIGURATION_HS_STRING, USBD_StrDesc, length);
+  }
+  else
+  {
+    USBD_GetString ((uint8_t *)USBD_CONFIGURATION_FS_STRING, USBD_StrDesc, length);
+  }
+  return USBD_StrDesc;  
+}
+
+
+/**
+* @brief  USBD_HID_InterfaceStrDescriptor 
+*         return the interface string descriptor
+* @param  speed : current device speed
+* @param  length : pointer to data length variable
+* @retval pointer to descriptor buffer
+*/
+uint8_t *  USBD_HID_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
+{
+  if(speed == 0)
+  {
+    USBD_GetString ((uint8_t *)USBD_INTERFACE_HS_STRING, USBD_StrDesc, length);
+  }
+  else
+  {
+    USBD_GetString ((uint8_t *)USBD_INTERFACE_FS_STRING, USBD_StrDesc, length);
+  }
+  return USBD_StrDesc;  
+}
+
+USBD_HandleTypeDef device;
+
 /**
  * Initializes the hardware
  */
@@ -128,6 +326,13 @@ void Hardware_init() {
     portDISABLE_INTERRUPTS();
 
     BRD_init();
+
+    /*USBD_HID_Init(&device, 0);*/
+    /*USBD_HID.Init(&device, 0);*/
+    USBD_Init(&device, &HID_Desc, 0);
+    USBD_RegisterClass(&device, &USBD_HID);
+    USBD_Start(&device);
+    
     s4396122_os_draw_init();
 
     BRD_LEDInit();
@@ -200,8 +405,21 @@ void main_Task() {
  * Blinking LED Task to ensure a visual feedback that system is alive
  */
 void LED_Task() {
+
+    int8_t buff[4];
+    buff[0] = 0x00; // Buttons
+    buff[1] = 10; // X
+    buff[2] = 10; // Y
+    buff[3] = 255;
+
+    /*int8_t buff2[5] = {0x02, 0, 0, 0, 0};*/
+
+
     while (1) {
         BRD_LEDToggle();
+        USBD_HID_SendReport(&device, buff, 4);
+        /*USBD_HID_SendReport(&device, buff2, 5);*/
+        /*buff[3] *= -1;*/
         vTaskDelay(250);
     }
 }
