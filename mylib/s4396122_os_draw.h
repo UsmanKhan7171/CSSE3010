@@ -39,8 +39,20 @@ uint8_t *     USBD_HID_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uin
 #endif /* USB_SUPPORT_USER_STRING_DESC */  
 USBD_DescriptorsTypeDef HID_Desc;
 
-char s4396122_os_draw_number_to_segment[10];
-char s4396122_os_draw_letter_to_segment[26];
+#define OS_DRAW_LINE_WIDTH 10
+#define OS_DRAW_LINE_HEIGHT 20
+#define OS_DRAW_CANVAS_OFFSET_X -100
+#define OS_DRAW_CANVAS_OFFSET_Y -100
+#define OS_DRAW_LINE_PADDING 2
+#define OS_DRAW_LINE_LENGTH 8
+
+#define OS_DRAW_RECTANGLE_X -125
+#define OS_DRAW_RECTANGLE_Y -90
+#define OS_DRAW_PEN_X -125
+#define OS_DRAW_PEN_Y -90
+
+extern char s4396122_os_draw_number_to_segment[10];
+extern char s4396122_os_draw_letter_to_segment[26];
 
 struct MouseCommand {
     int leftMouse;
@@ -48,10 +60,17 @@ struct MouseCommand {
     int yMovement;
 };
 
+struct DrawChar {
+    int x;
+    int y;
+    int c;
+};
+
 void s4396122_DrawerTask();
 void s4396122_os_draw_init();
 void s4396122_os_draw_add_char(int x, int y, char c);
 void s4396122_os_draw_add_poly(int x, int y, int length, int degree);
+void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2);
 void s4396122_os_draw_change_pen(char c);
 void s4396122_os_draw_redraw();
 void s4396122_os_draw_remove_top();

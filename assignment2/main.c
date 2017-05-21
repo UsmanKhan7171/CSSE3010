@@ -392,10 +392,21 @@ static BaseType_t prvCharCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
 
     int x, y;
     char c;
+    char d;
     sscanf(arguments, "%d %d %c", &x, &y, &c);
-    s4396122_os_draw_add_char(x, y, c);
+    if (c >= 'a' && c <= 'z') {
+        d = s4396122_os_draw_letter_to_segment[c - 'a'];
+    } else if (c >= 'A' && c <= 'Z') {
+        d = s4396122_os_draw_letter_to_segment[c - 'A'];
+    } else if (c >= '0' && c <= '9') {
+        d = s4396122_os_draw_number_to_segment[c - '0'];
+    } else {
+        xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid character\n");
+        return pdFALSE;
+    }
+    s4396122_os_draw_add_char(x, y, d);
 
-    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    xWriteBufferLen = sprintf(pcWriteBuffer, "Drawing: %02X\n", d);
     return pdFALSE;
 }
 
@@ -418,10 +429,21 @@ static BaseType_t prvTextCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
     char str[12];
     sscanf(arguments, "%d %d %s", &x, &y, str);
     for (int i = 0; i < strlen(str); i++) {
-        s4396122_os_draw_add_char(x + i, y, str[i]);
+        char d;
+        if (str[i] >= 'a' && str[i] <= 'z')
+            d = s4396122_os_draw_letter_to_segment[str[i] - 'a'];
+        else if (str[i] >= 'A' && str[i] <= 'Z')
+            d = s4396122_os_draw_letter_to_segment[str[i] - 'A'];
+        else if (str[i] >= '0' && str[i] <= '9')
+            d = s4396122_os_draw_number_to_segment[str[i] - '0'];
+        else {
+            xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid Character at: %d\n", i);
+            return pdFALSE;
+        }
+        s4396122_os_draw_add_char(x + i, y, d);
     }
 
-    xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    xWriteBufferLen = sprintf(pcWriteBuffer, "(%d, %d)\n", x, y);
     return pdFALSE;
 }
 

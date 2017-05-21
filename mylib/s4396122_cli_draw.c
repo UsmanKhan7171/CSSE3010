@@ -35,12 +35,20 @@ CLI_Command_Definition_t xLine = {
     4
 };
 
+CLI_Command_Definition_t xReset = {
+    "reset",
+    "reset:\n Clears the canvas for a fresh drawing\n\n",
+    prvResetCommand,
+    0
+};
+
 void s4396122_cli_draw_init() {
     FreeRTOS_CLIRegisterCommand(&xMove);
     FreeRTOS_CLIRegisterCommand(&xPenDown);
     FreeRTOS_CLIRegisterCommand(&xPenUp);
     FreeRTOS_CLIRegisterCommand(&xBox);
     FreeRTOS_CLIRegisterCommand(&xLine);
+    FreeRTOS_CLIRegisterCommand(&xReset);
 }
 
 static BaseType_t prvMoveCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
@@ -68,12 +76,12 @@ static BaseType_t prvPenUpCommand(char *pcWriteBuffer, size_t xWriteBufferLen, c
 
 static BaseType_t prvBoxCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
     s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(-100, -100);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
     s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_move_mouse(-100, 100);
-    s4396122_os_draw_move_mouse(100, 100);
-    s4396122_os_draw_move_mouse(100, -100);
-    s4396122_os_draw_move_mouse(-100, -100);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, OS_DRAW_CANVAS_OFFSET_Y - 2);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 2, OS_DRAW_CANVAS_OFFSET_Y - 2);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
     s4396122_os_draw_mouse_button(0);
     xWriteBufferLen = sprintf((char *) pcWriteBuffer, "");
     return pdFALSE;
@@ -85,12 +93,15 @@ static BaseType_t prvLineCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
 
     int x1, y1, x2, y2;
     sscanf(arguments, "%d %d %d %d", &x1, &y1, &x2, &y2);
-    s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(x1, y1);
-    s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_move_mouse(x1, y1);
-    s4396122_os_draw_move_mouse(x2, y2);
-    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_add_line(x1, y1, x2, y2);
     xWriteBufferLen = sprintf((char *) pcWriteBuffer, "Drawing (%d, %d) to (%d, %d)\n", x1, y1, x2, y2);
+    return pdFALSE;
+}
+
+static BaseType_t prvResetCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+
+    s4396122_os_draw_mouse_button(0);
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }

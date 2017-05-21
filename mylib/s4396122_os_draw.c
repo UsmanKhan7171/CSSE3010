@@ -1,6 +1,6 @@
 #include "s4396122_os_draw.h"
 
-Iter *drawList;
+Queue *drawList;
 SemaphoreHandle_t s4396122_SemaphoreDrawList;
 Queue *mouseQueue;
 SemaphoreHandle_t s4396122_SemaphoreMouseQueue;
@@ -10,11 +10,77 @@ int leftMouseState;
 int lastMouseX;
 int lastMouseY;
 
+char s4396122_os_draw_number_to_segment[] = {
+    0x77,   // 0
+    0x22,   // 1
+    0x5B,   // 2
+    0x6B,   // 3
+    0x2E,   // 4
+    0x6D,   // 5
+    0x7D,   // 6
+    0x27,   // 7
+    0x7F,   // 8
+    0x6F    // 9
+};
+char s4396122_os_draw_letter_to_segment[] = {
+    0x3F,   // a
+    0x7C,   // b
+    0x58,   // c
+    0x7A,   // d
+    0x5D,   // e
+    0x1D,   // f
+    0x6F,   // g
+    0x3C,   // h
+    0x22,   // i
+    0x72,   // j
+    0x1C,   // k
+    0x54,   // l
+    0x38,   // m
+    0x38,   // n
+    0x78,   // o
+    0x1F,   // p
+    0x2F,   // q
+    0x18,   // r
+    0x6D,   // s
+    0x15,   // t
+    0x70,   // u
+    0x30,   // v
+    0x70,   // w
+    0x48,   // x
+    0x6E,   // y
+    0x5B    // z
+};
+
 void s4396122_DrawerTask() {
     
     while (1) {
+
+        if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
+            while (s4396122_util_queue_size(drawList) > 0) {
+                struct DrawChar *c = s4396122_util_queue_pop(drawList);
+                int origX = c->x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
+                int origY = c->y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
+                if (c->c & 0x01)
+                    s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
+                if (c->c & 0x02)
+                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c & 0x04)
+                    s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c & 0x08)
+                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c & 0x10)
+                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
+                if (c->c & 0x20)
+                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                if (c->c & 0x40)
+                    s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                free(c);
+            }
+            xSemaphoreGive(s4396122_SemaphoreDrawList);
+        }
+
         if (s4396122_SemaphoreMouseQueue != NULL && xSemaphoreTake(s4396122_SemaphoreMouseQueue, 1000)) {
-            if (s4396122_util_queue_size(mouseQueue) > 0) {
+            while (s4396122_util_queue_size(mouseQueue) > 0) {
                 struct MouseCommand *cmd = s4396122_util_queue_pop(mouseQueue);
                 uint8_t buff[4];
                 buff[0] = cmd->leftMouse;
@@ -23,9 +89,11 @@ void s4396122_DrawerTask() {
                 buff[3] = 0;
                 USBD_HID_SendReport(&hidDevice, buff, 4);
                 free(cmd);
+                vTaskDelay(10);
             }
             xSemaphoreGive(s4396122_SemaphoreMouseQueue);
         }
+
         vTaskDelay(100);
     }
 }
@@ -35,54 +103,13 @@ void s4396122_os_draw_init() {
     s4396122_SemaphoreMouseQueue = xSemaphoreCreateMutex();
     leftMouseState = 0;
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        drawList = s4396122_util_iter_create();
-        charLast = 2;
+        drawList = s4396122_util_queue_create();
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
     if (s4396122_SemaphoreMouseQueue != NULL && xSemaphoreTake(s4396122_SemaphoreMouseQueue, 1000)) {
         mouseQueue = s4396122_util_queue_create();
         xSemaphoreGive(s4396122_SemaphoreMouseQueue);
     }
-    char s4396122_os_draw_number_to_segment[10] = {
-        0x77,   // 0
-        0x22,   // 1
-        0x5B,   // 2
-        0x6B,   // 3
-        0x2E,   // 4
-        0x6D,   // 5
-        0x7D,   // 6
-        0x27,   // 7
-        0x7F,   // 8
-        0x6F    // 9
-    };
-    char s4396122_os_draw_letter_to_segment[26] = {
-        0x3F,   // a
-        0x7C,   // b
-        0x58,   // c
-        0x7A,   // d
-        0x5D,   // e
-        0x1D,   // f
-        0x6F,   // g
-        0x3C,   // h
-        0x22,   // i
-        0x72,   // j
-        0x1C,   // k
-        0x34,   // l
-        0x38,   // m
-        0x38,   // n
-        0x78,   // o
-        0x1F,   // p
-        0x2F,   // q
-        0x18,   // r
-        0x6D,   // s
-        0x15,   // t
-        0x70,   // u
-        0x30,   // v
-        0x70,   // w
-        0x48,   // x
-        0x6E,   // y
-        0x5B    // z
-    };
 
     USBD_Init(&hidDevice, &HID_Desc, 0);
     USBD_RegisterClass(&hidDevice, &USBD_HID);
@@ -90,10 +117,12 @@ void s4396122_os_draw_init() {
 }
 
 void s4396122_os_draw_add_char(int x, int y, char c) {
-    int d = c | (y << 8) | (x << 16) | (0 << 31);
-
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        s4396122_util_iter_add_tail(drawList, d);
+        struct DrawChar *d = malloc(sizeof(struct DrawChar));
+        d->x = x;
+        d->y = y;
+        d->c = c;
+        s4396122_util_queue_push(drawList, d);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
@@ -102,9 +131,17 @@ void s4396122_os_draw_add_poly(int x, int y, int length, int degree) {
     int d = length | (degree << 8) | (y << 16) | (x << 24) | (1 << 31);
 
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        s4396122_util_iter_add_tail(drawList, d);
+        /*s4396122_util_iter_add_tail(drawList, d);*/
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
+}
+
+void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2) {
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(x1, y1);
+    s4396122_os_draw_mouse_button(1);
+    s4396122_os_draw_move_mouse(x2, y2);
+    s4396122_os_draw_mouse_button(0);
 }
 
 void s4396122_os_draw_change_pen(char c) {
@@ -117,7 +154,7 @@ void s4396122_os_draw_redraw() {
 
 void s4396122_os_draw_remove_top() {
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        s4396122_util_iter_remove_tail(drawList);
+        /*s4396122_util_iter_remove_tail(drawList);*/
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
