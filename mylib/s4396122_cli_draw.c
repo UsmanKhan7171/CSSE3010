@@ -41,6 +41,12 @@ CLI_Command_Definition_t xReset = {
     prvResetCommand,
     0
 };
+CLI_Command_Definition_t xPen = {
+    "pen",
+    "pen:\n Sets the type of pen for drawing with.\n\n",
+    prvPenCommand,
+    1
+};
 
 void s4396122_cli_draw_init() {
     FreeRTOS_CLIRegisterCommand(&xMove);
@@ -49,6 +55,7 @@ void s4396122_cli_draw_init() {
     FreeRTOS_CLIRegisterCommand(&xBox);
     FreeRTOS_CLIRegisterCommand(&xLine);
     FreeRTOS_CLIRegisterCommand(&xReset);
+    FreeRTOS_CLIRegisterCommand(&xPen);
 }
 
 static BaseType_t prvMoveCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
@@ -76,12 +83,12 @@ static BaseType_t prvPenUpCommand(char *pcWriteBuffer, size_t xWriteBufferLen, c
 
 static BaseType_t prvBoxCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
     s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 1, -OS_DRAW_CANVAS_OFFSET_Y + 1);
     s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, OS_DRAW_CANVAS_OFFSET_Y - 2);
-    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 2, OS_DRAW_CANVAS_OFFSET_Y - 2);
-    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
-    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 2, -OS_DRAW_CANVAS_OFFSET_Y + 2);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 1, OS_DRAW_CANVAS_OFFSET_Y - 1);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 1, OS_DRAW_CANVAS_OFFSET_Y - 1);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X - 1, -OS_DRAW_CANVAS_OFFSET_Y + 1);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X + 1, -OS_DRAW_CANVAS_OFFSET_Y + 1);
     s4396122_os_draw_mouse_button(0);
     xWriteBufferLen = sprintf((char *) pcWriteBuffer, "");
     return pdFALSE;
@@ -101,7 +108,40 @@ static BaseType_t prvLineCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
 static BaseType_t prvResetCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
 
     s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
+    s4396122_os_draw_mouse_button(1);
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X, -OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_mouse_button(2);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X, OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
+    s4396122_os_draw_mouse_button(1);
+    s4396122_os_draw_mouse_button(0);
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
+    return pdFALSE;
+}
+
+static BaseType_t prvPenCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    long paramLen;
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    switch (arguments[0]) {
+        case 'p':
+            s4396122_os_draw_mouse_button(0);
+            s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
+            s4396122_os_draw_mouse_button(1);
+            s4396122_os_draw_mouse_button(0);
+            break;
+        case 'b':
+            s4396122_os_draw_mouse_button(0);
+            s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
+            s4396122_os_draw_mouse_button(1);
+            s4396122_os_draw_mouse_button(0);
+            break;
+    }
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "Selected Marker: %c\n", arguments[0]);
     return pdFALSE;
 }

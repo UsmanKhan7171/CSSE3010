@@ -49,7 +49,7 @@ USBD_DescriptorsTypeDef HID_Desc;
 #define OS_DRAW_RECTANGLE_X -125
 #define OS_DRAW_RECTANGLE_Y -90
 #define OS_DRAW_PEN_X -125
-#define OS_DRAW_PEN_Y -90
+#define OS_DRAW_PEN_Y -105
 
 extern char s4396122_os_draw_number_to_segment[10];
 extern char s4396122_os_draw_letter_to_segment[26];
