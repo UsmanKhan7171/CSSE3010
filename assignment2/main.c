@@ -414,7 +414,29 @@ static BaseType_t prvColourCommand(char *pcWriteBuffer, size_t xWriteBufferLen, 
 
     long paramLen;
     const char *colour = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
-    s4396122_os_draw_change_pen(colour[0]);
+
+    enum MouseColor c;
+    switch (colour[0]) {
+        case 'b':
+            c = BLUE;
+            break;
+        case 'd':
+            c = BLACK;
+            break;
+        case 'r':
+            c = RED;
+            break;
+        case 'o':
+            c = ORANGE;
+            break;
+        case 'w':
+            c = WHITE;
+            break;
+        default:
+            xWriteBufferLen = sprintf(pcWriteBuffer, "Invalid color\n");
+            return pdFALSE;
+    }
+    s4396122_os_draw_change_pen_color(c);
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;

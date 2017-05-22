@@ -127,20 +127,19 @@ static BaseType_t prvPenCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
     long paramLen;
     const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
 
+    enum MouseType t;
     switch (arguments[0]) {
         case 'p':
-            s4396122_os_draw_mouse_button(0);
-            s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
-            s4396122_os_draw_mouse_button(1);
-            s4396122_os_draw_mouse_button(0);
+            t = RECTANGLE;
             break;
         case 'b':
-            s4396122_os_draw_mouse_button(0);
-            s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
-            s4396122_os_draw_mouse_button(1);
-            s4396122_os_draw_mouse_button(0);
+            t = PEN;
             break;
+        default:
+            xWriteBufferLen = sprintf(pcWriteBuffer, "Unsupported value.\n");
+            return pdFALSE;
     }
+    s4396122_os_draw_change_pen_type(t);
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "Selected Marker: %c\n", arguments[0]);
     return pdFALSE;

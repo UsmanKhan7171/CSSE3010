@@ -144,8 +144,35 @@ void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2) {
     s4396122_os_draw_mouse_button(0);
 }
 
-void s4396122_os_draw_change_pen(char c) {
+void s4396122_os_draw_change_pen_color(enum MouseColor c) {
+    switch(c) {
+        case BLACK:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_BLACK_X, OS_DRAW_COLOR_BLACK_Y);
+            break;
+        case WHITE:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_WHITE_X, OS_DRAW_COLOR_WHITE_Y);
+            break;
+        case RED:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_RED_X, OS_DRAW_COLOR_RED_Y);
+            break;
+        case BLUE:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_BLUE_X, OS_DRAW_COLOR_BLUE_Y);
+            break;
+        case ORANGE:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_ORANGE_X, OS_DRAW_COLOR_ORANGE_Y);
+            break;
+    }
+}
 
+void s4396122_os_draw_change_pen_type(enum MouseType t) {
+    switch(t) {
+        case RECTANGLE:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
+            break;
+        case PEN:
+            OS_DRAW_MOVE_AND_CLICK(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
+            break;
+    }
 }
 
 void s4396122_os_draw_redraw() {

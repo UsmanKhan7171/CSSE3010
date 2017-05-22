@@ -50,6 +50,31 @@ USBD_DescriptorsTypeDef HID_Desc;
 #define OS_DRAW_RECTANGLE_Y -90
 #define OS_DRAW_PEN_X -125
 #define OS_DRAW_PEN_Y -105
+#define OS_DRAW_COLOR_BLACK_X -116
+#define OS_DRAW_COLOR_BLACK_Y 120
+#define OS_DRAW_COLOR_WHITE_X -116
+#define OS_DRAW_COLOR_WHITE_Y 123
+#define OS_DRAW_COLOR_RED_X -109
+#define OS_DRAW_COLOR_RED_Y 120
+#define OS_DRAW_COLOR_BLUE_X -96
+#define OS_DRAW_COLOR_BLUE_Y 120
+#define OS_DRAW_COLOR_ORANGE_X -106
+#define OS_DRAW_COLOR_ORANGE_Y 120
+
+#define OS_DRAW_MOVE_AND_CLICK(x, y) s4396122_os_draw_mouse_button(0); s4396122_os_draw_move_mouse(x, y); s4396122_os_draw_mouse_button(1); s4396122_os_draw_mouse_button(0);
+
+enum MouseColor {
+    BLACK,
+    WHITE,
+    RED,
+    BLUE,
+    ORANGE
+};
+
+enum MouseType {
+    RECTANGLE,
+    PEN
+};
 
 extern char s4396122_os_draw_number_to_segment[10];
 extern char s4396122_os_draw_letter_to_segment[26];
@@ -71,7 +96,8 @@ void s4396122_os_draw_init();
 void s4396122_os_draw_add_char(int x, int y, char c);
 void s4396122_os_draw_add_poly(int x, int y, int length, int degree);
 void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2);
-void s4396122_os_draw_change_pen(char c);
+void s4396122_os_draw_change_pen_color(enum MouseColor);
+void s4396122_os_draw_change_pen_type(enum MouseType);
 void s4396122_os_draw_redraw();
 void s4396122_os_draw_remove_top();
 void s4396122_os_draw_move_mouse(int xMovement, int yMovement);
