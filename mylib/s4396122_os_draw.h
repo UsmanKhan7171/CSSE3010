@@ -106,6 +106,8 @@ struct DrawCmd {
     int mode;
     struct DrawChar c;
     struct DrawPoly p;
+    enum MouseColor color;
+    enum MouseType type;
 };
 
 void s4396122_DrawerTask();
@@ -116,6 +118,7 @@ void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2);
 void s4396122_os_draw_change_pen_color(enum MouseColor);
 void s4396122_os_draw_change_pen_type(enum MouseType);
 void s4396122_os_draw_redraw();
+void s4396122_os_draw_reset();
 void s4396122_os_draw_remove_top();
 void s4396122_os_draw_move_mouse(int xMovement, int yMovement);
 void s4396122_os_draw_mouse_button(int leftMouse);

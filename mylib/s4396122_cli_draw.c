@@ -107,17 +107,7 @@ static BaseType_t prvLineCommand(char *pcWriteBuffer, size_t xWriteBufferLen, co
 
 static BaseType_t prvResetCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
 
-    s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
-    s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X, -OS_DRAW_CANVAS_OFFSET_Y);
-    s4396122_os_draw_mouse_button(2);
-    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X, OS_DRAW_CANVAS_OFFSET_Y);
-    s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
-    s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_reset();
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;

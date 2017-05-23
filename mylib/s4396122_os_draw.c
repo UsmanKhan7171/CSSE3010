@@ -9,6 +9,8 @@ USBD_HandleTypeDef hidDevice;
 int leftMouseState;
 int lastMouseX;
 int lastMouseY;
+enum MouseColor currentColor;
+enum MouseType currentType;
 
 char s4396122_os_draw_number_to_segment[] = {
     0x77,   // 0
@@ -55,45 +57,7 @@ void s4396122_DrawerTask() {
     
     while (1) {
 
-        if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-            while (s4396122_util_queue_size(drawList) > 0) {
-                struct DrawCmd *c = s4396122_util_queue_pop(drawList);
-                if (c->mode == OS_DRAW_CHAR_MODE) {
-                    int origX = c->c.x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
-                    int origY = c->c.y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
-                    if (c->c.c & 0x01)
-                        s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
-                    if (c->c.c & 0x02)
-                        s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
-                    if (c->c.c & 0x04)
-                        s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
-                    if (c->c.c & 0x08)
-                        s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
-                    if (c->c.c & 0x10)
-                        s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
-                    if (c->c.c & 0x20)
-                        s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
-                    if (c->c.c & 0x40)
-                        s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
-                } else if (c->mode == OS_DRAW_POLY_MODE) {
-                    double origX = c->p.x;
-                    double origY = c->p.y;
-                    double angle = 2 * M_PI / c->p.degree;
-                    s4396122_os_draw_mouse_button(0);
-                    s4396122_os_draw_move_mouse(100, 100);
-                    s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
-                    s4396122_os_draw_mouse_button(1);
-                    for (int i = 0; i < c->p.degree; i++) {
-                        origX += c->p.length * sin(angle * i);
-                        origY += c->p.length * cos(angle * i);
-                        s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
-                    }
-                    s4396122_os_draw_mouse_button(0);
-                }
-                free(c);
-            }
-            xSemaphoreGive(s4396122_SemaphoreDrawList);
-        }
+        s4396122_os_draw_redraw();
 
         if (s4396122_SemaphoreMouseQueue != NULL && xSemaphoreTake(s4396122_SemaphoreMouseQueue, 1000)) {
             while (s4396122_util_queue_size(mouseQueue) > 0) {
@@ -118,6 +82,8 @@ void s4396122_os_draw_init() {
     s4396122_SemaphoreDrawList = xSemaphoreCreateMutex();
     s4396122_SemaphoreMouseQueue = xSemaphoreCreateMutex();
     leftMouseState = 0;
+    currentColor = BLACK;
+    currentType = PEN;
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
         drawList = s4396122_util_queue_create();
         xSemaphoreGive(s4396122_SemaphoreDrawList);
@@ -139,6 +105,8 @@ void s4396122_os_draw_add_char(int x, int y, char c) {
         d->c.x = x;
         d->c.y = y;
         d->c.c = c;
+        d->color = currentColor;
+        d->type = currentType;
         s4396122_util_queue_push(drawList, d);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
@@ -152,6 +120,8 @@ void s4396122_os_draw_add_poly(int x, int y, int length, int degree) {
         d->p.y = y;
         d->p.length = length;
         d->p.degree = degree;
+        d->color = currentColor;
+        d->type = currentType;
         s4396122_util_queue_push(drawList, d);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
@@ -166,6 +136,7 @@ void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2) {
 }
 
 void s4396122_os_draw_change_pen_color(enum MouseColor c) {
+    currentColor = c;
     switch(c) {
         case BLACK:
             OS_DRAW_MOVE_AND_CLICK(OS_DRAW_COLOR_BLACK_X, OS_DRAW_COLOR_BLACK_Y);
@@ -186,6 +157,7 @@ void s4396122_os_draw_change_pen_color(enum MouseColor c) {
 }
 
 void s4396122_os_draw_change_pen_type(enum MouseType t) {
+    currentType = t;
     switch(t) {
         case RECTANGLE:
             OS_DRAW_MOVE_AND_CLICK(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
@@ -197,12 +169,82 @@ void s4396122_os_draw_change_pen_type(enum MouseType t) {
 }
 
 void s4396122_os_draw_redraw() {
+    if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
+        enum MouseColor origColor = currentColor;
+        enum MouseType origType = currentType;
+        Queue *newDrawList = s4396122_util_queue_create();
+        while (s4396122_util_queue_size(drawList) > 0) {
+            struct DrawCmd *c = s4396122_util_queue_pop(drawList);
+            s4396122_util_queue_push(newDrawList, c);
+            s4396122_os_draw_change_pen_color(c->color);
+            s4396122_os_draw_change_pen_type(c->type);
+            if (c->mode == OS_DRAW_CHAR_MODE) {
+                int origX = c->c.x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
+                int origY = c->c.y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
+                if (c->c.c & 0x01)
+                    s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
+                if (c->c.c & 0x02)
+                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c.c & 0x04)
+                    s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c.c & 0x08)
+                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                if (c->c.c & 0x10)
+                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
+                if (c->c.c & 0x20)
+                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                if (c->c.c & 0x40)
+                    s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+            } else if (c->mode == OS_DRAW_POLY_MODE) {
+                double origX = c->p.x;
+                double origY = c->p.y;
+                double angle = 2 * M_PI / c->p.degree;
+                s4396122_os_draw_mouse_button(0);
+                s4396122_os_draw_move_mouse(100, 100);
+                s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
+                s4396122_os_draw_mouse_button(1);
+                for (int i = 0; i < c->p.degree; i++) {
+                    origX += c->p.length * sin(angle * i);
+                    origY += c->p.length * cos(angle * i);
+                    s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
+                }
+                s4396122_os_draw_mouse_button(0);
+            }
+        }
+        s4396122_util_queue_free(drawList);
+        drawList = newDrawList;
+        s4396122_os_draw_change_pen_color(origColor);
+        s4396122_os_draw_change_pen_type(origType);
+        xSemaphoreGive(s4396122_SemaphoreDrawList);
+    }
+}
 
+void s4396122_os_draw_reset() {
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
+    s4396122_os_draw_mouse_button(1);
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X, -OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_mouse_button(2);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X, OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_mouse_button(0);
+    s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
+    s4396122_os_draw_mouse_button(1);
+    s4396122_os_draw_mouse_button(0);
 }
 
 void s4396122_os_draw_remove_top() {
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        /*s4396122_util_iter_remove_tail(drawList);*/
+        Queue *newDrawList = s4396122_util_queue_create();
+        while (s4396122_util_queue_size(drawList) > 1) {
+            s4396122_util_queue_push(newDrawList, s4396122_util_queue_pop(drawList));
+        }
+        if (s4396122_util_queue_size(drawList) > 0) {
+            free(s4396122_util_queue_pop(drawList));
+        }
+        drawList = newDrawList;
+        s4396122_os_draw_reset();
+        /*s4396122_os_draw_redraw();*/
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
