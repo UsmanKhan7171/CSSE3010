@@ -8,6 +8,7 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
+#include <math.h>
 
 #include "usbd_hid.h"
 #include "usbd_conf.h"
@@ -45,6 +46,7 @@ USBD_DescriptorsTypeDef HID_Desc;
 #define OS_DRAW_LINE_HEIGHT (OS_DRAW_LINE_LENGTH * 2 + OS_DRAW_LINE_PADDING)
 #define OS_DRAW_CANVAS_OFFSET_X -115
 #define OS_DRAW_CANVAS_OFFSET_Y -110
+#define OS_DRAW_CANVAS_MULTI_FACTOR (1.7)
 
 #define OS_DRAW_RECTANGLE_X -125
 #define OS_DRAW_RECTANGLE_Y -90
@@ -89,6 +91,21 @@ struct DrawChar {
     int x;
     int y;
     int c;
+};
+
+struct DrawPoly {
+    int x;
+    int y;
+    int length;
+    int degree;
+};
+
+#define OS_DRAW_POLY_MODE 1
+#define OS_DRAW_CHAR_MODE 2
+struct DrawCmd {
+    int mode;
+    struct DrawChar c;
+    struct DrawPoly p;
 };
 
 void s4396122_DrawerTask();

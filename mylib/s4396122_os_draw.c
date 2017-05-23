@@ -57,23 +57,39 @@ void s4396122_DrawerTask() {
 
         if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
             while (s4396122_util_queue_size(drawList) > 0) {
-                struct DrawChar *c = s4396122_util_queue_pop(drawList);
-                int origX = c->x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
-                int origY = c->y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
-                if (c->c & 0x01)
-                    s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
-                if (c->c & 0x02)
-                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
-                if (c->c & 0x04)
-                    s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
-                if (c->c & 0x08)
-                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
-                if (c->c & 0x10)
-                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
-                if (c->c & 0x20)
-                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
-                if (c->c & 0x40)
-                    s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                struct DrawCmd *c = s4396122_util_queue_pop(drawList);
+                if (c->mode == OS_DRAW_CHAR_MODE) {
+                    int origX = c->c.x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
+                    int origY = c->c.y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
+                    if (c->c.c & 0x01)
+                        s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
+                    if (c->c.c & 0x02)
+                        s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                    if (c->c.c & 0x04)
+                        s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
+                    if (c->c.c & 0x08)
+                        s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                    if (c->c.c & 0x10)
+                        s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
+                    if (c->c.c & 0x20)
+                        s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                    if (c->c.c & 0x40)
+                        s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                } else if (c->mode == OS_DRAW_POLY_MODE) {
+                    double origX = c->p.x;
+                    double origY = c->p.y;
+                    double angle = 2 * M_PI / c->p.degree;
+                    s4396122_os_draw_mouse_button(0);
+                    s4396122_os_draw_move_mouse(100, 100);
+                    s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
+                    s4396122_os_draw_mouse_button(1);
+                    for (int i = 0; i < c->p.degree; i++) {
+                        origX += c->p.length * sin(angle * i);
+                        origY += c->p.length * cos(angle * i);
+                        s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
+                    }
+                    s4396122_os_draw_mouse_button(0);
+                }
                 free(c);
             }
             xSemaphoreGive(s4396122_SemaphoreDrawList);
@@ -118,20 +134,25 @@ void s4396122_os_draw_init() {
 
 void s4396122_os_draw_add_char(int x, int y, char c) {
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        struct DrawChar *d = malloc(sizeof(struct DrawChar));
-        d->x = x;
-        d->y = y;
-        d->c = c;
+        struct DrawCmd *d = malloc(sizeof(struct DrawCmd));
+        d->mode = OS_DRAW_CHAR_MODE;
+        d->c.x = x;
+        d->c.y = y;
+        d->c.c = c;
         s4396122_util_queue_push(drawList, d);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
 
 void s4396122_os_draw_add_poly(int x, int y, int length, int degree) {
-    int d = length | (degree << 8) | (y << 16) | (x << 24) | (1 << 31);
-
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
-        /*s4396122_util_iter_add_tail(drawList, d);*/
+        struct DrawCmd *d = malloc(sizeof(struct DrawCmd));
+        d->mode = OS_DRAW_POLY_MODE;
+        d->p.x = x;
+        d->p.y = y;
+        d->p.length = length;
+        d->p.degree = degree;
+        s4396122_util_queue_push(drawList, d);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
