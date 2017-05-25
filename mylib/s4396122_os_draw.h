@@ -44,8 +44,10 @@ USBD_DescriptorsTypeDef HID_Desc;
 #define OS_DRAW_LINE_LENGTH 20
 #define OS_DRAW_LINE_WIDTH (OS_DRAW_LINE_LENGTH + OS_DRAW_LINE_PADDING)
 #define OS_DRAW_LINE_HEIGHT (OS_DRAW_LINE_LENGTH * 2 + OS_DRAW_LINE_PADDING)
-#define OS_DRAW_CANVAS_OFFSET_X -115
-#define OS_DRAW_CANVAS_OFFSET_Y -110
+#define OS_DRAW_CANVAS_ORIGINAL_OFFSET_X -115
+#define OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y -110
+extern int OS_DRAW_CANVAS_OFFSET_X;
+extern int OS_DRAW_CANVAS_OFFSET_Y;
 #define OS_DRAW_CANVAS_MULTI_FACTOR (1.7)
 
 #define OS_DRAW_RECTANGLE_X -125
@@ -125,5 +127,6 @@ void s4396122_os_draw_mouse_button(int leftMouse);
 void s4396122_os_draw_add_temp_char(char c);
 void s4396122_os_draw_move_temp_char(int x, int y);
 void s4396122_os_draw_commit_temp_char();
+void s4396122_os_draw_move_origin(int x, int y);
 
 #endif

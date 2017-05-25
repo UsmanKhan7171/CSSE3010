@@ -18,6 +18,9 @@
 #include "s4396122_hal_ir.h"
 #include "s4396122_util_map.h"
 #include "s4396122_util_int_queue.h"
+#include "s4396122_hal_joystick.h"
+#include "s4396122_os_joystick.h"
+#include "s4396122_cli_joystick.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
@@ -26,9 +29,9 @@
 #include "FreeRTOS_CLI.h"
 
 // Task Priorities
-#define mainLED_PRIORITY (tskIDLE_PRIORITY + 3)
+#define mainLED_PRIORITY (tskIDLE_PRIORITY + 4)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
-#define mainTask_PRIORITY (tskIDLE_PRIORITY + 2)
+#define mainTask_PRIORITY (tskIDLE_PRIORITY + 3)
 #define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 6)
 
 // Task Holding struct
@@ -138,6 +141,9 @@ void Hardware_init() {
     s4396122_cli_draw_init();
     s4396122_hal_irremote_init();
     s4396122_hal_ir_init();
+    s4396122_hal_joystick_init();
+    s4396122_os_joystick_init();
+    s4396122_cli_joystick_init();
 
     BRD_LEDInit();
     BRD_LEDOn();
@@ -314,6 +320,19 @@ void IR_Task() {
     }
 }
 
+void joystick_Task() {
+    while (1) {
+        int x = (s4396122_hal_joystick_x_read() - 2048)/200;
+        int y = (s4396122_hal_joystick_y_read() - 2048)/200;
+        if (!approx(x, 0, 2) || !approx(y, 0, 2)) {
+            BRD_LEDToggle();
+            s4396122_os_draw_move_origin(-x, y);
+            s4396122_os_draw_reset();
+        }
+        vTaskDelay(250);
+    }
+}
+
 /**
  * Blinking LED Task to ensure a visual feedback that system is alive
  */
@@ -336,13 +355,15 @@ int main() {
 
     struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, mainLED_PRIORITY};
     struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, mainTask_PRIORITY};
-    struct TaskHolder DrawerTask = {"Drawer", &s4396122_DrawerTask, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 2)};
-    struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder DrawerTask = {"Drawer", &s4396122_DrawerTask, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 3)};
+    struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder JoystickTask = {"Joystick", &joystick_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
     
     tasks[tasksPos++] = LEDTask;
     tasks[tasksPos++] = MainTask;
     tasks[tasksPos++] = DrawerTask;
     tasks[tasksPos++] = IRTask;
+    tasks[tasksPos++] = JoystickTask;
 
     for (int i = 0; i < tasksPos; i++) {
         xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);

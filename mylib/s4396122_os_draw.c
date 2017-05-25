@@ -1,5 +1,8 @@
 #include "s4396122_os_draw.h"
 
+int OS_DRAW_CANVAS_OFFSET_X = OS_DRAW_CANVAS_ORIGINAL_OFFSET_X;
+int OS_DRAW_CANVAS_OFFSET_Y = OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y;
+
 Queue *drawList;
 SemaphoreHandle_t s4396122_SemaphoreDrawList;
 Queue *mouseQueue;
@@ -198,8 +201,8 @@ void s4396122_os_draw_redraw() {
                 if (c->c.c & 0x40)
                     s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
             } else if (c->mode == OS_DRAW_POLY_MODE) {
-                double origX = c->p.x;
-                double origY = c->p.y;
+                double origX = c->p.x + OS_DRAW_CANVAS_OFFSET_X;
+                double origY = c->p.y + OS_DRAW_CANVAS_OFFSET_Y;
                 double angle = 2 * M_PI / c->p.degree;
                 s4396122_os_draw_mouse_button(0);
                 s4396122_os_draw_move_mouse(100, 100);
@@ -248,9 +251,9 @@ void s4396122_os_draw_reset() {
     s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
     s4396122_os_draw_mouse_button(1);
     s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_OFFSET_X, -OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_move_mouse(-OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, -OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
     s4396122_os_draw_mouse_button(2);
-    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_OFFSET_X, OS_DRAW_CANVAS_OFFSET_Y);
+    s4396122_os_draw_move_mouse(OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
     s4396122_os_draw_mouse_button(0);
     s4396122_os_draw_move_mouse(OS_DRAW_PEN_X, OS_DRAW_PEN_Y);
     s4396122_os_draw_mouse_button(1);
@@ -324,6 +327,11 @@ void s4396122_os_draw_commit_temp_char() {
             xSemaphoreGive(s4396122_SemaphoreDrawList);
         }
     }
+}
+
+void s4396122_os_draw_move_origin(int x, int y) {
+    OS_DRAW_CANVAS_OFFSET_X += x;
+    OS_DRAW_CANVAS_OFFSET_Y += y;
 }
 
 // Taken from hid/usbd_desc
