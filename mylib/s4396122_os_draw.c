@@ -299,13 +299,7 @@ void s4396122_os_draw_mouse_button(int leftMouse) {
 }
 
 void s4396122_os_draw_add_temp_char(char c) {
-    if (tempChar.mode == 0) {
-        tempChar.c.x = 0;
-        tempChar.c.y = 0;
-        tempChar.mode = OS_DRAW_CHAR_MODE;
-        tempChar.color = BLACK;
-        tempChar.type = PEN;
-    }
+    tempChar.mode = OS_DRAW_CHAR_MODE;
     s4396122_os_draw_reset();
     tempChar.c.c = c;
 }
@@ -324,6 +318,7 @@ void s4396122_os_draw_commit_temp_char() {
             d->c = tempChar.c;
             d->color = tempChar.color;
             d->type = tempChar.type;
+            d->c.x++;
             tempChar.mode = 0;
             s4396122_util_queue_push(drawList, d);
             xSemaphoreGive(s4396122_SemaphoreDrawList);
