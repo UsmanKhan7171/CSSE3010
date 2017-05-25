@@ -11,6 +11,7 @@ int lastMouseX;
 int lastMouseY;
 enum MouseColor currentColor;
 enum MouseType currentType;
+struct DrawCmd tempChar;
 
 char s4396122_os_draw_number_to_segment[] = {
     0x77,   // 0
@@ -84,6 +85,7 @@ void s4396122_os_draw_init() {
     leftMouseState = 0;
     currentColor = BLACK;
     currentType = PEN;
+    tempChar.mode = 0;
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
         drawList = s4396122_util_queue_create();
         xSemaphoreGive(s4396122_SemaphoreDrawList);
@@ -213,6 +215,28 @@ void s4396122_os_draw_redraw() {
         }
         s4396122_util_queue_free(drawList);
         drawList = newDrawList;
+
+        if (tempChar.mode != 0) {
+            s4396122_os_draw_change_pen_color(tempChar.color);
+            s4396122_os_draw_change_pen_type(tempChar.type);
+            int origX = tempChar.c.x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
+            int origY = tempChar.c.y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
+            if (tempChar.c.c & 0x01)
+                s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
+            if (tempChar.c.c & 0x02)
+                s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+            if (tempChar.c.c & 0x04)
+                s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
+            if (tempChar.c.c & 0x08)
+                s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+            if (tempChar.c.c & 0x10)
+                s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
+            if (tempChar.c.c & 0x20)
+                s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+            if (tempChar.c.c & 0x40)
+                s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+        }
+
         s4396122_os_draw_change_pen_color(origColor);
         s4396122_os_draw_change_pen_type(origType);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
@@ -271,6 +295,39 @@ void s4396122_os_draw_mouse_button(int leftMouse) {
         cmd->yMovement = lastMouseY;
         s4396122_util_queue_push(mouseQueue, cmd);
         xSemaphoreGive(s4396122_SemaphoreMouseQueue);
+    }
+}
+
+void s4396122_os_draw_add_temp_char(char c) {
+    if (tempChar.mode == 0) {
+        tempChar.c.x = 0;
+        tempChar.c.y = 0;
+        tempChar.mode = OS_DRAW_CHAR_MODE;
+        tempChar.color = BLACK;
+        tempChar.type = PEN;
+    }
+    s4396122_os_draw_reset();
+    tempChar.c.c = c;
+}
+
+void s4396122_os_draw_move_temp_char(int x, int y) {
+    s4396122_os_draw_reset();
+    tempChar.c.x += x;
+    tempChar.c.y += y;
+}
+
+void s4396122_os_draw_commit_temp_char() {
+    if (tempChar.mode != 0) {
+        if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
+            struct DrawCmd *d = malloc(sizeof(struct DrawCmd));
+            d->mode = OS_DRAW_CHAR_MODE;
+            d->c = tempChar.c;
+            d->color = tempChar.color;
+            d->type = tempChar.type;
+            tempChar.mode = 0;
+            s4396122_util_queue_push(drawList, d);
+            xSemaphoreGive(s4396122_SemaphoreDrawList);
+        }
     }
 }
 

@@ -14,6 +14,10 @@
 #include "s4396122_hal_tcp.h"
 #include "s4396122_os_draw.h"
 #include "s4396122_cli_draw.h"
+#include "s4396122_hal_irremote.h"
+#include "s4396122_hal_ir.h"
+#include "s4396122_util_map.h"
+#include "s4396122_util_int_queue.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
@@ -132,6 +136,8 @@ void Hardware_init() {
 
     s4396122_os_draw_init();
     s4396122_cli_draw_init();
+    s4396122_hal_irremote_init();
+    s4396122_hal_ir_init();
 
     BRD_LEDInit();
     BRD_LEDOn();
@@ -199,6 +205,115 @@ void main_Task() {
     }
 }
 
+char lastChar = 'C';
+int numOccur = 0;
+void num_enter(char c) {
+    if (lastChar == c)
+        numOccur++;
+    else {
+        lastChar = c;
+        numOccur = 0;
+    }
+    char enteredChar;
+    if (lastChar == 'C')
+        return;
+    switch(lastChar) {
+        case '0':
+            enteredChar = s4396122_os_draw_number_to_segment[0];
+            break;
+        case '1':
+            enteredChar = s4396122_os_draw_number_to_segment[1];
+            break;
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+            if ((numOccur % 4) == 0)
+                enteredChar = s4396122_os_draw_number_to_segment[lastChar - '0'];
+            else
+                enteredChar = s4396122_os_draw_letter_to_segment[3 * (lastChar - '2') + (numOccur % 4) - 1];
+            break;
+        case '7':
+            if ((numOccur % 5) == 0)
+                enteredChar = s4396122_os_draw_number_to_segment[7];
+            else
+                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 5) - 1 + ('P' - 'A')];
+            break;
+        case '8':
+            if ((numOccur % 4) == 0)
+                enteredChar = s4396122_os_draw_number_to_segment[8];
+            else
+                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 4) - 1 + ('T' - 'A')];
+            break;
+        case '9':
+            if ((numOccur % 5) == 0)
+                enteredChar = s4396122_os_draw_number_to_segment[9];
+            else
+                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 5) - 1 + ('W' - 'A')];
+            break;
+    }
+    s4396122_os_draw_add_temp_char(enteredChar);
+}
+
+void num_move(char c) {
+    switch (c) {
+        case '<':
+            s4396122_os_draw_move_temp_char(-1, 0);
+            break;
+        case '>':
+            s4396122_os_draw_move_temp_char(1, 0);
+            break;
+        case '+':
+            s4396122_os_draw_move_temp_char(0, -1);
+            break;
+        case '-':
+            s4396122_os_draw_move_temp_char(0, 1);
+            break;
+    }
+}
+
+void num_commit(char c) {
+    s4396122_os_draw_commit_temp_char();
+}
+
+void num_clear(char c) {
+    s4396122_os_draw_remove_top();
+}
+
+void IR_Task() {
+    Map *remoteMap = s4396122_util_map_create();
+    int irEnabled = 1;
+    /*s4396122_util_map_add(remoteMap, (int) 'B', &num_enter);*/
+    for (int i = '0'; i <= '9'; i++) {
+        s4396122_util_map_add(remoteMap, i, &num_enter);
+    }
+    s4396122_util_map_add(remoteMap, (int) '<', &num_move);
+    s4396122_util_map_add(remoteMap, (int) '>', &num_move);
+    s4396122_util_map_add(remoteMap, (int) '+', &num_move);
+    s4396122_util_map_add(remoteMap, (int) '-', &num_move);
+    s4396122_util_map_add(remoteMap, (int) 'B', &num_commit);
+    s4396122_util_map_add(remoteMap, (int) 'P', &num_clear);
+    /*s4396122_util_map_add(remoteMap, (int) '@', &toggle_ir_control);*/
+
+    while (1) {
+        s4396122_hal_irremote_process(s4396122_hal_ir_get_queue());
+        if (s4396122_hal_irremote_input_available()) {
+            char c = s4396122_hal_irremote_get_char();
+            if (c == '@')
+                irEnabled ^= 1;
+            void (*f)(char q) = s4396122_util_map_get(remoteMap, (int) c);
+            if (f == NULL) {
+                BRD_LEDToggle();
+                continue;
+            }
+            if (irEnabled)
+                f(c);
+        }
+        vTaskDelay(200);
+    }
+}
+
 /**
  * Blinking LED Task to ensure a visual feedback that system is alive
  */
@@ -222,10 +337,12 @@ int main() {
     struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, mainLED_PRIORITY};
     struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, mainTask_PRIORITY};
     struct TaskHolder DrawerTask = {"Drawer", &s4396122_DrawerTask, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 2)};
     
     tasks[tasksPos++] = LEDTask;
     tasks[tasksPos++] = MainTask;
     tasks[tasksPos++] = DrawerTask;
+    tasks[tasksPos++] = IRTask;
 
     for (int i = 0; i < tasksPos; i++) {
         xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);

@@ -122,5 +122,8 @@ void s4396122_os_draw_reset();
 void s4396122_os_draw_remove_top();
 void s4396122_os_draw_move_mouse(int xMovement, int yMovement);
 void s4396122_os_draw_mouse_button(int leftMouse);
+void s4396122_os_draw_add_temp_char(char c);
+void s4396122_os_draw_move_temp_char(int x, int y);
+void s4396122_os_draw_commit_temp_char();
 
 #endif
