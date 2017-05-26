@@ -324,14 +324,17 @@ void joystick_Task() {
     int x = 0;
     int y = 0;
     while (1) {
-        x += (s4396122_hal_joystick_x_read() - 2048)/200;
-        y += (s4396122_hal_joystick_y_read() - 2048)/200;
-        if (!approx(x, 0, 2) || !approx(y, 0, 2)) {
+        x += (s4396122_hal_joystick_x_read() - 2048)/100;
+        y += (s4396122_hal_joystick_y_read() - 2048)/100;
+        if (x != 0 && y != 0) {
             s4396122_os_draw_move_mouse(-x, y);
             /*s4396122_os_draw_move_origin(-x, y);*/
             /*s4396122_os_draw_reset();*/
         }
-        vTaskDelay(100);
+        if (xSemaphoreTake(s4396122_SemaphoreJoystickZ, 1)) {
+            s4396122_os_draw_move_origin(-x - OS_DRAW_CANVAS_OFFSET_X, y - OS_DRAW_CANVAS_OFFSET_Y);
+        }
+        vTaskDelay(250);
     }
 }
 

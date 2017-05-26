@@ -119,10 +119,10 @@ static BaseType_t prvPenCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
 
     enum MouseType t;
     switch (arguments[0]) {
-        case 'p':
+        case 'b':
             t = RECTANGLE;
             break;
-        case 'b':
+        case 'p':
             t = PEN;
             break;
         default:
