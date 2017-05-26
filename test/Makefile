@@ -7,18 +7,29 @@
 MYLIB=../mylib
 NP2_ROOT=/home/sanchez/Documents/git/np2/np2
 FREERTOS_PATH=$(NP2_ROOT)/src/FreeRTOS
+CLI_PATH=$(NP2_ROOT)/src/freertosplus/FreeRTOS-Plus-CLI
+USB_PATH=$(NP2_ROOT)/src/hal/STM32_USB_Device_Library
+HID_PATH=$(USB_PATH)/Class/HID
+USB_CORE_PATH=$(USB_PATH)/Core
 
 #Name of project
 PROJ_NAME=main
 
 #Your local source files must ONLY be added to SRCS
 SRCS = $(PROJ_NAME).c
+#SRCS += $(USB_CORE_PATH)/Src/*.c
+#SRCS += $(HID_PATH)/Src/*.c
 CFLAGS += -I$(MYLIB)
+CFLAGS += -I$(HID_PATH)/Inc
+CFLAGS += -I$(USB_CORE_PATH)/Inc
+#CFLAGS += -I$(NP2_ROOT)/src/boards/netduinoplus2/usb/hid
 CFLAGS += -DENABLE_VCP #enable USB Virtual Com Port
 CFLAGS += -DSDEBUG
 
 #Extra files from the src folder must ONLY be added to LIBSRCS
 LIBSRCS = $(FREERTOS_PATH)/portable/MemMang/heap_4.c
+#LIBSRCS += /home/sanchez/Documents/git/np2/np2/src/boards/netduinoplus2/usb/hid/usbd_desc.c
+LIBSRCS += $(wildcard $(HID_PATH)/Src/*.c)
 
 ###################################################
 ROOT=$(shell pwd)
@@ -29,6 +40,8 @@ OBJS=$(SRCS:.c=.o)
 
 .PHONY: $(shell mkdir -p obj) lib proj all depend
 all: proj
+
+include $(CLI_PATH)/Makefile.freertoscli
 
 #Include lwip makefile
 include $(NP2_ROOT)/src/net/lwip/Makefile.lwip

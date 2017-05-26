@@ -19,6 +19,7 @@
 #include "s4396122_util_print.h"
 #include "s4396122_util_iter.h"
 #include "s4396122_os_print.h"
+#include "s4396122_hal_accel.h"
 
 // Task Priorities
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 3)
@@ -56,6 +57,7 @@ void Hardware_init() {
     BRD_LEDInit();
     BRD_LEDOn();
     s4396122_os_print_init();
+    s4396122_hal_accel_init();
 
     portENABLE_INTERRUPTS();
 }
@@ -109,7 +111,8 @@ void main_Task() {
 
     while (1) {
         vTaskDelay(1000);
-        s4396122_util_print_debug("Main Loop");
+        struct PortLand result = s4396122_hal_accel_get_pl();
+        s4396122_os_print("P: %d, L: %d\n", result.portUp, result.landUp);
     }
 }
 
