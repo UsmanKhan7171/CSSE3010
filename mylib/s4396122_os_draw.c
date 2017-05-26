@@ -7,6 +7,7 @@ Queue *drawList;
 SemaphoreHandle_t s4396122_SemaphoreDrawList;
 Queue *mouseQueue;
 SemaphoreHandle_t s4396122_SemaphoreMouseQueue;
+SemaphoreHandle_t s4396122_SemaphoreUpdateDisplay;
 int charLast;
 USBD_HandleTypeDef hidDevice;
 int leftMouseState;
@@ -61,7 +62,8 @@ void s4396122_DrawerTask() {
     
     while (1) {
 
-        s4396122_os_draw_redraw();
+        if (s4396122_SemaphoreUpdateDisplay != NULL && xSemaphoreTake(s4396122_SemaphoreUpdateDisplay, 1))
+            s4396122_os_draw_redraw();
 
         if (s4396122_SemaphoreMouseQueue != NULL && xSemaphoreTake(s4396122_SemaphoreMouseQueue, 1000)) {
             while (s4396122_util_queue_size(mouseQueue) > 0) {
@@ -85,6 +87,8 @@ void s4396122_DrawerTask() {
 void s4396122_os_draw_init() {
     s4396122_SemaphoreDrawList = xSemaphoreCreateMutex();
     s4396122_SemaphoreMouseQueue = xSemaphoreCreateMutex();
+    s4396122_SemaphoreUpdateDisplay = xSemaphoreCreateMutex();
+    xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
     leftMouseState = 0;
     currentColor = BLACK;
     currentType = PEN;
@@ -113,6 +117,7 @@ void s4396122_os_draw_add_char(int x, int y, char c) {
         d->color = currentColor;
         d->type = currentType;
         s4396122_util_queue_push(drawList, d);
+        xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
@@ -128,6 +133,7 @@ void s4396122_os_draw_add_poly(int x, int y, int length, int degree) {
         d->color = currentColor;
         d->type = currentType;
         s4396122_util_queue_push(drawList, d);
+        xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
@@ -272,6 +278,7 @@ void s4396122_os_draw_remove_top() {
         drawList = newDrawList;
         s4396122_os_draw_reset();
         /*s4396122_os_draw_redraw();*/
+        xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
         xSemaphoreGive(s4396122_SemaphoreDrawList);
     }
 }
@@ -304,11 +311,13 @@ void s4396122_os_draw_mouse_button(int leftMouse) {
 void s4396122_os_draw_add_temp_char(char c) {
     tempChar.mode = OS_DRAW_CHAR_MODE;
     s4396122_os_draw_reset();
+    xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
     tempChar.c.c = c;
 }
 
 void s4396122_os_draw_move_temp_char(int x, int y) {
     s4396122_os_draw_reset();
+    xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
     tempChar.c.x += x;
     tempChar.c.y += y;
 }
@@ -324,12 +333,15 @@ void s4396122_os_draw_commit_temp_char() {
             d->c.x++;
             tempChar.mode = 0;
             s4396122_util_queue_push(drawList, d);
+            xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
             xSemaphoreGive(s4396122_SemaphoreDrawList);
         }
     }
 }
 
 void s4396122_os_draw_move_origin(int x, int y) {
+    s4396122_os_draw_reset();
+    xSemaphoreGive(s4396122_SemaphoreUpdateDisplay);
     OS_DRAW_CANVAS_OFFSET_X += x;
     OS_DRAW_CANVAS_OFFSET_Y += y;
 }

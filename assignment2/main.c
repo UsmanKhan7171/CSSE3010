@@ -321,15 +321,17 @@ void IR_Task() {
 }
 
 void joystick_Task() {
+    int x = 0;
+    int y = 0;
     while (1) {
-        int x = (s4396122_hal_joystick_x_read() - 2048)/200;
-        int y = (s4396122_hal_joystick_y_read() - 2048)/200;
+        x += (s4396122_hal_joystick_x_read() - 2048)/200;
+        y += (s4396122_hal_joystick_y_read() - 2048)/200;
         if (!approx(x, 0, 2) || !approx(y, 0, 2)) {
-            BRD_LEDToggle();
-            s4396122_os_draw_move_origin(-x, y);
-            s4396122_os_draw_reset();
+            s4396122_os_draw_move_mouse(-x, y);
+            /*s4396122_os_draw_move_origin(-x, y);*/
+            /*s4396122_os_draw_reset();*/
         }
-        vTaskDelay(250);
+        vTaskDelay(100);
     }
 }
 
