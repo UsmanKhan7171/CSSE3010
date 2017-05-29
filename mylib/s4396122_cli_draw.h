@@ -12,6 +12,7 @@ static BaseType_t prvBoxCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
 static BaseType_t prvLineCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 static BaseType_t prvResetCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 static BaseType_t prvPenCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
+static BaseType_t prvRotateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString);
 
 void s4396122_cli_draw_init();
 

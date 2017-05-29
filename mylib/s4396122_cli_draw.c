@@ -47,6 +47,12 @@ CLI_Command_Definition_t xPen = {
     prvPenCommand,
     1
 };
+CLI_Command_Definition_t xRotate = {
+    "rotate",
+    "rotate:\n Changes the drawing orientation\n\n",
+    prvRotateCommand,
+    1
+};
 
 void s4396122_cli_draw_init() {
     FreeRTOS_CLIRegisterCommand(&xMove);
@@ -56,6 +62,7 @@ void s4396122_cli_draw_init() {
     FreeRTOS_CLIRegisterCommand(&xLine);
     FreeRTOS_CLIRegisterCommand(&xReset);
     FreeRTOS_CLIRegisterCommand(&xPen);
+    FreeRTOS_CLIRegisterCommand(&xRotate);
 }
 
 static BaseType_t prvMoveCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
@@ -132,5 +139,27 @@ static BaseType_t prvPenCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
     s4396122_os_draw_change_pen_type(t);
 
     xWriteBufferLen = sprintf(pcWriteBuffer, "Selected Marker: %c\n", arguments[0]);
+    return pdFALSE;
+}
+
+static BaseType_t prvRotateCommand(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString) {
+    long paramLen;
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+
+    int o;
+    switch (arguments[0]) {
+        case 'p':
+            o = OS_DRAW_PORTRAIT;
+            break;
+        case 'l':
+            o = OS_DRAW_LANDSCAPE;
+            break;
+        default:
+            xWriteBufferLen = sprintf(pcWriteBuffer, "Unsupported value\n");
+            return pdFALSE;
+    }
+    s4396122_os_draw_set_orientation(o);
+
+    xWriteBufferLen = sprintf(pcWriteBuffer, "");
     return pdFALSE;
 }

@@ -78,6 +78,8 @@ extern int OS_DRAW_CANVAS_OFFSET_Y;
 extern int OS_DRAW_CANVAS_OFFSET_X;
 extern int OS_DRAW_CANVAS_OFFSET_Y;
 #define OS_DRAW_CANVAS_MULTI_FACTOR (1.8)
+#define OS_DRAW_LANDSCAPE 1
+#define OS_DRAW_PORTRAIT 0
 
 #define OS_DRAW_RECTANGLE_X 29
 #define OS_DRAW_RECTANGLE_Y 7
@@ -141,6 +143,11 @@ struct DrawCmd {
     enum MouseType type;
 };
 
+enum Orientation {
+    PORTRAIT,
+    LANDSCAPE
+};
+
 void s4396122_DrawerTask();
 void s4396122_os_draw_init();
 void s4396122_os_draw_add_char(int x, int y, char c);
@@ -157,5 +164,6 @@ void s4396122_os_draw_add_temp_char(char c);
 void s4396122_os_draw_move_temp_char(int x, int y);
 void s4396122_os_draw_commit_temp_char();
 void s4396122_os_draw_move_origin(int x, int y);
+void s4396122_os_draw_set_orientation(int orient);
 
 #endif

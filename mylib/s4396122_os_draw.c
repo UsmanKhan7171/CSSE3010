@@ -16,6 +16,7 @@ int lastMouseY;
 enum MouseColor currentColor;
 enum MouseType currentType;
 struct DrawCmd tempChar;
+int currentOrient;
 
 char s4396122_os_draw_number_to_segment[] = {
     0x77,   // 0
@@ -64,7 +65,7 @@ void s4396122_DrawerTask() {
 
         if (updateDraw) {
             updateDraw = 0;
-            s4396122_os_draw_reset();
+            /*s4396122_os_draw_reset();*/
             s4396122_os_draw_redraw();
         }
 
@@ -95,6 +96,7 @@ void s4396122_os_draw_init() {
     currentColor = BLACK;
     currentType = PEN;
     tempChar.mode = 0;
+    currentOrient = OS_DRAW_LANDSCAPE;
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
         drawList = s4396122_util_queue_create();
         xSemaphoreGive(s4396122_SemaphoreDrawList);
@@ -142,9 +144,40 @@ void s4396122_os_draw_add_poly(int x, int y, int length, int degree) {
 
 void s4396122_os_draw_add_line(int x1, int y1, int x2, int y2) {
     s4396122_os_draw_mouse_button(0);
-    s4396122_os_draw_move_mouse(x1, y1);
+    if (currentOrient == PORTRAIT)
+        s4396122_os_draw_move_mouse((y1 - OS_DRAW_CANVAS_OFFSET_Y + OS_DRAW_CANVAS_OFFSET_X), OS_DRAW_CANVAS_HEIGHT - (x1 - OS_DRAW_CANVAS_OFFSET_X + OS_DRAW_CANVAS_OFFSET_Y));
+    else
+        s4396122_os_draw_move_mouse(x1, y1);
     s4396122_os_draw_mouse_button(1);
-    s4396122_os_draw_move_mouse(x2, y2);
+    if (currentOrient == PORTRAIT)
+        s4396122_os_draw_move_mouse((y2 - OS_DRAW_CANVAS_OFFSET_Y + OS_DRAW_CANVAS_OFFSET_X) * OS_DRAW_CANVAS_MULTI_FACTOR, OS_DRAW_CANVAS_HEIGHT - (x2 - OS_DRAW_CANVAS_OFFSET_X + OS_DRAW_CANVAS_OFFSET_Y));
+    else
+        s4396122_os_draw_move_mouse(x2, y2 * OS_DRAW_CANVAS_MULTI_FACTOR);
+    s4396122_os_draw_mouse_button(0);
+}
+
+void s4396122_os_draw_add_relative_line(int x, int y, int width, int height) {
+    s4396122_os_draw_mouse_button(0);
+    /*y *= OS_DRAW_CANVAS_MULTI_FACTOR;*/
+    /*height *= OS_DRAW_CANVAS_MULTI_FACTOR;*/
+    int origX = x + OS_DRAW_CANVAS_OFFSET_X;
+    int origY = y + OS_DRAW_CANVAS_OFFSET_Y;
+    if (currentOrient == PORTRAIT) {
+        origX = y + OS_DRAW_CANVAS_OFFSET_X;
+        origY = OS_DRAW_CANVAS_HEIGHT - x;
+    }
+
+    s4396122_os_draw_move_mouse(origX, origY);
+    s4396122_os_draw_mouse_button(1);
+
+    int newX = origX + width;
+    int newY = origY + (height);
+    if (currentOrient == PORTRAIT) {
+        newX = origX + height;
+        newY = origY - width;
+    }
+
+    s4396122_os_draw_move_mouse(newX, newY);
     s4396122_os_draw_mouse_button(0);
 }
 
@@ -192,36 +225,33 @@ void s4396122_os_draw_redraw() {
             s4396122_os_draw_change_pen_color(c->color);
             s4396122_os_draw_change_pen_type(c->type);
             if (c->mode == OS_DRAW_CHAR_MODE) {
-                int origX = c->c.x * OS_DRAW_LINE_WIDTH + OS_DRAW_CANVAS_OFFSET_X;
-                int origY = c->c.y * OS_DRAW_LINE_HEIGHT + OS_DRAW_CANVAS_OFFSET_Y;
+                int origX = c->c.x * OS_DRAW_LINE_WIDTH;
+                int origY = c->c.y * OS_DRAW_LINE_HEIGHT;
                 if (c->c.c & 0x01)
-                    s4396122_os_draw_add_line(origX, origY, origX + OS_DRAW_LINE_LENGTH, origY);
+                    s4396122_os_draw_add_relative_line(origX, origY, OS_DRAW_LINE_LENGTH, 0);
                 if (c->c.c & 0x02)
-                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX + OS_DRAW_LINE_LENGTH, origY, 0, OS_DRAW_LINE_LENGTH);
                 if (c->c.c & 0x04)
-                    s4396122_os_draw_add_line(origX, origY, origX, origY + OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX, origY, 0, OS_DRAW_LINE_LENGTH);
                 if (c->c.c & 0x08)
-                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX, origY + OS_DRAW_LINE_LENGTH, OS_DRAW_LINE_LENGTH, 0);
                 if (c->c.c & 0x10)
-                    s4396122_os_draw_add_line(origX, origY + OS_DRAW_LINE_LENGTH, origX, origY + 2 * OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX, origY + OS_DRAW_LINE_LENGTH, 0, OS_DRAW_LINE_LENGTH);
                 if (c->c.c & 0x20)
-                    s4396122_os_draw_add_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX + OS_DRAW_LINE_LENGTH, origY + OS_DRAW_LINE_LENGTH, 0, OS_DRAW_LINE_LENGTH);
                 if (c->c.c & 0x40)
-                    s4396122_os_draw_add_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, origX + OS_DRAW_LINE_LENGTH, origY + 2 * OS_DRAW_LINE_LENGTH);
+                    s4396122_os_draw_add_relative_line(origX, origY + 2 * OS_DRAW_LINE_LENGTH, OS_DRAW_LINE_LENGTH, 0);
             } else if (c->mode == OS_DRAW_POLY_MODE) {
-                double origX = c->p.x + OS_DRAW_CANVAS_OFFSET_X;
-                double origY = c->p.y + OS_DRAW_CANVAS_OFFSET_Y;
+                double origX = c->p.x;
+                double origY = c->p.y;
                 double angle = 2 * M_PI / c->p.degree;
-                s4396122_os_draw_mouse_button(0);
-                s4396122_os_draw_move_mouse(100, 100);
-                s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
-                s4396122_os_draw_mouse_button(1);
                 for (int i = 0; i < c->p.degree; i++) {
-                    origX += c->p.length * sin(angle * i);
-                    origY += c->p.length * cos(angle * i);
-                    s4396122_os_draw_move_mouse(origX, origY * OS_DRAW_CANVAS_MULTI_FACTOR);
+                    double width = c->p.length * sin(angle * i);
+                    double height = c->p.length * cos(angle * i);
+                    s4396122_os_draw_add_relative_line(origX, origY, width, height);
+                    origX += width;
+                    origY += height;
                 }
-                s4396122_os_draw_mouse_button(0);
             }
         }
         s4396122_util_queue_free(drawList);
@@ -346,6 +376,14 @@ void s4396122_os_draw_move_origin(int x, int y) {
     OS_DRAW_CANVAS_OFFSET_Y += y;
     s4396122_os_draw_reset();
     updateDraw = 1;
+}
+
+void s4396122_os_draw_set_orientation(int orient) {
+    if (currentOrient != orient) {
+        currentOrient = orient;
+        s4396122_os_draw_reset();
+        updateDraw = 1;
+    }
 }
 
 // Taken from hid/usbd_desc

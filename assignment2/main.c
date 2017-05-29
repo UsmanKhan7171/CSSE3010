@@ -21,6 +21,7 @@
 #include "s4396122_hal_joystick.h"
 #include "s4396122_os_joystick.h"
 #include "s4396122_cli_joystick.h"
+#include "s4396122_hal_accel.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
@@ -144,6 +145,7 @@ void Hardware_init() {
     s4396122_hal_joystick_init();
     s4396122_os_joystick_init();
     s4396122_cli_joystick_init();
+    s4396122_hal_accel_init();
 
     BRD_LEDInit();
     BRD_LEDOn();
@@ -338,6 +340,24 @@ void joystick_Task() {
     }
 }
 
+void accel_Task() {
+    int lastVal;
+    while(1) {
+        struct PortLand pl = s4396122_hal_accel_get_pl();
+        int currentVal;
+        if (pl.landUp)
+            currentVal = OS_DRAW_PORTRAIT;
+        else
+            currentVal = OS_DRAW_LANDSCAPE;
+        if (lastVal != currentVal) {
+            lastVal = currentVal;
+            s4396122_os_draw_set_orientation(currentVal);
+        }
+        
+        vTaskDelay(100);
+    }
+}
+
 /**
  * Blinking LED Task to ensure a visual feedback that system is alive
  */
@@ -363,12 +383,14 @@ int main() {
     struct TaskHolder DrawerTask = {"Drawer", &s4396122_DrawerTask, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 3)};
     struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
     struct TaskHolder JoystickTask = {"Joystick", &joystick_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder AccelTask = {"Accel", &accel_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
     
     tasks[tasksPos++] = LEDTask;
     tasks[tasksPos++] = MainTask;
     tasks[tasksPos++] = DrawerTask;
     tasks[tasksPos++] = IRTask;
     tasks[tasksPos++] = JoystickTask;
+    tasks[tasksPos++] = AccelTask;
 
     for (int i = 0; i < tasksPos; i++) {
         xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);
