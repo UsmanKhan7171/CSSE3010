@@ -15,31 +15,6 @@
 #include "usbd_core.h"
 #include "usbd_desc.h"
 
-// Taken from hid/usbd_desc
-#define USBD_VID                   0x0483
-#define USBD_PID                   0x572B
-#define USBD_LANGID_STRING         0x409
-#define USBD_MANUFACTURER_STRING   "STMicroelectronics"
-#define USBD_PRODUCT_HS_STRING        "HID Joystick in HS Mode"
-#define USBD_SERIALNUMBER_HS_STRING   "00000000001A"
-#define USBD_PRODUCT_FS_STRING        "HID Joystick in FS Mode"
-#define USBD_SERIALNUMBER_FS_STRING   "00000000001B"
-#define USBD_CONFIGURATION_HS_STRING  "HID Config"
-#define USBD_INTERFACE_HS_STRING      "HID Interface"
-#define USBD_CONFIGURATION_FS_STRING  "HID Config"
-#define USBD_INTERFACE_FS_STRING      "HID Interface"
-uint8_t *     USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_ManufacturerStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_ProductStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
-uint8_t *     USBD_HID_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
-#ifdef USB_SUPPORT_USER_STRING_DESC
-uint8_t *     USBD_HID_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uint16_t *length);  
-#endif /* USB_SUPPORT_USER_STRING_DESC */  
-USBD_DescriptorsTypeDef HID_Desc;
-
 /* Linux config
 #define OS_DRAW_LINE_PADDING 2
 #define OS_DRAW_LINE_LENGTH 20

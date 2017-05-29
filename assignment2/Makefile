@@ -11,6 +11,7 @@ CLI_PATH=$(NP2_ROOT)/src/freertosplus/FreeRTOS-Plus-CLI
 USB_PATH=$(NP2_ROOT)/src/hal/STM32_USB_Device_Library
 HID_PATH=$(USB_PATH)/Class/HID
 USB_CORE_PATH=$(USB_PATH)/Core
+MQTT_PATH=$(NP2_ROOT)/src/net/apps/mqtt
 
 #Name of project
 PROJ_NAME=main
@@ -22,13 +23,14 @@ SRCS = $(PROJ_NAME).c
 CFLAGS += -I$(MYLIB)
 CFLAGS += -I$(HID_PATH)/Inc
 CFLAGS += -I$(USB_CORE_PATH)/Inc
-#CFLAGS += -I$(NP2_ROOT)/src/boards/netduinoplus2/usb/hid
-CFLAGS += -DENABLE_VCP #enable USB Virtual Com Port
+CFLAGS += -I$(NP2_ROOT)/src/boards/netduinoplus2/usb/hid
+#CFLAGS += -DENABLE_VCP #enable USB Virtual Com Port
+REMOVE_VCPSRC = 1
 CFLAGS += -DSDEBUG
 
 #Extra files from the src folder must ONLY be added to LIBSRCS
 LIBSRCS = $(FREERTOS_PATH)/portable/MemMang/heap_4.c
-#LIBSRCS += /home/sanchez/Documents/git/np2/np2/src/boards/netduinoplus2/usb/hid/usbd_desc.c
+LIBSRCS += /home/sanchez/Documents/git/np2/np2/src/boards/netduinoplus2/usb/hid/usbd_desc.c
 LIBSRCS += $(wildcard $(HID_PATH)/Src/*.c)
 
 ###################################################
@@ -48,6 +50,8 @@ include $(NP2_ROOT)/src/net/lwip/Makefile.lwip
 
 #Include net makefile
 include $(NP2_ROOT)/src/boards/netduinoplus2/Makefile.net
+
+include $(MQTT_PATH)/Makefile.mqtt
 
 #Include freertos makefile
 include $(NP2_ROOT)/src/freertos/Makefile.freertos

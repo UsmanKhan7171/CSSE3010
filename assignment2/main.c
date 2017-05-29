@@ -7,6 +7,9 @@
  * *****************************************************************************
  */
 
+void VCP_txflush() {
+}
+
 // Includes
 #include "FreeRTOSConfig.h"
 #include "board.h"
