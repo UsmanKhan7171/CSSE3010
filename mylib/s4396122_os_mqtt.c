@@ -1,6 +1,9 @@
 #include "s4396122_os_mqtt.h"
 
 Client client;
+int connected = 0;
+
+void mqtt_messagehandler(MessageData *data);
 
 void s4396122_os_mqtt_init() {
     xTaskCreate(&MQTT_Task, "MQTT", configMINIMAL_STACK_SIZE * 8, NULL, mqttTask_PRIORITY, NULL);
@@ -45,19 +48,30 @@ void MQTT_Task(void) {
 
     MQTTClient(&client, &network, 1000, buff, 100, readBuff, 100);
     debug_printf("Created Client\n");
-    client.ipstack->mqttread = &network_read;
+    client.ipstack->mqttread = network_read;
+    client.defaultMessageHandler = mqtt_messagehandler;
     debug_printf("Waiting\n");
     /*vTaskDelay(5000);*/
 
     MQTTConnect(&client, NULL);
     debug_printf("Connected\n");
+    connected = 1;
+
+    s4396122_os_mqtt_publish("debug", "MQTT Init");
+    s4396122_os_mqtt_subscribe("cmd");
+    s4396122_os_mqtt_publish("debug", "MQTT Subbed");
 
     while(1) {
-        /*s4396122_os_mqtt_publish("Test", "Hello");*/
-        vTaskDelay(1000);
+
+        Timer timer;
+        InitTimer(&timer);
+        countdown_ms(&timer, 1000);
+        cycle(&client, &timer);
+
+        s4396122_os_mqtt_publish("loop", "Hello");
+        vTaskDelay(100);
     }
 }
-
 
 void s4396122_os_mqtt_publish(char *inTopic, char *message) {
     char topic[50];
@@ -76,4 +90,20 @@ void s4396122_os_mqtt_publish(char *inTopic, char *message) {
  * @param data MessageData struct pointer. Contains Qos info and payload
  */
 void mqtt_messagehandler(MessageData *data) {
+    char buffer[data->message->payloadlen];
+    strncpy(buffer, data->message->payload, data->message->payloadlen);
+    debug_printf("Got: %s\n", data->topicName->lenstring.data, buffer);
+}
+
+void s4396122_os_mqtt_subscribe(char *inTopic) {
+    if (!connected) {
+        debug_printf("Not initialized yet\n");
+        return;
+    }
+    char topic[50];
+    memset(topic, 0, sizeof(topic));
+    sprintf(topic, "np2/%s", inTopic);
+    if (MQTTSubscribe(&client, topic, QOS0, mqtt_messagehandler) == FAILURE) {
+        debug_printf("Error\n");
+    }
 }
