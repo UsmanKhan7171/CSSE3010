@@ -12,15 +12,21 @@
 #include <stdlib.h>
 #include "s4396122_util_print.h"
 
+/**
+ * @brief Individual IntQueue element
+ */
 struct intQueue {
-    struct intQueue *next;
-    int data;
+    struct intQueue *next;  //!< Pointer to the next intQueue in the Queue
+    int data;               //!< data stored at current position
 };
 
+/**
+ * @brief The overall IntQueue structure
+ */
 typedef struct {
-    struct intQueue *head;
-    struct intQueue *tail;
-    int size;
+    struct intQueue *head;  //!< Pointer to the head of the IntQueue
+    struct intQueue *tail;  //!< Pointer to the tail of the IntQueue
+    int size;               //!< Size of the IntQueue
 } IntQueue;
 
 IntQueue* s4396122_util_int_queue_create();

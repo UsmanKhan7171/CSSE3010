@@ -14,6 +14,7 @@
  * @param y position on the y to move the cursor to
  */
 void s4396122_util_print_move(int x, int y) {
+    
     s4396122_os_print("\033[%d;%dH", x, y);
 }
 
@@ -21,6 +22,7 @@ void s4396122_util_print_move(int x, int y) {
  * @brief Clears the serial screen
  */
 void s4396122_util_print_clear() {
+
     s4396122_os_print("\033[2J");
 }
 
@@ -30,6 +32,7 @@ void s4396122_util_print_clear() {
  * @param sgr The color to set to
  */
 void s4396122_util_print_color(int sgr) {
+
     s4396122_os_print("\033[%dm", sgr);
 }
 
@@ -37,6 +40,7 @@ void s4396122_util_print_color(int sgr) {
  * @brief Resets the cursor back to default
  */
 void s4396122_util_print_reset() {
+
     s4396122_util_print_color(0);
 }
 
@@ -44,6 +48,7 @@ void s4396122_util_print_reset() {
  * @brief Bolds the cursor
  */
 void s4396122_util_print_bold() {
+
     s4396122_util_print_color(1);
 }
 
@@ -51,6 +56,7 @@ void s4396122_util_print_bold() {
  * @brief Inverts the cursor color
  */
 void s4396122_util_print_reverse() {
+
     s4396122_util_print_color(7);
 }
 
@@ -62,6 +68,7 @@ void s4396122_util_print_reverse() {
  * @param lineNo Macro of origin of the error
  */
 void error(const char *s, const char *fileName, int lineNo) {
+
     s4396122_util_print_color(s4396122_util_print_red);
     s4396122_util_print_bold();
     s4396122_os_print("%s - %s:%d\n", s, fileName, lineNo);
@@ -76,6 +83,7 @@ void error(const char *s, const char *fileName, int lineNo) {
  * @param lineNo Macro of the origin of the warning
  */
 void warn(const char *s, const char *fileName, int lineNo) {
+
     s4396122_util_print_color(s4396122_util_print_yellow);
     s4396122_util_print_bold();
     s4396122_os_print("%s - %s:%d\n", s, fileName, lineNo);
@@ -90,6 +98,7 @@ void warn(const char *s, const char *fileName, int lineNo) {
  * @param lineNo Macro of the origin of the info
  */
 void info(const char *s, const char *fileName, int lineNo) {
+
     s4396122_util_print_color(s4396122_util_print_blue);
     s4396122_util_print_bold();
     s4396122_os_print("[%s:%d] %s\n", fileName, lineNo, s);
@@ -104,6 +113,7 @@ void info(const char *s, const char *fileName, int lineNo) {
  * @param lineNo Macro of the origin of the debug
  */
 void debug(const char *s, const char *fileName, int lineNo) {
+
     #ifdef SDEBUG
         s4396122_os_print("[%s:%d] %s\n", fileName, lineNo, s);
     #endif
@@ -118,25 +128,36 @@ void debug(const char *s, const char *fileName, int lineNo) {
  * @param format Supports printf style input formatting
  * @param ...
  */
-void print(int errorType, const char *fileName, int lineNo, const char *format, ...) {
+void print(int errorType, const char *fileName, int lineNo, const char *format, 
+        ...) {
+
     va_list valist;
     char buffer[50];
     va_start(valist, format);
     vsprintf(buffer, format, valist);
     va_end(valist);
     switch (errorType) {
+
         case 0:
+
             error(buffer, fileName, lineNo);
             break;
+
         case 1:
+
             warn(buffer, fileName, lineNo);
             break;
+
         case 2:
+
             info(buffer, fileName, lineNo);
             break;
+
         case 3:
+
             debug(buffer, fileName, lineNo);
             break;
+
         default:
             s4396122_os_print("%s\n", buffer);
     }

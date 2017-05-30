@@ -1,8 +1,9 @@
 /**
- * @file   s4396122_util_matrix.h
- * @author Daniel Fitzmaurice = 43961229
- * @date   120417
- * @brief  Library for adding Matrix functionality
+ * @file s4396122_util_matrix.h
+ * @brief Library for adding Matrix functionality
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
 #ifndef UTIL_MATRIX_H
 #define UTIL_MATRIX_H
@@ -10,10 +11,13 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+/**
+ * @brief Structure containing all the information required for a Matrix
+ */
 typedef struct {
-    int width;
-    int height;
-    int **data;
+    int width;  //!< Width of the Matrix
+    int height; //!< Height of the Matrix
+    int **data; //!< Data contained within the Matrix
 } Matrix;
 
 Matrix* s4396122_util_matrix_create(int width, int height);
