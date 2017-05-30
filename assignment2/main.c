@@ -37,7 +37,7 @@ void VCP_txflush() {
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 4)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 #define mainTask_PRIORITY (tskIDLE_PRIORITY + 3)
-#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 3)
+#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 8)
 
 // Task Holding struct
 struct TaskHolder {
@@ -320,6 +320,10 @@ void IR_Task() {
         s4396122_hal_irremote_process(s4396122_hal_ir_get_queue());
         if (s4396122_hal_irremote_input_available()) {
             char c = s4396122_hal_irremote_get_char();
+            char buffer[10];
+            memset(buffer, 0, sizeof(buffer));
+            sprintf(buffer, "%c", c);
+            s4396122_os_mqtt_publish("ir", buffer);
             if (c == '@')
                 irEnabled ^= 1;
             void (*f)(char q) = s4396122_util_map_get(remoteMap, (int) c);
@@ -346,6 +350,10 @@ void joystick_Task() {
             /*s4396122_os_draw_reset();*/
         }
         if (xSemaphoreTake(s4396122_SemaphoreJoystickZ, 1)) {
+            char buffer[1024];
+            memset(buffer, 0, sizeof(buffer));
+            sprintf(buffer, "(%d, %d)", -x - OS_DRAW_CANVAS_OFFSET_X, y - OS_DRAW_CANVAS_OFFSET_Y);
+            s4396122_os_mqtt_publish("joystick", buffer);
             s4396122_os_draw_move_origin(-x - OS_DRAW_CANVAS_OFFSET_X, y - OS_DRAW_CANVAS_OFFSET_Y);
         }
         vTaskDelay(250);
@@ -363,6 +371,11 @@ void accel_Task() {
             currentVal = OS_DRAW_LANDSCAPE;
         if (lastVal != currentVal) {
             lastVal = currentVal;
+            if (currentVal == OS_DRAW_PORTRAIT) {
+                s4396122_os_mqtt_publish("accel", "portrait");
+            } else {
+                s4396122_os_mqtt_publish("accel", "landscape");
+            }
             s4396122_os_draw_set_orientation(currentVal);
         }
         
@@ -378,6 +391,7 @@ void LED_Task() {
     while (1) {
         BRD_LEDToggle();
         vTaskDelay(250);
+        /*s4396122_os_mqtt_publish("LED", "toggle");*/
     }
 }
 
@@ -396,9 +410,9 @@ int main() {
     struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, mainLED_PRIORITY};
     struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, mainTask_PRIORITY};
     struct TaskHolder DrawerTask = {"Drawer", &s4396122_DrawerTask, (configMINIMAL_STACK_SIZE * 2), (tskIDLE_PRIORITY + 3)};
-    struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
-    struct TaskHolder JoystickTask = {"Joystick", &joystick_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
-    struct TaskHolder AccelTask = {"Accel", &accel_Task, (configMINIMAL_STACK_SIZE * 1), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder IRTask = {"IR", &IR_Task, (configMINIMAL_STACK_SIZE * 5), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder JoystickTask = {"Joystick", &joystick_Task, (configMINIMAL_STACK_SIZE * 5), (tskIDLE_PRIORITY + 2)};
+    struct TaskHolder AccelTask = {"Accel", &accel_Task, (configMINIMAL_STACK_SIZE * 5), (tskIDLE_PRIORITY + 2)};
     
     tasks[tasksPos++] = LEDTask;
     tasks[tasksPos++] = MainTask;
@@ -456,7 +470,7 @@ static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
     char *pcWriteBufferPos = pcWriteBuffer;
     int bufferSize = 0;
 
-    int writeSize = sprintf(pcWriteBufferPos, "Remaining Mem: %d\n   %-9s  %9s  %9s  %9s  %9s  %9s\n", xPortGetMinimumEverFreeHeapSize(), "Name", "Priority", "Run Time", "CPU Usage", "Stack Rem", "Status");
+    int writeSize = sprintf(pcWriteBufferPos, "Remaining Memory: %d\nNumber of Tasks: 10\n   %-9s  %9s  %9s  %9s  %9s  %9s\n", xPortGetMinimumEverFreeHeapSize(), "Name", "Priority", "Run Time", "CPU Usage", "Stack Rem", "Status");
     pcWriteBufferPos += writeSize;
     bufferSize += writeSize;
 

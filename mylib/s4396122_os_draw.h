@@ -4,6 +4,7 @@
 #include "s4396122_util_iter.h"
 #include "s4396122_util_int_queue.h"
 #include "s4396122_util_queue.h"
+#include "s4396122_os_mqtt.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"

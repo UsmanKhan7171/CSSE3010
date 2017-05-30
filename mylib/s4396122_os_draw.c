@@ -216,6 +216,7 @@ void s4396122_os_draw_change_pen_type(enum MouseType t) {
 
 void s4396122_os_draw_redraw() {
     if (s4396122_SemaphoreDrawList != NULL && xSemaphoreTake(s4396122_SemaphoreDrawList, 1000)) {
+        s4396122_os_mqtt_publish("draw", "redrawing");
         enum MouseColor origColor = currentColor;
         enum MouseType origType = currentType;
         Queue *newDrawList = s4396122_util_queue_create();
@@ -285,6 +286,7 @@ void s4396122_os_draw_redraw() {
 }
 
 void s4396122_os_draw_reset() {
+    s4396122_os_mqtt_publish("draw", "clear screen");
     s4396122_os_draw_mouse_button(0);
     s4396122_os_draw_move_mouse(OS_DRAW_RECTANGLE_X, OS_DRAW_RECTANGLE_Y);
     s4396122_os_draw_mouse_button(1);
