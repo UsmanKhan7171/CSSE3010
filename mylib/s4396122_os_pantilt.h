@@ -17,19 +17,30 @@
 #include "s4396122_hal_util.h"
 #include "s4396122_hal_sysmon.h"
 
+//! PanTilt Task Priority
 #define pantilt_PRIORITY (tskIDLE_PRIORITY + 2)
+//! PanTilt Task Stack Size
 #define pantilt_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 
+//! Queue containing PanTiltMessages
 QueueHandle_t s4396122_QueuePanTilt;
+//! Semaphore to enable the MetronomeMode
 SemaphoreHandle_t s4396122_SemaphorePanMetronome;
+//! Semaphore to Pan left
 SemaphoreHandle_t s4396122_SemaphorePanLeft;
+//! Semaphore to Pan right
 SemaphoreHandle_t s4396122_SemaphorePanRight;
+//! Semaphore to Tilt up
 SemaphoreHandle_t s4396122_SemaphoreTiltUp;
+//! Semaphore to Tilt down
 SemaphoreHandle_t s4396122_SemaphoreTiltDown;
 
+/**
+ * @brief Used to store a pantilt command
+ */
 struct PanTiltMessage {
-    char type;
-    signed short angle;
+    char type;          //! Whether the angle applies to Pan or Tilt
+    signed short angle; //! Then angle to move
 };
 
 extern void s4396122_os_pantilt_init();

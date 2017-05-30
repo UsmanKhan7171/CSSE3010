@@ -1,10 +1,10 @@
 /**
- * @file    s4396122_os_joystick.h
- * @author  Daniel Fitzmaurice
- * @date    250417
- * @brief   Library for os interface to joystick peripherial
+ * @file s4396122_os_joystick.h
+ * @brief Library for os interface to joystick peripheral
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
-
 #ifndef OS_JOYSTICK_H
 #define OS_JOYSTICK_H
 
@@ -16,7 +16,7 @@
 #include "semphr.h"
 #include "queue.h"
 
-// Semaphore for the joystick z input interrupt
+//! Semaphore for the joystick z input interrupt
 SemaphoreHandle_t s4396122_SemaphoreJoystickZ;
 
 // External Functions

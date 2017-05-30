@@ -1,3 +1,10 @@
+/**
+ * @file s4396122_os_mqtt.h
+ * @brief Library for publishing and subscribing to channels using mqtt
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
+ */
 #ifndef OS_MQTT_H
 #define OS_MQTT_H
 
@@ -7,13 +14,10 @@
 #include "MQTTClient.h"
 #include "s4396122_os_print.h"
 
-#define print debug_printf
-
+//! MQTT Task Priority
 #define mqttTask_PRIORITY (tskIDLE_PRIORITY + 2)
+//! MQTT Task Stack Size
 #define mqttTask_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
-
-#define OS_MQTT_BROKER_IP "192.168.0.1"
-#define OS_MQTT_BROKER_PORT 1883
 
 extern void s4396122_os_mqtt_init();
 void MQTT_Task();

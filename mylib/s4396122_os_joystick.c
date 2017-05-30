@@ -1,17 +1,17 @@
 /**
- * @file    s4396122_os_joystick.c
- * @author  Daniel Fitzmaurice
- * @date    250417
- * @brief   Library for os interface to joystick peripherial
+ * @file s4396122_os_joystick.c
+ * @brief Library for os interface to joystick peripheral
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
-
 #include "s4396122_os_joystick.h"
 
 // Local Globals
-unsigned int lastInterval; // Used for Z Input debounce
+unsigned int lastInterval; //!< Used for Z Input debounce
 
 /**
- * Joystick Z input interrupt function
+ * @brief Joystick Z input interrupt function
  */
 void exti_a2_interrupt_handler() {
 
@@ -19,10 +19,12 @@ void exti_a2_interrupt_handler() {
 
     // If it has been less than 100 millis than consider it bounce
     if (HAL_GetTick() > (lastInterval + 100)) {
+
         BaseType_t xHigherPriorityTaskWoken;
         xHigherPriorityTaskWoken = pdFALSE;
 
         if (s4396122_SemaphoreJoystickZ != NULL) {
+
             xSemaphoreGiveFromISR(s4396122_SemaphoreJoystickZ,
                 &xHigherPriorityTaskWoken);
         }
@@ -33,7 +35,7 @@ void exti_a2_interrupt_handler() {
 }
 
 /**
- * Initializes the joystick peripherial
+ * @brief Initializes the joystick peripherial
  */
 void s4396122_os_joystick_init() {
 
