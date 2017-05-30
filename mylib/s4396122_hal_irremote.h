@@ -1,8 +1,9 @@
 /**
- * @file   s4396122_hal_irremote.h
- * @author Daniel Fitzmaurice = 43961229
- * @date   120417
- * @brief  Library for processing and reporting of the irremote
+ * @file s4396122_hal_irremote.h
+ * @brief Library for processing and reporting of the irremote
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
 #ifndef HAL_IRREMOTE_H
 #define HAL_IRREMOTE_H
@@ -12,11 +13,6 @@
 #include "s4396122_hal_util.h"
 #include "s4396122_util_queue.h"
 #include <stdlib.h>
-
-int transmitionState;
-int IRaddress;
-int IRcommand;
-int newIRMessage;
 
 void s4396122_hal_irremote_init();
 void s4396122_hal_irremote_interrupt();

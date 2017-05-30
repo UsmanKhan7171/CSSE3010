@@ -1,26 +1,29 @@
 /**
- * @file   s4396122_hal_hamming.c
- * @author Daniel Fitzmaurice = 43961229
- * @date   120417
- * @brief  Library for encoding and decoding of hamming codes
+ * @file s4396122_hal_hamming.c
+ * @brief Library for encoding and decoding of hamming codes
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
 #include "s4396122_hal_hamming.h"
 
 /**
- * To be executed from within a matrix, applies mod 2 to every element in the
- * matrix
+ * @brief To be executed from within a matrix, applies mod 2 to every element 
+ * in the matrix
  * @param  in The current value in the matrix
  * @return    The new value in the matrix
  */
 int modulate_matrix(int in) {
+
     return in % 2;
 }
 
 /**
- * Initializes the Generator and Hamming matrix into memory for quick and easy
- * access later
+ * @brief Initializes the Generator and Hamming matrix into memory for quick 
+ * and easy access later
  */
 void s4396122_hal_hamming_init() {
+
     // Create the generator matrix and store it in memory
     int GRow1[3] = {1, 1, 0};
     int GRow2[3] = {0, 1, 1};
@@ -36,11 +39,12 @@ void s4396122_hal_hamming_init() {
 }
 
 /**
- * Encodes one nibble of data and returns the hamming encoded nibble
+ * @brief Encodes one nibble of data and returns the hamming encoded nibble
  * @param  in Nibble to be encoded
  * @return    Encoded nibble of data
  */
 unsigned int s4396122_hal_hamming_encode(unsigned int in) {
+
     unsigned int d0 = !!(in & 0x01);
     unsigned int d1 = !!(in & 0x02);
     unsigned int d2 = !!(in & 0x04);
@@ -74,13 +78,14 @@ unsigned int s4396122_hal_hamming_encode(unsigned int in) {
 }
 
 /**
- * Decodes one nibble of data and returns the data corrected data if any one
- * bit errors exist
+ * @brief Decodes one nibble of data and returns the data corrected data if any 
+ * one bit errors exist
  * @param  in Hamming encoded data
  * @return    The decoded data with any error corrections. If there is 2 errors
  * then 0xFF is returned
  */
 unsigned int s4396122_hal_hamming_decode(unsigned int in) {
+
     unsigned int data = in >> 4;
 
     // Calculate the expected parity bit
@@ -104,30 +109,37 @@ unsigned int s4396122_hal_hamming_decode(unsigned int in) {
     if (s4396122_util_matrix_get(result, 0, 0) ||
             s4396122_util_matrix_get(result, 1, 0) ||
             s4396122_util_matrix_get(result, 2, 0)) {
+
         // Find the column that contains the sym bits
         int keyLocation = -1;
         for (int i = 0; i < 7; i++) {
             if (s4396122_util_matrix_get(result, 0, 0) ==
                     s4396122_util_matrix_get(HDecoder, i, 0)) {
+
                 if (s4396122_util_matrix_get(result, 1, 0) ==
                         s4396122_util_matrix_get(HDecoder, i, 1) &&
                         s4396122_util_matrix_get(result, 2, 0) ==
                         s4396122_util_matrix_get(HDecoder, i, 2)) {
+
                     keyLocation = i;
                 }
             }
         }
         // Fix the error bit
         if ((in & 1) == p0) {
+
             debug_printf("Too many errors 1: %X\n", in);
             data = 0xFFFF;
         } else if (keyLocation == -1) {
+
             debug_printf("Too many errors 2: %X\n", in);
             data = 0xFFFF;
         } else if (keyLocation < 4) {
+
             data ^= (1 << (3 - keyLocation));
             debug_printf("Error in %d bit\n", 3 - keyLocation);
         } else {
+
             debug_printf("Error in hamming bit\n");
         }
     }

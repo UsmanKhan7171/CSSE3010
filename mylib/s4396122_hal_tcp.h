@@ -23,19 +23,23 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#define tcpConnection_PRIORITY (tskIDLE_PRIORITY + 2)
-#define tcpConnection_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
-#define TCP_SOCKET_PORT 10
+#define TCP_SOCKET_PORT 10  //!< Port to bound server to
 
+/**
+ * @brief Structure containing all the information required for a network 
+ * connection
+ */
 struct tcpConnection {
-    int fp;
-    IntQueue *input;
-    int open;
+    int fp;             //!< File descriptor of the current connection
+    IntQueue *input;    //!< Integer buffer of the current network input
+    int open;           //!< Status of if the network is still open or not
 };
 
 extern void s4396122_hal_tcp_init();
 extern struct tcpConnection s4396122_hal_tcp_accept();
-extern void s4396122_hal_tcp_read(struct tcpConnection *conn, void (*f)(IntQueue *));
-extern void s4396122_hal_tcp_print(struct tcpConnection *conn, IntQueue *message);
+extern void s4396122_hal_tcp_read(struct tcpConnection *conn, 
+        void (*f)(IntQueue *));
+extern void s4396122_hal_tcp_print(struct tcpConnection *conn, 
+        IntQueue *message);
 
 #endif

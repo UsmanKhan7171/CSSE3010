@@ -1,13 +1,9 @@
 /**
- * *****************************************************************************
- *  @file
- *  @author Daniel Fitzmaurice = 43961229
- *  @date   010317
- *  @brief  LED Light Bar peripheral driver
- *          REFERENCE: LEDLightBar_datasheet.pdf
- *******************************************************************************
- *  s4396122_hal_ledbar_init() = initialise LED Light Bar
- *  s4396122_hal_ledbar_write(unsigned short) = set LED Light Bar value
+ * @file s4396122_hal_ledbar.h
+ * @brief LED Light Bar peripheral drive
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
 #ifndef HAL_LEDBAR_H
 #define HAL_LEDBAR_H

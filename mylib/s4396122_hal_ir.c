@@ -1,38 +1,35 @@
 /**
- * @file    s4396122_hal_ir.c
- * @author  Daniel Fitzmaurice = 43961229
- * @date    150317
- * @brief   Control library for the IR transmitter and receiver
- *          REFERENCE: stage3
- *******************************************************************************
- * s4396122_hal_ir_init()           Initialise the IR receiver/transmitter
- *      hardware
- * irhal_carrier(state)             Internal generic function for turning the
- *      carrier wave on or off
+ * @file s4396122_hal_ir.c
+ * @brief Control library for the IR transmitter and receiver
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
-
 #include "s4396122_hal_ir.h"
 
-TIM_HandleTypeDef TIM_Init; // Local definition of modulation wave timer
-TIM_HandleTypeDef IR_Input_Init; // Keep as a local definition
+TIM_HandleTypeDef TIM_Init;     //!< Local definition of modulation wave timer
+TIM_HandleTypeDef IR_Input_Init;//!< Keep as a local definition
 
 /**
- * Handles the interrupt for the ir input. The timings will be stored in a
- * queue for processing later on
+ * @brief Handles the interrupt for the ir input. The timings will be stored in 
+ * a queue for processing later on
  */
 void s4396122_hal_ir_interrupt() {
+
     __HAL_TIM_CLEAR_IT(&IR_Input_Init, TIM_IT_TRIGGER);
 
+    // Read the last time this interrupt was triggered
     int tim = HAL_TIM_ReadCapturedValue(&IR_Input_Init, TIM_CHANNEL_2);
     unsigned int *diff = malloc(sizeof(unsigned int));
     *diff = tim;
     s4396122_util_queue_push(IRQueue, diff);
+    // Reset the timer
     __HAL_TIM_SET_COUNTER(&IR_Input_Init, TIM_CHANNEL_2);
 }
 
 /**
- * Initializes the hardware for the ir transmitter. This will also turn the
- * carrier signal on. Pin D8 is the logic pin and D1 is the carrier signal
+ * @brief Initializes the hardware for the ir transmitter. This will also turn 
+ * the carrier signal on. Pin D8 is the logic pin and D1 is the carrier signal
  */
 void s4396122_hal_ir_init() {
 
@@ -87,7 +84,7 @@ void s4396122_hal_ir_init() {
 
     HAL_TIM_PWM_Start(&TIM_Init, TIM_CHANNEL_1);
 
-    // Initialize the IR input
+    // Initialize the IR input pin
     __BRD_D0_GPIO_CLK();
     GPIO_InitStructure.Pin = BRD_D0_PIN;
     GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
@@ -96,6 +93,8 @@ void s4396122_hal_ir_init() {
     GPIO_InitStructure.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(BRD_D0_GPIO_PORT, &GPIO_InitStructure);
     PrescalerValue = (uint16_t) ((SystemCoreClock / 2) / 1000000) - 1;
+    
+    // Initialize the ir input capture timer
     IR_Input_Init.Instance = TIM3;
     IR_Input_Init.Init.Period = 1000000;
     IR_Input_Init.Init.Prescaler = PrescalerValue;
@@ -117,22 +116,26 @@ void s4396122_hal_ir_init() {
 }
 
 /**
- * Turns on or off the carrier signal
+ * @brief Turns on or off the carrier signal
  * @param state (1 = turns on the signal), (0 = turns off the signal)
  */
 void irhal_carrier(int state) {
+
     if (state) {
+
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_1, 4420);
     } else {
+
         __HAL_TIM_SET_COMPARE(&TIM_Init, TIM_CHANNEL_1, 0);
     }
 }
 
 /**
- * Gets the IRQueue and returns it for referencing to external libraries and
- * functions
+ * @brief Gets the IRQueue and returns it for referencing to external libraries 
+ * and functions
  * @return The IRQueue which contains all the current IR data
  */
 Queue* s4396122_hal_ir_get_queue() {
+
     return IRQueue;
 }

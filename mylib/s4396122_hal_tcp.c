@@ -7,17 +7,19 @@
  */
 #include "s4396122_hal_tcp.h"
 
-int sock;
+int sock; //!< Server socket file descriptor
 
 /**
  * @brief Initiates the tcp server preferences
  */
 void s4396122_hal_tcp_init() {
+
     s4396122_util_print_debug("Starting Network");
 
     sock = 0;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+
         s4396122_util_print_error("Can not create socket");
         return;
     }
@@ -28,6 +30,7 @@ void s4396122_hal_tcp_init() {
     address.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(sock, (const struct sockaddr *) &address, sizeof(address)) < 0) {
+
         s4396122_util_print_error("Can not bind socket");
         return;
     }
@@ -41,11 +44,14 @@ void s4396122_hal_tcp_init() {
  * @return struct containing information about the tcp connection
  */
 struct tcpConnection s4396122_hal_tcp_accept() {
+
     struct sockaddr_in remotehost;
     long size = sizeof(struct sockaddr_in);
-    int tcpconn = accept(sock, (struct sockaddr *) &remotehost, (socklen_t *) &size);
+    int tcpconn = accept(sock, (struct sockaddr *) &remotehost, 
+            (socklen_t *) &size);
     struct tcpConnection conn;
     if (tcpconn == -1) {
+
         s4396122_util_print_error("Error connecting");
     }
     s4396122_util_print_info("Got a new connection");
@@ -63,13 +69,17 @@ struct tcpConnection s4396122_hal_tcp_accept() {
  * @param f Function to be called when newline received
  */
 void s4396122_hal_tcp_read(struct tcpConnection *conn, void (*f)(IntQueue *)) {
+
     if (conn->open) {
+
         int ret;
         unsigned char buffer[20];
         memset(buffer, 0, sizeof(buffer));
         if ((ret = read(conn->fp, buffer, sizeof(buffer))) > 0) {
+
             for (int i = 0; i < ret; i++) {
                 if (buffer[i] == '\n') {
+
                     f(conn->input);
                     s4396122_util_int_queue_free(conn->input);
                     conn->input = s4396122_util_int_queue_create();
@@ -78,6 +88,7 @@ void s4396122_hal_tcp_read(struct tcpConnection *conn, void (*f)(IntQueue *)) {
                 s4396122_util_int_queue_push(conn->input, buffer[i]);
             }
         } else {
+
             s4396122_util_print_error("Connection closed");
             s4396122_util_int_queue_free(conn->input);
             conn->open = 0;
@@ -94,6 +105,7 @@ void s4396122_hal_tcp_read(struct tcpConnection *conn, void (*f)(IntQueue *)) {
  * @param message Message to be sent
  */
 void s4396122_hal_tcp_print(struct tcpConnection *conn, IntQueue *message) {
+
     int size = s4396122_util_int_queue_size(message);
     char buffer[size+10];
     memset(buffer, 0, sizeof(buffer));

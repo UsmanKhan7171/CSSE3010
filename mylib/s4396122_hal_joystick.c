@@ -1,22 +1,18 @@
 /**
- * @file    s4396122_hal_joystick.c
- * @author  Daniel Fitzmaurice = 43961229
- * @date    150317
- * @brief   Control library for the IR transmitter and receiver
- *          REFERENCE: stage3
- *******************************************************************************
- * s4396122_hal_joystick_init()     Initialise Joystick
- * int joystick_read(ADC Handler)   Internal Generic function to read specified
- *      joystick value
+ * @file s4396122_hal_joystick.c
+ * @brief Control library for the IR transmitter and receiver
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-31
  */
-
 #include "s4396122_hal_joystick.h"
 
 /**
- * Initializes the joystick hardware and sets A0 as the input for the x of the
- * joystick
+ * @brief Initializes the joystick hardware and sets A0 as the input for the x 
+ * of the joystick
  */
 void s4396122_hal_joystick_init() {
+
     // ADC_HandleTypeDef AdcHandle;
     ADC_ChannelConfTypeDef AdcChanConfig;
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -68,12 +64,13 @@ void s4396122_hal_joystick_init() {
 }
 
 /**
- * Reads the joystick value from the ADC Handler and returns the read value,
- * ranging from 0 to 4096
+ * @brief Reads the joystick value from the ADC Handler and returns the read 
+ * value, ranging from 0 to 4096
  * @param  adc The Handler to read the joystick value from
  * @return     The value read from 0 to 4096
  */
 int joystick_read(ADC_HandleTypeDef adc) {
+
     HAL_ADC_Start(&adc);    // Request an adc read from the system
     // Wait for the read to finish
     while (HAL_ADC_PollForConversion(&adc, 10) != HAL_OK);
