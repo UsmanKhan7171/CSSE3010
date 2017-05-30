@@ -388,10 +388,12 @@ void num_enter(char c) {
 
             if ((numOccur % 4) == 0) {
 
-                enteredChar = s4396122_os_draw_number_to_segment[lastChar - '0'];
+                enteredChar = s4396122_os_draw_number_to_segment[
+                    lastChar - '0'];
             } else {
 
-                enteredChar = s4396122_os_draw_letter_to_segment[3 * (lastChar - '2') + (numOccur % 4) - 1];
+                enteredChar = s4396122_os_draw_letter_to_segment[
+                    3 * (lastChar - '2') + (numOccur % 4) - 1];
             }
             break;
 
@@ -402,7 +404,8 @@ void num_enter(char c) {
                 enteredChar = s4396122_os_draw_number_to_segment[7];
             } else {
 
-                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 5) - 1 + ('P' - 'A')];
+                enteredChar = s4396122_os_draw_letter_to_segment[
+                    (numOccur % 5) - 1 + ('P' - 'A')];
             }
             break;
 
@@ -413,7 +416,8 @@ void num_enter(char c) {
                 enteredChar = s4396122_os_draw_number_to_segment[8];
             } else {
 
-                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 4) - 1 + ('T' - 'A')];
+                enteredChar = s4396122_os_draw_letter_to_segment[
+                    (numOccur % 4) - 1 + ('T' - 'A')];
             }
             break;
 
@@ -424,7 +428,8 @@ void num_enter(char c) {
                 enteredChar = s4396122_os_draw_number_to_segment[9];
             } else {
 
-                enteredChar = s4396122_os_draw_letter_to_segment[(numOccur % 5) - 1 + ('W' - 'A')];
+                enteredChar = s4396122_os_draw_letter_to_segment[
+                    (numOccur % 5) - 1 + ('W' - 'A')];
             }
             break;
 
@@ -569,10 +574,12 @@ void joystick_Task() {
             // Send the new origin position to the mqtt stream
             char buffer[1024];
             memset(buffer, 0, sizeof(buffer));
-            sprintf(buffer, "(%d, %d)", -x - OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, y - OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
+            sprintf(buffer, "(%d, %d)", -x - OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, 
+                    y - OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
             s4396122_os_mqtt_publish("joystick", buffer);
             // Set the new origin position
-            s4396122_os_draw_move_origin(-x - OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, y - OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
+            s4396122_os_draw_move_origin(-x - OS_DRAW_CANVAS_ORIGINAL_OFFSET_X, 
+                    y - OS_DRAW_CANVAS_ORIGINAL_OFFSET_Y);
         }
 
         vTaskDelay(250);
@@ -648,7 +655,8 @@ int main() {
     // Set the command handler for the mqtt input
     s4396122_os_mqtt_set_handler(mqtt_input); 
 
-    // A series of structs containing all the relevant information for the tasks that are going to run
+    // A series of structs containing all the relevant information for the 
+    // tasks that are going to run
     struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, 
         mainLED_PRIORITY};
     struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, 
@@ -672,7 +680,8 @@ int main() {
 
     // Create all the referenced tasks
     for (int i = 0; i < tasksPos; i++) {
-        xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);
+        xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, 
+                NULL, tasks[i].priority, NULL);
     }
 
     // initialize the mqtt library
@@ -1088,7 +1097,8 @@ static BaseType_t prvPolyCommand(char *pcWriteBuffer, size_t xWriteBufferLen,
 
     // Get all the parameters into one string
     long paramLen;
-    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, &paramLen);
+    const char *arguments = FreeRTOS_CLIGetParameter(pcCommandString, 1, 
+            &paramLen);
 
     // Convert the arguments string into the required variables
     int x, y, length, degree;
