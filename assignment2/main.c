@@ -25,6 +25,7 @@ void VCP_txflush() {
 #include "s4396122_os_joystick.h"
 #include "s4396122_cli_joystick.h"
 #include "s4396122_hal_accel.h"
+#include "s4396122_os_mqtt.h"
 
 // Scheduler includes
 #include "FreeRTOS.h"
@@ -36,7 +37,7 @@ void VCP_txflush() {
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 4)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 #define mainTask_PRIORITY (tskIDLE_PRIORITY + 3)
-#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 6)
+#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 3)
 
 // Task Holding struct
 struct TaskHolder {
@@ -139,8 +140,6 @@ CLI_Command_Definition_t xClear = {
 void Hardware_init() {
     portDISABLE_INTERRUPTS();
 
-    BRD_init();
-
     s4396122_os_draw_init();
     s4396122_cli_draw_init();
     s4396122_hal_irremote_init();
@@ -164,11 +163,21 @@ void Hardware_init() {
  * @param pcTaskName Task Name
  */
 void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName) {
-    BRD_LEDOn();
+    BRD_LEDOff();
     (void) pxTask;
     (void) pcTaskName;
 
     while (1);
+}
+
+void mqtt_input(char *buffer) {
+    IntQueue *output = s4396122_util_int_queue_create();
+    /*s4396122_util_int_queue_from_string(output, "Got MQTT: ");*/
+    s4396122_util_int_queue_from_string(output, buffer);
+    /*s4396122_util_int_queue_from_string(output, "\n");*/
+    /*s4396122_hal_tcp_print(&currentConn, output);*/
+    process_command_queue(output);
+    s4396122_util_int_queue_free(output);
 }
 
 void process_command_queue(IntQueue *q) {
@@ -378,8 +387,11 @@ void LED_Task() {
  */
 int main() {
 
+    BRD_init();
     Hardware_init(); // Initialise peripherials
     LwIP_Init();
+
+    s4396122_os_mqtt_set_handler(mqtt_input);
 
     struct TaskHolder LEDTask = {"LED", &LED_Task, mainLED_TASK_STACK_SIZE, mainLED_PRIORITY};
     struct TaskHolder MainTask = {"Main", &main_Task, mainTask_TASK_STACK_SIZE, mainTask_PRIORITY};
@@ -398,6 +410,11 @@ int main() {
     for (int i = 0; i < tasksPos; i++) {
         xTaskCreate(tasks[i].function, tasks[i].name, tasks[i].stackDepth, NULL, tasks[i].priority, NULL);
     }
+
+    s4396122_os_mqtt_init();
+
+    struct TaskHolder MQTTTask = {"MQTT", &MQTT_Task, mqttTask_STACK_SIZE, mqttTask_PRIORITY};
+    tasks[tasksPos++] = MQTTTask;
     
     // Create the LED Task
     /*xTaskCreate(&LED_Task, "LED", mainLED_TASK_STACK_SIZE, NULL, mainLED_PRIORITY, NULL);*/
@@ -431,14 +448,15 @@ static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
 
     unsigned long ulTotalRunTime;
     UBaseType_t uxArraySize = uxTaskGetNumberOfTasks();
-    TaskStatus_t *pxTaskStatusArray = pvPortMalloc(uxArraySize * sizeof(TaskStatus_t));
+    /*TaskStatus_t *pxTaskStatusArray = pvPortMalloc(uxArraySize * sizeof(TaskStatus_t));*/
+    TaskStatus_t pxTaskStatusArray[uxArraySize];
     uxArraySize = uxTaskGetSystemState(pxTaskStatusArray, uxArraySize, &ulTotalRunTime);
     ulTotalRunTime /= 100UL;
 
     char *pcWriteBufferPos = pcWriteBuffer;
     int bufferSize = 0;
 
-    int writeSize = sprintf(pcWriteBufferPos, "   %-9s  %9s  %9s  %9s  %9s  %9s\n", "Name", "Priority", "Run Time", "CPU Usage", "Stack Rem", "Status");
+    int writeSize = sprintf(pcWriteBufferPos, "Remaining Mem: %d\n   %-9s  %9s  %9s  %9s  %9s  %9s\n", xPortGetMinimumEverFreeHeapSize(), "Name", "Priority", "Run Time", "CPU Usage", "Stack Rem", "Status");
     pcWriteBufferPos += writeSize;
     bufferSize += writeSize;
 
@@ -479,6 +497,8 @@ static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen, con
     }
 
     xWriteBufferLen = bufferSize;
+
+    /*pvPortFree(pxTaskStatusArray);*/
 
     return pdFALSE;
 }

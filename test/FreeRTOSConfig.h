@@ -93,6 +93,7 @@
 #define configCOMMAND_INT_MAX_OUTPUT_SIZE 1024
 #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (0)
 #define portGET_RUN_TIME_COUNTER_VALUE() HAL_GetTick()
+#define configUSE_STATS_FORMATTING_FUNCTIONS 1
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 		0

@@ -20,12 +20,13 @@
 #include "s4396122_util_iter.h"
 #include "s4396122_os_print.h"
 #include "s4396122_hal_accel.h"
+#include "s4396122_os_mqtt.h"
 
 // Task Priorities
 #define mainLED_PRIORITY (tskIDLE_PRIORITY + 3)
 #define mainLED_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
-#define mainTask_PRIORITY (tskIDLE_PRIORITY + 2)
-#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 6)
+#define mainTask_PRIORITY (tskIDLE_PRIORITY + 3)
+#define mainTask_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 3)
 
 #define TEST(a) test(a, __FILE__, __LINE__)
 
@@ -52,12 +53,11 @@ void test(int a, const char *fileName, int lineNo) {
 void Hardware_init() {
     portDISABLE_INTERRUPTS();
 
-    BRD_init();
 
     BRD_LEDInit();
     BRD_LEDOn();
     s4396122_os_print_init();
-    s4396122_hal_accel_init();
+    /*s4396122_hal_accel_init();*/
 
     portENABLE_INTERRUPTS();
 }
@@ -69,7 +69,7 @@ void Hardware_init() {
  */
 void vApplicationStackOverflowHook(xTaskHandle pxTask,
         signed char *pcTaskName) {
-    BRD_LEDOff();
+    BRD_LEDOn();
     (void) pxTask;
     (void) pcTaskName;
 
@@ -102,17 +102,20 @@ void test_iter() {
 void main_Task() {
     s4396122_util_print_info("Beginning Tests");
 
-    int one = 1;
-    s4396122_os_print_add_detail("Here", &one);
+    /*int one = 1;*/
+    /*s4396122_os_print_add_detail("Here", &one);*/
 
     vTaskDelay(1500);
     TEST(1);
     test_iter();
 
+    s4396122_os_mqtt_subscribe("test");
+
     while (1) {
         vTaskDelay(1000);
-        struct PortLand result = s4396122_hal_accel_get_pl();
-        s4396122_os_print("P: %d, L: %d\n", result.portUp, result.landUp);
+        /*struct PortLand result = s4396122_hal_accel_get_pl();*/
+        /*s4396122_os_print("P: %d, L: %d\n", result.portUp, result.landUp);*/
+        /*s4396122_os_mqtt_publish("np2/debug", "Loop");*/
     }
 }
 
@@ -126,12 +129,17 @@ void LED_Task() {
     }
 }
 
+void new_message(char *buffer) {
+    debug_printf("Got: %s\n", buffer);
+}
+
 /**
  * Main system loop
  * @return Exit code status
  */
 int main() {
 
+    BRD_init();
     Hardware_init(); // Initialise peripherials
     LwIP_Init();
     
@@ -141,6 +149,8 @@ int main() {
 
     // Create Task to handle the serial/network input
     xTaskCreate(&main_Task, "Main", mainTask_TASK_STACK_SIZE, NULL, mainTask_PRIORITY, NULL);
+    s4396122_os_mqtt_init();
+    s4396122_os_mqtt_set_handler(new_message);
 
     // Hands main loop control over to freertos. This should never exit
     vTaskStartScheduler();

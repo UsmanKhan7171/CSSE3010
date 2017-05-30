@@ -11,6 +11,7 @@ CLI_PATH=$(NP2_ROOT)/src/freertosplus/FreeRTOS-Plus-CLI
 USB_PATH=$(NP2_ROOT)/src/hal/STM32_USB_Device_Library
 HID_PATH=$(USB_PATH)/Class/HID
 USB_CORE_PATH=$(USB_PATH)/Core
+MQTT_PATH=$(NP2_ROOT)/src/net/apps/mqtt
 
 #Name of project
 PROJ_NAME=main
@@ -48,6 +49,8 @@ include $(NP2_ROOT)/src/net/lwip/Makefile.lwip
 
 #Include net makefile
 include $(NP2_ROOT)/src/boards/netduinoplus2/Makefile.net
+
+include $(MQTT_PATH)/Makefile.mqtt
 
 #Include freertos makefile
 include $(NP2_ROOT)/src/freertos/Makefile.freertos

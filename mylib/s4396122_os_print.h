@@ -11,7 +11,7 @@
 #include <stdarg.h>
 #include <debug_printf.h>
 
-#define print_PRIORITY (tskIDLE_PRIORITY + 1)
+#define print_PRIORITY (tskIDLE_PRIORITY + 6)
 #define print_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE * 2)
 
 struct DisplayPair {

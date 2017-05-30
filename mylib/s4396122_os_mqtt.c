@@ -3,6 +3,8 @@
 Client client;
 int connected = 0;
 
+void (*msgHandler)(char *);
+
 void mqtt_messagehandler(MessageData *data);
 
 void s4396122_os_mqtt_init() {
@@ -40,21 +42,19 @@ void MQTT_Task(void) {
 
     char buff[100];
     char readBuff[100];
+
+    BRD_LEDOff();
     
     Network network;
     NewNetwork(&network);
     connect_network(&network, "192.168.0.1", 1883);
-    debug_printf("Socket Connected\n");
+    BRD_LEDOn();
 
     MQTTClient(&client, &network, 1000, buff, 100, readBuff, 100);
-    debug_printf("Created Client\n");
     client.ipstack->mqttread = network_read;
     client.defaultMessageHandler = mqtt_messagehandler;
-    debug_printf("Waiting\n");
-    /*vTaskDelay(5000);*/
 
     MQTTConnect(&client, NULL);
-    debug_printf("Connected\n");
     connected = 1;
 
     s4396122_os_mqtt_publish("debug", "MQTT Init");
@@ -68,12 +68,14 @@ void MQTT_Task(void) {
         countdown_ms(&timer, 1000);
         cycle(&client, &timer);
 
-        s4396122_os_mqtt_publish("loop", "Hello");
+        s4396122_os_mqtt_publish("debug", "Got Command");
         vTaskDelay(100);
     }
 }
 
 void s4396122_os_mqtt_publish(char *inTopic, char *message) {
+    if (!connected)
+        return;
     char topic[50];
     memset(topic, 0, sizeof(topic));
     sprintf(topic, "np2/%s", inTopic);
@@ -90,14 +92,20 @@ void s4396122_os_mqtt_publish(char *inTopic, char *message) {
  * @param data MessageData struct pointer. Contains Qos info and payload
  */
 void mqtt_messagehandler(MessageData *data) {
-    char buffer[data->message->payloadlen];
+    char buffer[data->message->payloadlen + 2];
+    memset(buffer, 0, sizeof(buffer));
     strncpy(buffer, data->message->payload, data->message->payloadlen);
-    debug_printf("Got: %s\n", data->topicName->lenstring.data, buffer);
+    if (msgHandler != NULL) {
+        msgHandler(buffer);
+    }
+}
+
+void s4396122_os_mqtt_set_handler(void (*handler)(char*)) {
+    msgHandler = handler;
 }
 
 void s4396122_os_mqtt_subscribe(char *inTopic) {
     if (!connected) {
-        debug_printf("Not initialized yet\n");
         return;
     }
     char topic[50];
