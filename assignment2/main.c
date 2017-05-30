@@ -796,7 +796,8 @@ static BaseType_t prvTopCommand(char *pcWriteBuffer, size_t xWriteBufferLen,
 
         }
 
-        int writeSize = sprintf(pcWriteBufferPos, "%2d:%-9s  %9lu  %9lu  %8lu%%  %9u  %9s\n",
+        int writeSize = sprintf(pcWriteBufferPos, 
+                "%2d:%-9s  %9lu  %9lu  %8lu%%  %9u  %9s\n",
                 pxTaskStatusArray[i].xTaskNumber,
                 pxTaskStatusArray[i].pcTaskName,
                 pxTaskStatusArray[i].uxCurrentPriority,
