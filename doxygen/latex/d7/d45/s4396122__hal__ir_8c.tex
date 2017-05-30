@@ -1,0 +1,84 @@
+\hypertarget{s4396122__hal__ir_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+ir.c File Reference}
+\label{s4396122__hal__ir_8c}\index{mylib/s4396122\+\_\+hal\+\_\+ir.\+c@{mylib/s4396122\+\_\+hal\+\_\+ir.\+c}}
+
+
+Control library for the IR transmitter and receiver.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+ir.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+ir.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d0e/s4396122__hal__ir_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__ir_8c_a79383d1eb7a6461c1ee7748a84c6acae}{s4396122\+\_\+hal\+\_\+ir\+\_\+interrupt} ()\hypertarget{s4396122__hal__ir_8c_a79383d1eb7a6461c1ee7748a84c6acae}{}\label{s4396122__hal__ir_8c_a79383d1eb7a6461c1ee7748a84c6acae}
+
+\begin{DoxyCompactList}\small\item\em Handles the interrupt for the ir input. The timings will be stored in a queue for processing later on. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__ir_8c_ad77fb83f56d03670d3365052699eaadb}{s4396122\+\_\+hal\+\_\+ir\+\_\+init} ()\hypertarget{s4396122__hal__ir_8c_ad77fb83f56d03670d3365052699eaadb}{}\label{s4396122__hal__ir_8c_ad77fb83f56d03670d3365052699eaadb}
+
+\begin{DoxyCompactList}\small\item\em Initializes the hardware for the ir transmitter. This will also turn the carrier signal on. Pin D8 is the logic pin and D1 is the carrier signal. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__ir_8c_acf1c32d6e4e958b01b3f2db410b63312}{irhal\+\_\+carrier} (int state)
+\begin{DoxyCompactList}\small\item\em Turns on or off the carrier signal. \end{DoxyCompactList}\item 
+\hyperlink{structQueue}{Queue} $\ast$ \hyperlink{s4396122__hal__ir_8c_a32206e24b83574e02595e1edc1132db1}{s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue} ()
+\begin{DoxyCompactList}\small\item\em Gets the I\+R\+Queue and returns it for referencing to external libraries and functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+T\+I\+M\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__ir_8c_a0b2cba495b01a94a7df3e44146dd9468}{T\+I\+M\+\_\+\+Init}\hypertarget{s4396122__hal__ir_8c_a0b2cba495b01a94a7df3e44146dd9468}{}\label{s4396122__hal__ir_8c_a0b2cba495b01a94a7df3e44146dd9468}
+
+\begin{DoxyCompactList}\small\item\em Local definition of modulation wave timer. \end{DoxyCompactList}\item 
+T\+I\+M\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__ir_8c_a171a80a903e9c2af570c876421cb205b}{I\+R\+\_\+\+Input\+\_\+\+Init}\hypertarget{s4396122__hal__ir_8c_a171a80a903e9c2af570c876421cb205b}{}\label{s4396122__hal__ir_8c_a171a80a903e9c2af570c876421cb205b}
+
+\begin{DoxyCompactList}\small\item\em Keep as a local definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Control library for the IR transmitter and receiver. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+ir.\+c@{s4396122\+\_\+hal\+\_\+ir.\+c}!irhal\+\_\+carrier@{irhal\+\_\+carrier}}
+\index{irhal\+\_\+carrier@{irhal\+\_\+carrier}!s4396122\+\_\+hal\+\_\+ir.\+c@{s4396122\+\_\+hal\+\_\+ir.\+c}}
+\subsubsection[{\texorpdfstring{irhal\+\_\+carrier(int state)}{irhal_carrier(int state)}}]{\setlength{\rightskip}{0pt plus 5cm}void irhal\+\_\+carrier (
+\begin{DoxyParamCaption}
+\item[{int}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ir_8c_acf1c32d6e4e958b01b3f2db410b63312}{}\label{s4396122__hal__ir_8c_acf1c32d6e4e958b01b3f2db410b63312}
+
+
+Turns on or off the carrier signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & (1 = turns on the signal), (0 = turns off the signal) \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+hal\+\_\+ir.\+c@{s4396122\+\_\+hal\+\_\+ir.\+c}!s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue@{s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue}}
+\index{s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue@{s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue}!s4396122\+\_\+hal\+\_\+ir.\+c@{s4396122\+\_\+hal\+\_\+ir.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue()}{s4396122_hal_ir_get_queue()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Queue}$\ast$ s4396122\+\_\+hal\+\_\+ir\+\_\+get\+\_\+queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ir_8c_a32206e24b83574e02595e1edc1132db1}{}\label{s4396122__hal__ir_8c_a32206e24b83574e02595e1edc1132db1}
+
+
+Gets the I\+R\+Queue and returns it for referencing to external libraries and functions. 
+
+\begin{DoxyReturn}{Returns}
+The I\+R\+Queue which contains all the current IR data 
+\end{DoxyReturn}

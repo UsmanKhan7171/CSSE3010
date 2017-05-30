@@ -1,0 +1,163 @@
+\hypertarget{s4396122__hal__ircoms_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+ircoms.c File Reference}
+\label{s4396122__hal__ircoms_8c}\index{mylib/s4396122\+\_\+hal\+\_\+ircoms.\+c@{mylib/s4396122\+\_\+hal\+\_\+ircoms.\+c}}
+
+
+Library for encoding and decoding of data to manchester waveforms.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+ircoms.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+ircoms.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{dd/d4d/s4396122__hal__ircoms_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__ircoms_8c_af6db5d5da986be74c8d4f49a30df2acd}{manchester\+\_\+encode} (\hyperlink{structQueue}{Queue} $\ast$q, unsigned int bit)
+\begin{DoxyCompactList}\small\item\em Encodes a bit into a \hyperlink{structQueue}{Queue}. \end{DoxyCompactList}\item 
+\hyperlink{structQueue}{Queue} $\ast$ \hyperlink{s4396122__hal__ircoms_8c_af335092b42755a4eb0a17bf29e496d54}{s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode} (unsigned int hamming\+Code)
+\begin{DoxyCompactList}\small\item\em Encodes a byte of data into a \hyperlink{structQueue}{Queue} of manchester waveform. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__hal__ircoms_8c_a4f68da46bb9058a63a6b1cc238ca3743}{manchester\+\_\+decode} (\hyperlink{structQueue}{Queue} $\ast$in\+Queue)
+\begin{DoxyCompactList}\small\item\em Decodes one group of bits and returns the result. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{s4396122__hal__ircoms_8c_ad0c503052637583ddd3ac840d9e4791a}{s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode} (\hyperlink{structQueue}{Queue} $\ast$in\+Queue)
+\begin{DoxyCompactList}\small\item\em Decodes a \hyperlink{structQueue}{Queue} of manchester bits and returns an int of the decoded \hyperlink{structQueue}{Queue}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for encoding and decoding of data to manchester waveforms. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}!manchester\+\_\+decode@{manchester\+\_\+decode}}
+\index{manchester\+\_\+decode@{manchester\+\_\+decode}!s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}}
+\subsubsection[{\texorpdfstring{manchester\+\_\+decode(\+Queue $\ast$in\+Queue)}{manchester_decode(Queue *inQueue)}}]{\setlength{\rightskip}{0pt plus 5cm}int manchester\+\_\+decode (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{in\+Queue}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ircoms_8c_a4f68da46bb9058a63a6b1cc238ca3743}{}\label{s4396122__hal__ircoms_8c_a4f68da46bb9058a63a6b1cc238ca3743}
+
+
+Decodes one group of bits and returns the result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in\+Queue} & \hyperlink{structQueue}{Queue} to extract bits from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Either 1 or 0 based on the bits decoded 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{d0/da1/s4396122__hal__ircoms_8c_a4f68da46bb9058a63a6b1cc238ca3743_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}!manchester\+\_\+encode@{manchester\+\_\+encode}}
+\index{manchester\+\_\+encode@{manchester\+\_\+encode}!s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}}
+\subsubsection[{\texorpdfstring{manchester\+\_\+encode(\+Queue $\ast$q, unsigned int bit)}{manchester_encode(Queue *q, unsigned int bit)}}]{\setlength{\rightskip}{0pt plus 5cm}void manchester\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{q, }
+\item[{unsigned int}]{bit}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ircoms_8c_af6db5d5da986be74c8d4f49a30df2acd}{}\label{s4396122__hal__ircoms_8c_af6db5d5da986be74c8d4f49a30df2acd}
+
+
+Encodes a bit into a \hyperlink{structQueue}{Queue}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to add the encoded bit to \\
+\hline
+{\em bit} & Bit to be encoded \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/da1/s4396122__hal__ircoms_8c_af6db5d5da986be74c8d4f49a30df2acd_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}!s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode@{s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode}}
+\index{s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode@{s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode}!s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode(\+Queue $\ast$in\+Queue)}{s4396122_hal_ircoms_decode(Queue *inQueue)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int s4396122\+\_\+hal\+\_\+ircoms\+\_\+decode (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{in\+Queue}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ircoms_8c_ad0c503052637583ddd3ac840d9e4791a}{}\label{s4396122__hal__ircoms_8c_ad0c503052637583ddd3ac840d9e4791a}
+
+
+Decodes a \hyperlink{structQueue}{Queue} of manchester bits and returns an int of the decoded \hyperlink{structQueue}{Queue}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in\+Queue} & \hyperlink{structQueue}{Queue} to be decoded \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Decoded int of the queue 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/da1/s4396122__hal__ircoms_8c_ad0c503052637583ddd3ac840d9e4791a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}!s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode@{s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode}}
+\index{s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode@{s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode}!s4396122\+\_\+hal\+\_\+ircoms.\+c@{s4396122\+\_\+hal\+\_\+ircoms.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode(unsigned int hamming\+Code)}{s4396122_hal_ircoms_encode(unsigned int hammingCode)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Queue}$\ast$ s4396122\+\_\+hal\+\_\+ircoms\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{hamming\+Code}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__ircoms_8c_af335092b42755a4eb0a17bf29e496d54}{}\label{s4396122__hal__ircoms_8c_af335092b42755a4eb0a17bf29e496d54}
+
+
+Encodes a byte of data into a \hyperlink{structQueue}{Queue} of manchester waveform. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hamming\+Code} & Data to be encoded \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Resulting \hyperlink{structQueue}{Queue} with manchester coding 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/da1/s4396122__hal__ircoms_8c_af335092b42755a4eb0a17bf29e496d54_cgraph}
+\end{center}
+\end{figure}
+
+

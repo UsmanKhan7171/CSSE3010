@@ -1,0 +1,6 @@
+<map id="s4396122_hal_tcp_read" name="s4396122_hal_tcp_read">
+<area shape="rect" id="node2" href="$d4/d68/s4396122__util__int__queue_8c.html#a80a0b7728809b2e3eb95db4da3edbc1f" title="Frees the whole queue from memory, as well as all the elements inside. " alt="" coords="215,5,409,32"/>
+<area shape="rect" id="node4" href="$d4/d68/s4396122__util__int__queue_8c.html#a32ee4c1f5cca5d9e7a2c06703ecf9420" title="Creates an integer queue. " alt="" coords="229,57,395,98"/>
+<area shape="rect" id="node5" href="$d4/d68/s4396122__util__int__queue_8c.html#a8ca4183218e74008d2d1a949cb4cb9e4" title="Pushes an element into the tail of the queue. " alt="" coords="212,123,412,149"/>
+<area shape="rect" id="node3" href="$d4/d68/s4396122__util__int__queue_8c.html#a609d3acea96c09ccdc57c7da23659fc9" title="Pops an element from the head of the queue. " alt="" coords="460,5,653,32"/>
+</map>

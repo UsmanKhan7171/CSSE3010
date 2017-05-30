@@ -1,0 +1,10 @@
+<map id="mylib/s4396122_util_int_queue.h" name="mylib/s4396122_util_int_queue.h">
+<area shape="rect" id="node2" href="$d0/d29/main_8c.html" title="Main file for project 2. " alt="" coords="49,281,188,307"/>
+<area shape="rect" id="node3" href="$db/de1/s4396122__os__draw_8h.html" title="Library for drawing using paint. " alt="" coords="186,102,366,129"/>
+<area shape="rect" id="node7" href="$d9/dde/s4396122__hal__tcp_8h.html" title="Library for reading and writing to a tcp connection. " alt="" coords="24,95,162,136"/>
+<area shape="rect" id="node9" href="$d4/d68/s4396122__util__int__queue_8c.html" title="Library for easily creating and managing a Queue of integers. " alt="" coords="390,95,527,136"/>
+<area shape="rect" id="node4" href="$d4/d75/s4396122__cli__draw_8h.html" title="Provides drawing commands for CLI. " alt="" coords="468,184,601,225"/>
+<area shape="rect" id="node6" href="$df/d92/s4396122__os__draw_8c.html" title="Library for drawing using paint. " alt="" coords="263,191,443,218"/>
+<area shape="rect" id="node5" href="$d2/d7a/s4396122__cli__draw_8c.html" title="Provides drawing commands for CLI. " alt="" coords="468,273,601,315"/>
+<area shape="rect" id="node8" href="$df/d90/s4396122__hal__tcp_8c.html" title="Library for reading and writing to a tcp connection. " alt="" coords="50,184,187,225"/>
+</map>

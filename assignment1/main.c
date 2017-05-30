@@ -1,8 +1,9 @@
 /**
- * @file    assignment1/main.c
- * @author  Daniel Fitzmaurice = 43961229
- * @date    220317
- * @brief   Main file for Assignment 1
+ * @file main.c
+ * @brief Main file for Assignment 1
+ * @author Daniel Fitzmaurice - 43961229
+ * @version 1
+ * @date 2017-05-30
  */
 
 #include <board.h>
@@ -24,8 +25,10 @@
 
 // public variables
 int xDegree;    // Tracks the x and y degree of the pan and tilt motors
+//! A public variable
+//! Details
 int yDegree;
-unsigned int lastFuncAccuracy; // Stores the last time the check_func_accuracy
+unsigned int lastFuncAccuracy; //! Stores the last time the check_func_accuracy
 // function was called
 int currentAngle;
 // Maps for handling ir remote and serial input

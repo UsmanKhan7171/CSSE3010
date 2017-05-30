@@ -1,0 +1,21 @@
+<map id="assignment2/main.c" name="assignment2/main.c">
+<area shape="rect" id="node2" href="$db/dc7/FreeRTOSConfig_8h_source.html" title="FreeRTOSConfig.h" alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node5" href="$d9/dde/s4396122__hal__tcp_8h.html" title="Library for reading and writing to a tcp connection. " alt="" coords="806,155,945,181"/>
+<area shape="rect" id="node18" href="$df/d1b/s4396122__util__int__queue_8h.html" title="Library for easily creating and managing a Queue of integers. " alt="" coords="1145,229,1321,256"/>
+<area shape="rect" id="node25" href="$db/de1/s4396122__os__draw_8h.html" title="Library for drawing using paint. " alt="" coords="1953,155,2099,181"/>
+<area shape="rect" id="node26" href="$d4/de9/s4396122__os__mqtt_8h.html" title="Library for publishing and subscribing to channels using mqtt. " alt="" coords="1916,304,2059,331"/>
+<area shape="rect" id="node33" href="$d4/d75/s4396122__cli__draw_8h.html" title="Provides drawing commands for CLI. " alt="" coords="2229,80,2373,107"/>
+<area shape="rect" id="node35" href="$de/d96/s4396122__hal__irremote_8h.html" title="Library for processing and reporting of the irremote. " alt="" coords="3168,155,3335,181"/>
+<area shape="rect" id="node38" href="$db/dd7/s4396122__hal__ir_8h.html" title="Control library for the IR transmitter and receiver. " alt="" coords="2915,155,3041,181"/>
+<area shape="rect" id="node39" href="$dd/d1f/s4396122__util__map_8h.html" title="Library for adding HashMap functionality. " alt="" coords="1225,379,1371,405"/>
+<area shape="rect" id="node41" href="$de/dc0/s4396122__hal__joystick_8h.html" title="Library for the reading the joystick input. " alt="" coords="2725,155,2890,181"/>
+<area shape="rect" id="node42" href="$dd/d96/s4396122__os__joystick_8h.html" title="Library for os interface to joystick peripheral. " alt="" coords="2538,155,2701,181"/>
+<area shape="rect" id="node43" href="$dc/d8e/s4396122__cli__joystick_8h.html" title="Provides joystick commands for CLI. " alt="" coords="2448,80,2609,107"/>
+<area shape="rect" id="node44" href="$d6/d4a/s4396122__hal__accel_8h.html" title="Library for accessing and controlling the accelerometer. " alt="" coords="2921,80,3072,107"/>
+<area shape="rect" id="node7" href="$db/d9b/netconfig_8h.html" title="This file contains MAC, IP, MASK and Gateway address definitions. " alt="" coords="484,229,571,256"/>
+<area shape="rect" id="node9" href="$d5/d73/s4396122__util__print_8h.html" title="Function for handling the serial print and cursor magic. " alt="" coords="1583,304,1728,331"/>
+<area shape="rect" id="node11" href="$d5/d97/s4396122__os__print_8h.html" title="Library to make console printing easier and less direct task intensive. " alt="" coords="1684,379,1827,405"/>
+<area shape="rect" id="node15" href="$dc/d52/s4396122__util__queue_8h.html" title="Library for adding Queue functionality. " alt="" coords="2387,453,2542,480"/>
+<area shape="rect" id="node37" href="$de/d37/s4396122__hal__util_8h.html" title="External library for utility functions and constants. " alt="" coords="3147,229,3284,256"/>
+<area shape="rect" id="node40" href="$db/d21/s4396122__util__linkedlist_8h.html" title="Library for adding linkedlist functionality. " alt="" coords="798,453,969,480"/>
+</map>

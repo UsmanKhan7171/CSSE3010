@@ -1,0 +1,206 @@
+\hypertarget{s4396122__util__func__queue_8h}{}\section{mylib/s4396122\+\_\+util\+\_\+func\+\_\+queue.h File Reference}
+\label{s4396122__util__func__queue_8h}\index{mylib/s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{mylib/s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+
+
+Library for function queue / scheduler.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+linkedlist.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{db/d51/s4396122__util__func__queue_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{d2/d72/s4396122__util__func__queue_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfuncPair}{func\+Pair}
+\begin{DoxyCompactList}\small\item\em Used to pair up a function to an interval. \end{DoxyCompactList}\item 
+struct \hyperlink{structFuncQueue}{Func\+Queue}
+\begin{DoxyCompactList}\small\item\em A struct containing all the required \hyperlink{structFuncQueue}{Func\+Queue} info. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structFuncQueue}{Func\+Queue} $\ast$ \hyperlink{s4396122__util__func__queue_8h_ac56f277a9a7e75b1e372dce3e3abeef2}{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create} ()
+\begin{DoxyCompactList}\small\item\em Creates an empty function queue for use. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__func__queue_8h_a0cc11368928f6c47902d152a09757f10}{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add} (\hyperlink{structFuncQueue}{Func\+Queue} $\ast$\hyperlink{structqueue}{queue}, void($\ast$function)(void), int interval\+Time)
+\begin{DoxyCompactList}\small\item\em Adds a function to the queue and sets the interval time for the function to be called. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__func__queue_8h_a34901981697c5b7423d625b03a10d318}{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick} (\hyperlink{structFuncQueue}{Func\+Queue} $\ast$\hyperlink{structqueue}{queue})
+\begin{DoxyCompactList}\small\item\em The tick function for the \hyperlink{structFuncQueue}{Func\+Queue}. This will execute any functions with the matched interval time. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__func__queue_8h_adadedfbdfd6c171678eefc54aa539494}{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause} (\hyperlink{structFuncQueue}{Func\+Queue} $\ast$\hyperlink{structqueue}{queue}, int pos)
+\begin{DoxyCompactList}\small\item\em Pauses the Function at position pos. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__func__queue_8h_a4c7a5a3603d42403b277e29df6a8f33d}{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume} (\hyperlink{structFuncQueue}{Func\+Queue} $\ast$\hyperlink{structqueue}{queue}, int pos)
+\begin{DoxyCompactList}\small\item\em Resumes the Function at position pos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for function queue / scheduler. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}!s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add}}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add}!s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add(\+Func\+Queue $\ast$queue, void($\ast$function)(void), int interval\+Time)}{s4396122_util_func_queue_add(FuncQueue *queue, void(*function)(void), int intervalTime)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf Func\+Queue} $\ast$}]{queue, }
+\item[{void($\ast$)(void)}]{function, }
+\item[{int}]{interval\+Time}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__func__queue_8h_a0cc11368928f6c47902d152a09757f10}{}\label{s4396122__util__func__queue_8h_a0cc11368928f6c47902d152a09757f10}
+
+
+Adds a function to the queue and sets the interval time for the function to be called. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & \hyperlink{structFuncQueue}{Func\+Queue} to add function and interval to \\
+\hline
+{\em function} & Function to be called after said interval time \\
+\hline
+{\em interval\+Time} & Timeout for function to be called after. It is possible for the function to be called after the time and not before \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{d4/d80/s4396122__util__func__queue_8h_a0cc11368928f6c47902d152a09757f10_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}!s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create}!s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create()}{s4396122_util_func_queue_create()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Func\+Queue}$\ast$ s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__func__queue_8h_ac56f277a9a7e75b1e372dce3e3abeef2}{}\label{s4396122__util__func__queue_8h_ac56f277a9a7e75b1e372dce3e3abeef2}
+
+
+Creates an empty function queue for use. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to \hyperlink{structFuncQueue}{Func\+Queue} for use 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{d4/d80/s4396122__util__func__queue_8h_ac56f277a9a7e75b1e372dce3e3abeef2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}!s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause}}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause}!s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause(\+Func\+Queue $\ast$queue, int pos)}{s4396122_util_func_queue_pause(FuncQueue *queue, int pos)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+pause (
+\begin{DoxyParamCaption}
+\item[{{\bf Func\+Queue} $\ast$}]{queue, }
+\item[{int}]{pos}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__func__queue_8h_adadedfbdfd6c171678eefc54aa539494}{}\label{s4396122__util__func__queue_8h_adadedfbdfd6c171678eefc54aa539494}
+
+
+Pauses the Function at position pos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & The \hyperlink{structFuncQueue}{Func\+Queue} to access the element from \\
+\hline
+{\em pos} & Position to pause from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d4/d80/s4396122__util__func__queue_8h_adadedfbdfd6c171678eefc54aa539494_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}!s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume}}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume}!s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume(\+Func\+Queue $\ast$queue, int pos)}{s4396122_util_func_queue_resume(FuncQueue *queue, int pos)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+resume (
+\begin{DoxyParamCaption}
+\item[{{\bf Func\+Queue} $\ast$}]{queue, }
+\item[{int}]{pos}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__func__queue_8h_a4c7a5a3603d42403b277e29df6a8f33d}{}\label{s4396122__util__func__queue_8h_a4c7a5a3603d42403b277e29df6a8f33d}
+
+
+Resumes the Function at position pos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & The \hyperlink{structFuncQueue}{Func\+Queue} to access the element from \\
+\hline
+{\em pos} & Position to resume from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d4/d80/s4396122__util__func__queue_8h_a4c7a5a3603d42403b277e29df6a8f33d_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}!s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick}}
+\index{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick@{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick}!s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h@{s4396122\+\_\+util\+\_\+func\+\_\+queue.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick(\+Func\+Queue $\ast$queue)}{s4396122_util_func_queue_tick(FuncQueue *queue)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+func\+\_\+queue\+\_\+tick (
+\begin{DoxyParamCaption}
+\item[{{\bf Func\+Queue} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__func__queue_8h_a34901981697c5b7423d625b03a10d318}{}\label{s4396122__util__func__queue_8h_a34901981697c5b7423d625b03a10d318}
+
+
+The tick function for the \hyperlink{structFuncQueue}{Func\+Queue}. This will execute any functions with the matched interval time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & The \hyperlink{structFuncQueue}{Func\+Queue} to interate through and run the functions from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{d4/d80/s4396122__util__func__queue_8h_a34901981697c5b7423d625b03a10d318_cgraph}
+\end{center}
+\end{figure}
+
+

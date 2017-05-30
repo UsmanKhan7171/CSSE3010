@@ -20,7 +20,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint16_t counter_value = 0x03;
+uint16_t counter_value = 0x03; //! Some comment here
 unsigned char left_bool = 1;
 uint16_t press_counter_val = 0;
 unsigned int last_press = 0;

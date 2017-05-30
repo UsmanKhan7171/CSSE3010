@@ -1,0 +1,59 @@
+\hypertarget{s4396122__hal__joystick_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+joystick.c File Reference}
+\label{s4396122__hal__joystick_8c}\index{mylib/s4396122\+\_\+hal\+\_\+joystick.\+c@{mylib/s4396122\+\_\+hal\+\_\+joystick.\+c}}
+
+
+Control library for the IR transmitter and receiver.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+joystick.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+joystick.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{d8/deb/s4396122__hal__joystick_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__joystick_8c_a86b1b90556d8e0f77ef373da4c94ed4e}{s4396122\+\_\+hal\+\_\+joystick\+\_\+init} ()\hypertarget{s4396122__hal__joystick_8c_a86b1b90556d8e0f77ef373da4c94ed4e}{}\label{s4396122__hal__joystick_8c_a86b1b90556d8e0f77ef373da4c94ed4e}
+
+\begin{DoxyCompactList}\small\item\em Initializes the joystick hardware and sets A0 as the input for the x of the joystick. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__hal__joystick_8c_a1d18925b22193e410d72da8fcb857314}{joystick\+\_\+read} (A\+D\+C\+\_\+\+Handle\+Type\+Def adc)
+\begin{DoxyCompactList}\small\item\em Reads the joystick value from the A\+DC Handler and returns the read value, ranging from 0 to 4096. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Control library for the IR transmitter and receiver. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+joystick.\+c@{s4396122\+\_\+hal\+\_\+joystick.\+c}!joystick\+\_\+read@{joystick\+\_\+read}}
+\index{joystick\+\_\+read@{joystick\+\_\+read}!s4396122\+\_\+hal\+\_\+joystick.\+c@{s4396122\+\_\+hal\+\_\+joystick.\+c}}
+\subsubsection[{\texorpdfstring{joystick\+\_\+read(\+A\+D\+C\+\_\+\+Handle\+Type\+Def adc)}{joystick_read(ADC_HandleTypeDef adc)}}]{\setlength{\rightskip}{0pt plus 5cm}int joystick\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{A\+D\+C\+\_\+\+Handle\+Type\+Def}]{adc}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__joystick_8c_a1d18925b22193e410d72da8fcb857314}{}\label{s4396122__hal__joystick_8c_a1d18925b22193e410d72da8fcb857314}
+
+
+Reads the joystick value from the A\+DC Handler and returns the read value, ranging from 0 to 4096. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adc} & The Handler to read the joystick value from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value read from 0 to 4096 
+\end{DoxyReturn}

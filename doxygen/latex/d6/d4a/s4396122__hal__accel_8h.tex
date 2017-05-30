@@ -1,0 +1,83 @@
+\hypertarget{s4396122__hal__accel_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+accel.h File Reference}
+\label{s4396122__hal__accel_8h}\index{mylib/s4396122\+\_\+hal\+\_\+accel.\+h@{mylib/s4396122\+\_\+hal\+\_\+accel.\+h}}
+
+
+Library for accessing and controlling the accelerometer.  
+
+
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+accel.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{df/dfd/s4396122__hal__accel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{d9/da8/s4396122__hal__accel_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structPortLand}{Port\+Land}
+\begin{DoxyCompactList}\small\item\em structure for containing the result of the pl register of the accelerometer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__hal__accel_8h_a93e08213230ba022b1e70ea9e0b162a3}{M\+M\+A8452\+Q\+\_\+\+A\+D\+D\+R\+E\+SS}~(0x1\+D $<$$<$ 1)\hypertarget{s4396122__hal__accel_8h_a93e08213230ba022b1e70ea9e0b162a3}{}\label{s4396122__hal__accel_8h_a93e08213230ba022b1e70ea9e0b162a3}
+
+\begin{DoxyCompactList}\small\item\em Address of the accelerometer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__accel_8h_a32e56f6498515d5b74755c79948f5062}{s4396122\+\_\+hal\+\_\+accel\+\_\+init} ()\hypertarget{s4396122__hal__accel_8h_a32e56f6498515d5b74755c79948f5062}{}\label{s4396122__hal__accel_8h_a32e56f6498515d5b74755c79948f5062}
+
+\begin{DoxyCompactList}\small\item\em Inits the accelerometer and any required hardware. \end{DoxyCompactList}\item 
+struct \hyperlink{structPortLand}{Port\+Land} \hyperlink{s4396122__hal__accel_8h_a7c6ddaf7d43db64f178bcf2f416d4ad6}{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl} ()
+\begin{DoxyCompactList}\small\item\em Returns the result if the system is portrait or landscape. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for accessing and controlling the accelerometer. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+accel.\+h@{s4396122\+\_\+hal\+\_\+accel.\+h}!s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl@{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl}}
+\index{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl@{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl}!s4396122\+\_\+hal\+\_\+accel.\+h@{s4396122\+\_\+hal\+\_\+accel.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl()}{s4396122_hal_accel_get_pl()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Port\+Land} s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__accel_8h_a7c6ddaf7d43db64f178bcf2f416d4ad6}{}\label{s4396122__hal__accel_8h_a7c6ddaf7d43db64f178bcf2f416d4ad6}
+
+
+Returns the result if the system is portrait or landscape. 
+
+\begin{DoxyReturn}{Returns}
+Struct containing the result if the system is landscape or portrait 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{d6/d4a/s4396122__hal__accel_8h_a7c6ddaf7d43db64f178bcf2f416d4ad6_cgraph}
+\end{center}
+\end{figure}
+
+

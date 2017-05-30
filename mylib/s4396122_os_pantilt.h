@@ -39,8 +39,8 @@ SemaphoreHandle_t s4396122_SemaphoreTiltDown;
  * @brief Used to store a pantilt command
  */
 struct PanTiltMessage {
-    char type;          //! Whether the angle applies to Pan or Tilt
-    signed short angle; //! Then angle to move
+    char type;          //!< Whether the angle applies to Pan or Tilt
+    signed short angle; //!< Then angle to move
 };
 
 extern void s4396122_os_pantilt_init();

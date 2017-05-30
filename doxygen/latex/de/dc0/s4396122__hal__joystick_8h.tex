@@ -1,0 +1,85 @@
+\hypertarget{s4396122__hal__joystick_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+joystick.h File Reference}
+\label{s4396122__hal__joystick_8h}\index{mylib/s4396122\+\_\+hal\+\_\+joystick.\+h@{mylib/s4396122\+\_\+hal\+\_\+joystick.\+h}}
+
+
+Library for the reading the joystick input.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+joystick.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{de/d10/s4396122__hal__joystick_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d88/s4396122__hal__joystick_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__hal__joystick_8h_ad8b28f5876c191f8b81e127dcf7e60aa}{s4396122\+\_\+hal\+\_\+joystick\+\_\+x\+\_\+read}()~\hyperlink{s4396122__hal__joystick_8h_a1d18925b22193e410d72da8fcb857314}{joystick\+\_\+read}(\hyperlink{s4396122__hal__joystick_8h_a4bd889596c47897085edea6b9f026f81}{x\+Adc\+Handle})\hypertarget{s4396122__hal__joystick_8h_ad8b28f5876c191f8b81e127dcf7e60aa}{}\label{s4396122__hal__joystick_8h_ad8b28f5876c191f8b81e127dcf7e60aa}
+
+\begin{DoxyCompactList}\small\item\em Returns the joystick x value. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__joystick_8h_ac18559ac6f0b5c7b3a7a9d723f48ea80}{s4396122\+\_\+hal\+\_\+joystick\+\_\+y\+\_\+read}()~\hyperlink{s4396122__hal__joystick_8h_a1d18925b22193e410d72da8fcb857314}{joystick\+\_\+read}(\hyperlink{s4396122__hal__joystick_8h_a02cc9134ce2c1bbe2b51a3e75cd133bb}{y\+Adc\+Handle})\hypertarget{s4396122__hal__joystick_8h_ac18559ac6f0b5c7b3a7a9d723f48ea80}{}\label{s4396122__hal__joystick_8h_ac18559ac6f0b5c7b3a7a9d723f48ea80}
+
+\begin{DoxyCompactList}\small\item\em Returns the joystick y value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__joystick_8h_a86b1b90556d8e0f77ef373da4c94ed4e}{s4396122\+\_\+hal\+\_\+joystick\+\_\+init} ()\hypertarget{s4396122__hal__joystick_8h_a86b1b90556d8e0f77ef373da4c94ed4e}{}\label{s4396122__hal__joystick_8h_a86b1b90556d8e0f77ef373da4c94ed4e}
+
+\begin{DoxyCompactList}\small\item\em Initializes the joystick hardware and sets A0 as the input for the x of the joystick. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__hal__joystick_8h_a1d18925b22193e410d72da8fcb857314}{joystick\+\_\+read} (A\+D\+C\+\_\+\+Handle\+Type\+Def adc)
+\begin{DoxyCompactList}\small\item\em Reads the joystick value from the A\+DC Handler and returns the read value, ranging from 0 to 4096. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+A\+D\+C\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__joystick_8h_a4bd889596c47897085edea6b9f026f81}{x\+Adc\+Handle}\hypertarget{s4396122__hal__joystick_8h_a4bd889596c47897085edea6b9f026f81}{}\label{s4396122__hal__joystick_8h_a4bd889596c47897085edea6b9f026f81}
+
+\begin{DoxyCompactList}\small\item\em The adc handler for the x input. \end{DoxyCompactList}\item 
+A\+D\+C\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__joystick_8h_a02cc9134ce2c1bbe2b51a3e75cd133bb}{y\+Adc\+Handle}\hypertarget{s4396122__hal__joystick_8h_a02cc9134ce2c1bbe2b51a3e75cd133bb}{}\label{s4396122__hal__joystick_8h_a02cc9134ce2c1bbe2b51a3e75cd133bb}
+
+\begin{DoxyCompactList}\small\item\em the adc handler for the y input \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for the reading the joystick input. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+joystick.\+h@{s4396122\+\_\+hal\+\_\+joystick.\+h}!joystick\+\_\+read@{joystick\+\_\+read}}
+\index{joystick\+\_\+read@{joystick\+\_\+read}!s4396122\+\_\+hal\+\_\+joystick.\+h@{s4396122\+\_\+hal\+\_\+joystick.\+h}}
+\subsubsection[{\texorpdfstring{joystick\+\_\+read(\+A\+D\+C\+\_\+\+Handle\+Type\+Def adc)}{joystick_read(ADC_HandleTypeDef adc)}}]{\setlength{\rightskip}{0pt plus 5cm}int joystick\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{A\+D\+C\+\_\+\+Handle\+Type\+Def}]{adc}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__joystick_8h_a1d18925b22193e410d72da8fcb857314}{}\label{s4396122__hal__joystick_8h_a1d18925b22193e410d72da8fcb857314}
+
+
+Reads the joystick value from the A\+DC Handler and returns the read value, ranging from 0 to 4096. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adc} & The Handler to read the joystick value from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value read from 0 to 4096 
+\end{DoxyReturn}

@@ -1,0 +1,265 @@
+\hypertarget{s4396122__util__matrix_8c}{}\section{mylib/s4396122\+\_\+util\+\_\+matrix.c File Reference}
+\label{s4396122__util__matrix_8c}\index{mylib/s4396122\+\_\+util\+\_\+matrix.\+c@{mylib/s4396122\+\_\+util\+\_\+matrix.\+c}}
+
+
+Library for adding \hyperlink{structMatrix}{Matrix} functionality.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+matrix.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+matrix.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{d0/d2a/s4396122__util__matrix_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structMatrix}{Matrix} $\ast$ \hyperlink{s4396122__util__matrix_8c_a2cf1e02ec9752d414ca3be9d2f30698d}{s4396122\+\_\+util\+\_\+matrix\+\_\+create} (int width, int height)
+\begin{DoxyCompactList}\small\item\em Creates an empty matrix of specified width and height. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__matrix_8c_a208e7a94f7bc0764177932a94d1b3657}{s4396122\+\_\+util\+\_\+matrix\+\_\+get} (\hyperlink{structMatrix}{Matrix} $\ast$m, int x, int y)
+\begin{DoxyCompactList}\small\item\em Gets the value at (x, y) from \hyperlink{structMatrix}{Matrix} m. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__matrix_8c_a7036e77b92f748b969cd5266b69130ee}{s4396122\+\_\+util\+\_\+matrix\+\_\+set} (\hyperlink{structMatrix}{Matrix} $\ast$m, int x, int y, int val)
+\begin{DoxyCompactList}\small\item\em Sets the value at position (x, y) of \hyperlink{structMatrix}{Matrix} m. \end{DoxyCompactList}\item 
+\hyperlink{structMatrix}{Matrix} $\ast$ \hyperlink{s4396122__util__matrix_8c_af7a90148210d2bd939fdf7506790454c}{s4396122\+\_\+util\+\_\+matrix\+\_\+multi} (\hyperlink{structMatrix}{Matrix} $\ast$a, \hyperlink{structMatrix}{Matrix} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Multiply two matrices together. \end{DoxyCompactList}\item 
+\hyperlink{structMatrix}{Matrix} $\ast$ \hyperlink{s4396122__util__matrix_8c_a6aca40c096cee0c46795276af270fe8e}{s4396122\+\_\+util\+\_\+matrix\+\_\+gen} (int width, int height,...)
+\begin{DoxyCompactList}\small\item\em Generate a matrix from a of predefined arrays. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__matrix_8c_ae2ffcbc19ffe1975d6d71d1cb2102c9f}{s4396122\+\_\+util\+\_\+matrix\+\_\+print} (\hyperlink{structMatrix}{Matrix} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Prints the matrix to serial for debugging. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__matrix_8c_af30e2946a811e2d22fed7e03066a5299}{s4396122\+\_\+util\+\_\+matrix\+\_\+exec} (\hyperlink{structMatrix}{Matrix} $\ast$m, int($\ast$function)(int))
+\begin{DoxyCompactList}\small\item\em Executes a function over every cell of the matrix and sets the return value to the new value of the cell. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__matrix_8c_a4b2c3788d238428f691c8fd76a3a4730}{s4396122\+\_\+util\+\_\+matrix\+\_\+free} (\hyperlink{structMatrix}{Matrix} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Frees a \hyperlink{structMatrix}{Matrix} from memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for adding \hyperlink{structMatrix}{Matrix} functionality. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+create@{s4396122\+\_\+util\+\_\+matrix\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+create@{s4396122\+\_\+util\+\_\+matrix\+\_\+create}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+create(int width, int height)}{s4396122_util_matrix_create(int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix}$\ast$ s4396122\+\_\+util\+\_\+matrix\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_a2cf1e02ec9752d414ca3be9d2f30698d}{}\label{s4396122__util__matrix_8c_a2cf1e02ec9752d414ca3be9d2f30698d}
+
+
+Creates an empty matrix of specified width and height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & Width of matrix \\
+\hline
+{\em height} & Height of matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to \hyperlink{structMatrix}{Matrix} object 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+exec@{s4396122\+\_\+util\+\_\+matrix\+\_\+exec}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+exec@{s4396122\+\_\+util\+\_\+matrix\+\_\+exec}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+exec(\+Matrix $\ast$m, int($\ast$function)(int))}{s4396122_util_matrix_exec(Matrix *m, int(*function)(int))}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+matrix\+\_\+exec (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{m, }
+\item[{int($\ast$)(int)}]{function}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_af30e2946a811e2d22fed7e03066a5299}{}\label{s4396122__util__matrix_8c_af30e2946a811e2d22fed7e03066a5299}
+
+
+Executes a function over every cell of the matrix and sets the return value to the new value of the cell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMatrix}{Matrix} to be executed on \\
+\hline
+{\em function} & Function to be execute over the cells \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/daa/s4396122__util__matrix_8c_af30e2946a811e2d22fed7e03066a5299_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+free@{s4396122\+\_\+util\+\_\+matrix\+\_\+free}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+free@{s4396122\+\_\+util\+\_\+matrix\+\_\+free}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+free(\+Matrix $\ast$m)}{s4396122_util_matrix_free(Matrix *m)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+matrix\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_a4b2c3788d238428f691c8fd76a3a4730}{}\label{s4396122__util__matrix_8c_a4b2c3788d238428f691c8fd76a3a4730}
+
+
+Frees a \hyperlink{structMatrix}{Matrix} from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMatrix}{Matrix} to be freed \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+gen@{s4396122\+\_\+util\+\_\+matrix\+\_\+gen}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+gen@{s4396122\+\_\+util\+\_\+matrix\+\_\+gen}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+gen(int width, int height,...)}{s4396122_util_matrix_gen(int width, int height,...)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix}$\ast$ s4396122\+\_\+util\+\_\+matrix\+\_\+gen (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_a6aca40c096cee0c46795276af270fe8e}{}\label{s4396122__util__matrix_8c_a6aca40c096cee0c46795276af270fe8e}
+
+
+Generate a matrix from a of predefined arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & Width of matrix \\
+\hline
+{\em height} & Height of matrix \\
+\hline
+{\em V\+A\+R\+A\+R\+GS} & Arrays for the columns of the matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The created matrix 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/daa/s4396122__util__matrix_8c_a6aca40c096cee0c46795276af270fe8e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+get@{s4396122\+\_\+util\+\_\+matrix\+\_\+get}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+get@{s4396122\+\_\+util\+\_\+matrix\+\_\+get}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+get(\+Matrix $\ast$m, int x, int y)}{s4396122_util_matrix_get(Matrix *m, int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+matrix\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{m, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_a208e7a94f7bc0764177932a94d1b3657}{}\label{s4396122__util__matrix_8c_a208e7a94f7bc0764177932a94d1b3657}
+
+
+Gets the value at (x, y) from \hyperlink{structMatrix}{Matrix} m. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMatrix}{Matrix} to get data from \\
+\hline
+{\em x} & X position to get the data from \\
+\hline
+{\em y} & Y position to get the data from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value located at position (x, y). If there is an error, -\/1 is returned 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+multi@{s4396122\+\_\+util\+\_\+matrix\+\_\+multi}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+multi@{s4396122\+\_\+util\+\_\+matrix\+\_\+multi}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+multi(\+Matrix $\ast$a, Matrix $\ast$b)}{s4396122_util_matrix_multi(Matrix *a, Matrix *b)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix}$\ast$ s4396122\+\_\+util\+\_\+matrix\+\_\+multi (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{a, }
+\item[{{\bf Matrix} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_af7a90148210d2bd939fdf7506790454c}{}\label{s4396122__util__matrix_8c_af7a90148210d2bd939fdf7506790454c}
+
+
+Multiply two matrices together. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Left \hyperlink{structMatrix}{Matrix} \\
+\hline
+{\em b} & Right \hyperlink{structMatrix}{Matrix} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Resulting \hyperlink{structMatrix}{Matrix} 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/daa/s4396122__util__matrix_8c_af7a90148210d2bd939fdf7506790454c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+print@{s4396122\+\_\+util\+\_\+matrix\+\_\+print}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+print@{s4396122\+\_\+util\+\_\+matrix\+\_\+print}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+print(\+Matrix $\ast$m)}{s4396122_util_matrix_print(Matrix *m)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+matrix\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_ae2ffcbc19ffe1975d6d71d1cb2102c9f}{}\label{s4396122__util__matrix_8c_ae2ffcbc19ffe1975d6d71d1cb2102c9f}
+
+
+Prints the matrix to serial for debugging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMatrix}{Matrix} to be printed \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/daa/s4396122__util__matrix_8c_ae2ffcbc19ffe1975d6d71d1cb2102c9f_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}!s4396122\+\_\+util\+\_\+matrix\+\_\+set@{s4396122\+\_\+util\+\_\+matrix\+\_\+set}}
+\index{s4396122\+\_\+util\+\_\+matrix\+\_\+set@{s4396122\+\_\+util\+\_\+matrix\+\_\+set}!s4396122\+\_\+util\+\_\+matrix.\+c@{s4396122\+\_\+util\+\_\+matrix.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+matrix\+\_\+set(\+Matrix $\ast$m, int x, int y, int val)}{s4396122_util_matrix_set(Matrix *m, int x, int y, int val)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+matrix\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix} $\ast$}]{m, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__matrix_8c_a7036e77b92f748b969cd5266b69130ee}{}\label{s4396122__util__matrix_8c_a7036e77b92f748b969cd5266b69130ee}
+
+
+Sets the value at position (x, y) of \hyperlink{structMatrix}{Matrix} m. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMatrix}{Matrix} to set value to \\
+\hline
+{\em x} & X position to write to \\
+\hline
+{\em y} & Y position to write to \\
+\hline
+{\em val} & value to set at position (x, y) \\
+\hline
+\end{DoxyParams}

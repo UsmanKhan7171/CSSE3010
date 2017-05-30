@@ -1,0 +1,84 @@
+\hypertarget{s4396122__util__iter_8h}{}\section{mylib/s4396122\+\_\+util\+\_\+iter.h File Reference}
+\label{s4396122__util__iter_8h}\index{mylib/s4396122\+\_\+util\+\_\+iter.\+h@{mylib/s4396122\+\_\+util\+\_\+iter.\+h}}
+
+
+Library providing iterative type.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+iter.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{da/d79/s4396122__util__iter_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d0a/s4396122__util__iter_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structIterElement}{Iter\+Element}
+\item 
+struct \hyperlink{structIter}{Iter}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structIter}{Iter} $\ast$ {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+create} ()\hypertarget{s4396122__util__iter_8h_ac18e7083b8018599a5340e172735e4f6}{}\label{s4396122__util__iter_8h_ac18e7083b8018599a5340e172735e4f6}
+
+\item 
+void {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+add\+\_\+head} (\hyperlink{structIter}{Iter} $\ast$i, int d)\hypertarget{s4396122__util__iter_8h_a5ec51c54eaff9f9809b29a37be1f4a75}{}\label{s4396122__util__iter_8h_a5ec51c54eaff9f9809b29a37be1f4a75}
+
+\item 
+void {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+add\+\_\+tail} (\hyperlink{structIter}{Iter} $\ast$i, int d)\hypertarget{s4396122__util__iter_8h_a948511354b3804b946f8d1556d517d58}{}\label{s4396122__util__iter_8h_a948511354b3804b946f8d1556d517d58}
+
+\item 
+void {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+remove\+\_\+head} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_adcaa00f2c4b2c89007c957e1298f1bc5}{}\label{s4396122__util__iter_8h_adcaa00f2c4b2c89007c957e1298f1bc5}
+
+\item 
+void {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+remove\+\_\+tail} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_af28fbb0503f2f53383765e673fd0cff2}{}\label{s4396122__util__iter_8h_af28fbb0503f2f53383765e673fd0cff2}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+get\+\_\+pos} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_a1acdba7bc2f1fb64f1f7ae6b0849a656}{}\label{s4396122__util__iter_8h_a1acdba7bc2f1fb64f1f7ae6b0849a656}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+get\+\_\+next} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_ae3c7fad37a35ad7f54eb0af0dadd971e}{}\label{s4396122__util__iter_8h_ae3c7fad37a35ad7f54eb0af0dadd971e}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+get\+\_\+prev} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_aedfaa6bce7fed39290e93359d1222a54}{}\label{s4396122__util__iter_8h_aedfaa6bce7fed39290e93359d1222a54}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+jump\+\_\+head} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_a20e4a4e7082fd5211b5e6b4f1ef2cfd5}{}\label{s4396122__util__iter_8h_a20e4a4e7082fd5211b5e6b4f1ef2cfd5}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+jump\+\_\+tail} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_a9d79ac0739b0bec3b0e4817e6ea96e8c}{}\label{s4396122__util__iter_8h_a9d79ac0739b0bec3b0e4817e6ea96e8c}
+
+\item 
+void {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+free} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_a6b4f44d44039b5041598787b4465c48d}{}\label{s4396122__util__iter_8h_a6b4f44d44039b5041598787b4465c48d}
+
+\item 
+int {\bfseries s4396122\+\_\+util\+\_\+iter\+\_\+size} (\hyperlink{structIter}{Iter} $\ast$i)\hypertarget{s4396122__util__iter_8h_a99d7ff724056cf61edb1852d75fbcb44}{}\label{s4396122__util__iter_8h_a99d7ff724056cf61edb1852d75fbcb44}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library providing iterative type. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}

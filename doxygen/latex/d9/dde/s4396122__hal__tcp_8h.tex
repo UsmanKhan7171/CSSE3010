@@ -1,0 +1,159 @@
+\hypertarget{s4396122__hal__tcp_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+tcp.h File Reference}
+\label{s4396122__hal__tcp_8h}\index{mylib/s4396122\+\_\+hal\+\_\+tcp.\+h@{mylib/s4396122\+\_\+hal\+\_\+tcp.\+h}}
+
+
+Library for reading and writing to a tcp connection.  
+
+
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}netconfig.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+print.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+int\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcpip.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lwip/opt.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lwip/api.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lwip/sys.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lwip/sockets.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+tcp.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d7b/s4396122__hal__tcp_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{df/dfc/s4396122__hal__tcp_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtcpConnection}{tcp\+Connection}
+\begin{DoxyCompactList}\small\item\em Structure containing all the information required for a network connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__hal__tcp_8h_a596b30559e82390b0ea615fad75ea0d6}{T\+C\+P\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+P\+O\+RT}~10\hypertarget{s4396122__hal__tcp_8h_a596b30559e82390b0ea615fad75ea0d6}{}\label{s4396122__hal__tcp_8h_a596b30559e82390b0ea615fad75ea0d6}
+
+\begin{DoxyCompactList}\small\item\em Port to bound server to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__tcp_8h_a69aa6be333d430df2c75e8c71e0c639c}{s4396122\+\_\+hal\+\_\+tcp\+\_\+init} ()\hypertarget{s4396122__hal__tcp_8h_a69aa6be333d430df2c75e8c71e0c639c}{}\label{s4396122__hal__tcp_8h_a69aa6be333d430df2c75e8c71e0c639c}
+
+\begin{DoxyCompactList}\small\item\em Initiates the tcp server preferences. \end{DoxyCompactList}\item 
+struct \hyperlink{structtcpConnection}{tcp\+Connection} \hyperlink{s4396122__hal__tcp_8h_a50ad7015f817c1d886bad465c14c2d59}{s4396122\+\_\+hal\+\_\+tcp\+\_\+accept} ()
+\begin{DoxyCompactList}\small\item\em Blocking, accepts a network tcp connection. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__tcp_8h_a1e78bac1a938c52bbb03966f23c77830}{s4396122\+\_\+hal\+\_\+tcp\+\_\+read} (struct \hyperlink{structtcpConnection}{tcp\+Connection} $\ast$conn, void($\ast$f)(\hyperlink{structIntQueue}{Int\+Queue} $\ast$))
+\begin{DoxyCompactList}\small\item\em Blocking, reads input from the tcp struct connection, calls the function parsed with an \hyperlink{structIntQueue}{Int\+Queue} of the input captured until a newline. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__tcp_8h_aec990b849d10fe998ac863b557909be5}{s4396122\+\_\+hal\+\_\+tcp\+\_\+print} (struct \hyperlink{structtcpConnection}{tcp\+Connection} $\ast$conn, \hyperlink{structIntQueue}{Int\+Queue} $\ast$message)
+\begin{DoxyCompactList}\small\item\em Prints data to the tcp connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for reading and writing to a tcp connection. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/04-\/30 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}!s4396122\+\_\+hal\+\_\+tcp\+\_\+accept@{s4396122\+\_\+hal\+\_\+tcp\+\_\+accept}}
+\index{s4396122\+\_\+hal\+\_\+tcp\+\_\+accept@{s4396122\+\_\+hal\+\_\+tcp\+\_\+accept}!s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+tcp\+\_\+accept()}{s4396122_hal_tcp_accept()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tcp\+Connection} s4396122\+\_\+hal\+\_\+tcp\+\_\+accept (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__tcp_8h_a50ad7015f817c1d886bad465c14c2d59}{}\label{s4396122__hal__tcp_8h_a50ad7015f817c1d886bad465c14c2d59}
+
+
+Blocking, accepts a network tcp connection. 
+
+\begin{DoxyReturn}{Returns}
+struct containing information about the tcp connection 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/dde/s4396122__hal__tcp_8h_a50ad7015f817c1d886bad465c14c2d59_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}!s4396122\+\_\+hal\+\_\+tcp\+\_\+print@{s4396122\+\_\+hal\+\_\+tcp\+\_\+print}}
+\index{s4396122\+\_\+hal\+\_\+tcp\+\_\+print@{s4396122\+\_\+hal\+\_\+tcp\+\_\+print}!s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+tcp\+\_\+print(struct tcp\+Connection $\ast$conn, Int\+Queue $\ast$message)}{s4396122_hal_tcp_print(struct tcpConnection *conn, IntQueue *message)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+hal\+\_\+tcp\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tcp\+Connection} $\ast$}]{conn, }
+\item[{{\bf Int\+Queue} $\ast$}]{message}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__tcp_8h_aec990b849d10fe998ac863b557909be5}{}\label{s4396122__hal__tcp_8h_aec990b849d10fe998ac863b557909be5}
+
+
+Prints data to the tcp connection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em conn} & Connection to be printed to \\
+\hline
+{\em message} & Message to be sent \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/dde/s4396122__hal__tcp_8h_aec990b849d10fe998ac863b557909be5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}!s4396122\+\_\+hal\+\_\+tcp\+\_\+read@{s4396122\+\_\+hal\+\_\+tcp\+\_\+read}}
+\index{s4396122\+\_\+hal\+\_\+tcp\+\_\+read@{s4396122\+\_\+hal\+\_\+tcp\+\_\+read}!s4396122\+\_\+hal\+\_\+tcp.\+h@{s4396122\+\_\+hal\+\_\+tcp.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+tcp\+\_\+read(struct tcp\+Connection $\ast$conn, void($\ast$f)(\+Int\+Queue $\ast$))}{s4396122_hal_tcp_read(struct tcpConnection *conn, void(*f)(IntQueue *))}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+hal\+\_\+tcp\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tcp\+Connection} $\ast$}]{conn, }
+\item[{void($\ast$)({\bf Int\+Queue} $\ast$)}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__tcp_8h_a1e78bac1a938c52bbb03966f23c77830}{}\label{s4396122__hal__tcp_8h_a1e78bac1a938c52bbb03966f23c77830}
+
+
+Blocking, reads input from the tcp struct connection, calls the function parsed with an \hyperlink{structIntQueue}{Int\+Queue} of the input captured until a newline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em conn} & Connection to read from \\
+\hline
+{\em f} & Function to be called when newline received \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/dde/s4396122__hal__tcp_8h_a1e78bac1a938c52bbb03966f23c77830_cgraph}
+\end{center}
+\end{figure}
+
+

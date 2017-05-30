@@ -1,0 +1,95 @@
+\hypertarget{s4396122__hal__irremote_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+irremote.h File Reference}
+\label{s4396122__hal__irremote_8h}\index{mylib/s4396122\+\_\+hal\+\_\+irremote.\+h@{mylib/s4396122\+\_\+hal\+\_\+irremote.\+h}}
+
+
+Library for processing and reporting of the irremote.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+util.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+irremote.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d02/s4396122__hal__irremote_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{df/d91/s4396122__hal__irremote_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__irremote_8h_a2418be11cb3fc07d0d66a026accc4452}{s4396122\+\_\+hal\+\_\+irremote\+\_\+init} ()\hypertarget{s4396122__hal__irremote_8h_a2418be11cb3fc07d0d66a026accc4452}{}\label{s4396122__hal__irremote_8h_a2418be11cb3fc07d0d66a026accc4452}
+
+\begin{DoxyCompactList}\small\item\em Initializes the pins and timers needed for the irremote. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__hal__irremote_8h_a8ca9bca01e1e0173ca8214c9bab87445}{s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available} ()
+\begin{DoxyCompactList}\small\item\em Checks if there a IR message command pending to be read. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__irremote_8h_a95af72463fed78c94df2d515b3309f4e}{s4396122\+\_\+hal\+\_\+irremote\+\_\+process} (\hyperlink{structQueue}{Queue} $\ast$ir\+Queue)\hypertarget{s4396122__hal__irremote_8h_a95af72463fed78c94df2d515b3309f4e}{}\label{s4396122__hal__irremote_8h_a95af72463fed78c94df2d515b3309f4e}
+
+\begin{DoxyCompactList}\small\item\em Processes an data stored inside the I\+R\+Queue and calculates the ir address and command. \end{DoxyCompactList}\item 
+char \hyperlink{s4396122__hal__irremote_8h_a2782b44c130017999c330b33e2506439}{s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char} ()
+\begin{DoxyCompactList}\small\item\em Reads the IR message command and transforms it to a character symbolized by the remote. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for processing and reporting of the irremote. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+irremote.\+h@{s4396122\+\_\+hal\+\_\+irremote.\+h}!s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char@{s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char}}
+\index{s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char@{s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char}!s4396122\+\_\+hal\+\_\+irremote.\+h@{s4396122\+\_\+hal\+\_\+irremote.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char()}{s4396122_hal_irremote_get_char()}}]{\setlength{\rightskip}{0pt plus 5cm}char s4396122\+\_\+hal\+\_\+irremote\+\_\+get\+\_\+char (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__irremote_8h_a2782b44c130017999c330b33e2506439}{}\label{s4396122__hal__irremote_8h_a2782b44c130017999c330b33e2506439}
+
+
+Reads the IR message command and transforms it to a character symbolized by the remote. 
+
+\begin{DoxyReturn}{Returns}
+A character mapped to the irremote 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d96/s4396122__hal__irremote_8h_a2782b44c130017999c330b33e2506439_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+irremote.\+h@{s4396122\+\_\+hal\+\_\+irremote.\+h}!s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available@{s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available}}
+\index{s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available@{s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available}!s4396122\+\_\+hal\+\_\+irremote.\+h@{s4396122\+\_\+hal\+\_\+irremote.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available()}{s4396122_hal_irremote_input_available()}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+hal\+\_\+irremote\+\_\+input\+\_\+available (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__irremote_8h_a8ca9bca01e1e0173ca8214c9bab87445}{}\label{s4396122__hal__irremote_8h_a8ca9bca01e1e0173ca8214c9bab87445}
+
+
+Checks if there a IR message command pending to be read. 
+
+\begin{DoxyReturn}{Returns}
+0 if there is no message, otherwise there is a message 
+\end{DoxyReturn}

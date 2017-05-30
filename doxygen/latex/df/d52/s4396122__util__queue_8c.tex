@@ -1,0 +1,140 @@
+\hypertarget{s4396122__util__queue_8c}{}\section{mylib/s4396122\+\_\+util\+\_\+queue.c File Reference}
+\label{s4396122__util__queue_8c}\index{mylib/s4396122\+\_\+util\+\_\+queue.\+c@{mylib/s4396122\+\_\+util\+\_\+queue.\+c}}
+
+
+Library for adding \hyperlink{structQueue}{Queue} functionality.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+queue.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+queue.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{db/d59/s4396122__util__queue_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structQueue}{Queue} $\ast$ \hyperlink{s4396122__util__queue_8c_a9e0c16a9fc2748330210174880f1ea3e}{s4396122\+\_\+util\+\_\+queue\+\_\+create} ()
+\begin{DoxyCompactList}\small\item\em Creates the queue for reference later on. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__queue_8c_a85cfe4effdfc995c05f68cb757fe9692}{s4396122\+\_\+util\+\_\+queue\+\_\+size} (\hyperlink{structQueue}{Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Gets the size of the \hyperlink{structQueue}{Queue}. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__queue_8c_aee17f3aa1ac34664957be690c167c9dc}{s4396122\+\_\+util\+\_\+queue\+\_\+push} (\hyperlink{structQueue}{Queue} $\ast$q, void $\ast$d)
+\begin{DoxyCompactList}\small\item\em Pushes an element to the top of the \hyperlink{structQueue}{Queue}. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{s4396122__util__queue_8c_a3a6496b5bd03f05d9a1f889cf2f8761f}{s4396122\+\_\+util\+\_\+queue\+\_\+pop} (\hyperlink{structQueue}{Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Pops an element from the bottom of the \hyperlink{structQueue}{Queue} and returns the data. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__queue_8c_ae4f86b2f3a5bf5e55afeec317d54c4c8}{s4396122\+\_\+util\+\_\+queue\+\_\+free} (\hyperlink{structQueue}{Queue} $\ast$\hyperlink{structqueue}{queue})
+\begin{DoxyCompactList}\small\item\em Frees the queue from memory, also frees the data stored in the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for adding \hyperlink{structQueue}{Queue} functionality. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+queue\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+queue\+\_\+create}!s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+queue\+\_\+create()}{s4396122_util_queue_create()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Queue}$\ast$ s4396122\+\_\+util\+\_\+queue\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__queue_8c_a9e0c16a9fc2748330210174880f1ea3e}{}\label{s4396122__util__queue_8c_a9e0c16a9fc2748330210174880f1ea3e}
+
+
+Creates the queue for reference later on. 
+
+\begin{DoxyReturn}{Returns}
+Returns a \hyperlink{structQueue}{Queue} Object for later applying operations on 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+queue\+\_\+free@{s4396122\+\_\+util\+\_\+queue\+\_\+free}}
+\index{s4396122\+\_\+util\+\_\+queue\+\_\+free@{s4396122\+\_\+util\+\_\+queue\+\_\+free}!s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+queue\+\_\+free(\+Queue $\ast$queue)}{s4396122_util_queue_free(Queue *queue)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+queue\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__queue_8c_ae4f86b2f3a5bf5e55afeec317d54c4c8}{}\label{s4396122__util__queue_8c_ae4f86b2f3a5bf5e55afeec317d54c4c8}
+
+
+Frees the queue from memory, also frees the data stored in the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & The \hyperlink{structQueue}{Queue} to remove the data from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d52/s4396122__util__queue_8c_ae4f86b2f3a5bf5e55afeec317d54c4c8_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+queue\+\_\+pop@{s4396122\+\_\+util\+\_\+queue\+\_\+pop}}
+\index{s4396122\+\_\+util\+\_\+queue\+\_\+pop@{s4396122\+\_\+util\+\_\+queue\+\_\+pop}!s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+queue\+\_\+pop(\+Queue $\ast$q)}{s4396122_util_queue_pop(Queue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ s4396122\+\_\+util\+\_\+queue\+\_\+pop (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__queue_8c_a3a6496b5bd03f05d9a1f889cf2f8761f}{}\label{s4396122__util__queue_8c_a3a6496b5bd03f05d9a1f889cf2f8761f}
+
+
+Pops an element from the bottom of the \hyperlink{structQueue}{Queue} and returns the data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to pop from \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+queue\+\_\+push@{s4396122\+\_\+util\+\_\+queue\+\_\+push}}
+\index{s4396122\+\_\+util\+\_\+queue\+\_\+push@{s4396122\+\_\+util\+\_\+queue\+\_\+push}!s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+queue\+\_\+push(\+Queue $\ast$q, void $\ast$d)}{s4396122_util_queue_push(Queue *q, void *d)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+queue\+\_\+push (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{q, }
+\item[{void $\ast$}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__queue_8c_aee17f3aa1ac34664957be690c167c9dc}{}\label{s4396122__util__queue_8c_aee17f3aa1ac34664957be690c167c9dc}
+
+
+Pushes an element to the top of the \hyperlink{structQueue}{Queue}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & The \hyperlink{structQueue}{Queue} to push data to \\
+\hline
+{\em d} & The data to be added \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+queue\+\_\+size@{s4396122\+\_\+util\+\_\+queue\+\_\+size}}
+\index{s4396122\+\_\+util\+\_\+queue\+\_\+size@{s4396122\+\_\+util\+\_\+queue\+\_\+size}!s4396122\+\_\+util\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+queue\+\_\+size(\+Queue $\ast$q)}{s4396122_util_queue_size(Queue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+queue\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{{\bf Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__queue_8c_a85cfe4effdfc995c05f68cb757fe9692}{}\label{s4396122__util__queue_8c_a85cfe4effdfc995c05f68cb757fe9692}
+
+
+Gets the size of the \hyperlink{structQueue}{Queue}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & The \hyperlink{structQueue}{Queue} for which to read the size from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The size of the \hyperlink{structQueue}{Queue} 
+\end{DoxyReturn}

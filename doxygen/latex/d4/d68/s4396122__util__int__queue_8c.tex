@@ -1,0 +1,239 @@
+\hypertarget{s4396122__util__int__queue_8c}{}\section{mylib/s4396122\+\_\+util\+\_\+int\+\_\+queue.c File Reference}
+\label{s4396122__util__int__queue_8c}\index{mylib/s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{mylib/s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+
+
+Library for easily creating and managing a \hyperlink{structQueue}{Queue} of integers.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+int\+\_\+queue.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d92/s4396122__util__int__queue_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structIntQueue}{Int\+Queue} $\ast$ \hyperlink{s4396122__util__int__queue_8c_a32ee4c1f5cca5d9e7a2c06703ecf9420}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create} ()
+\begin{DoxyCompactList}\small\item\em Creates an integer queue. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__int__queue_8c_a4c84e70fd57d2b467c323efb9917ee3e}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Gets the size of the queue. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__int__queue_8c_a8ca4183218e74008d2d1a949cb4cb9e4}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q, int d)
+\begin{DoxyCompactList}\small\item\em Pushes an element into the tail of the queue. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__int__queue_8c_a609d3acea96c09ccdc57c7da23659fc9}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Pops an element from the head of the queue. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__int__queue_8c_a80a0b7728809b2e3eb95db4da3edbc1f}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Frees the whole queue from memory, as well as all the elements inside. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__int__queue_8c_a233370ae16db84550905e6e382d1d1b7}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q, char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Appends a string to the end of the \hyperlink{structIntQueue}{Int\+Queue}. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__int__queue_8c_ad77884f0e022ac7b3b3855315fdcfd56}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q, char $\ast$\hyperlink{s4396122__os__print_8c_aad2786d594039e6f1ab082f7a9ea816f}{buffer})
+\begin{DoxyCompactList}\small\item\em Converts \hyperlink{structQueue}{Queue} to string. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__int__queue_8c_aafe008ef5adc0fd8c4f5c015afee9599}{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Converts an \hyperlink{structIntQueue}{Int\+Queue} of char ints to int. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for easily creating and managing a \hyperlink{structQueue}{Queue} of integers. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/04-\/30 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create()}{s4396122_util_int_queue_create()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Int\+Queue}$\ast$ s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a32ee4c1f5cca5d9e7a2c06703ecf9420}{}\label{s4396122__util__int__queue_8c_a32ee4c1f5cca5d9e7a2c06703ecf9420}
+
+
+Creates an integer queue. 
+
+\begin{DoxyReturn}{Returns}
+Returns a struct containing all the required information about the queue 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free(\+Int\+Queue $\ast$q)}{s4396122_util_int_queue_free(IntQueue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a80a0b7728809b2e3eb95db4da3edbc1f}{}\label{s4396122__util__int__queue_8c_a80a0b7728809b2e3eb95db4da3edbc1f}
+
+
+Frees the whole queue from memory, as well as all the elements inside. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to be freed \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d68/s4396122__util__int__queue_8c_a80a0b7728809b2e3eb95db4da3edbc1f_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string(\+Int\+Queue $\ast$q, char $\ast$message)}{s4396122_util_int_queue_from_string(IntQueue *q, char *message)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+from\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q, }
+\item[{char $\ast$}]{message}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a233370ae16db84550905e6e382d1d1b7}{}\label{s4396122__util__int__queue_8c_a233370ae16db84550905e6e382d1d1b7}
+
+
+Appends a string to the end of the \hyperlink{structIntQueue}{Int\+Queue}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structIntQueue}{Int\+Queue} to add string to \\
+\hline
+{\em message} & String to add to the end of the \hyperlink{structIntQueue}{Int\+Queue} \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d68/s4396122__util__int__queue_8c_a233370ae16db84550905e6e382d1d1b7_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop(\+Int\+Queue $\ast$q)}{s4396122_util_int_queue_pop(IntQueue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+pop (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a609d3acea96c09ccdc57c7da23659fc9}{}\label{s4396122__util__int__queue_8c_a609d3acea96c09ccdc57c7da23659fc9}
+
+
+Pops an element from the head of the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} for the data to be popped from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer from the head of the queue 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push(\+Int\+Queue $\ast$q, int d)}{s4396122_util_int_queue_push(IntQueue *q, int d)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+push (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q, }
+\item[{int}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a8ca4183218e74008d2d1a949cb4cb9e4}{}\label{s4396122__util__int__queue_8c_a8ca4183218e74008d2d1a949cb4cb9e4}
+
+
+Pushes an element into the tail of the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to push the data to \\
+\hline
+{\em d} & Data to be added to the queue \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size(\+Int\+Queue $\ast$q)}{s4396122_util_int_queue_size(IntQueue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_a4c84e70fd57d2b467c323efb9917ee3e}{}\label{s4396122__util__int__queue_8c_a4c84e70fd57d2b467c323efb9917ee3e}
+
+
+Gets the size of the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to check the size of\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer representing the size of the queue 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer(\+Int\+Queue $\ast$q)}{s4396122_util_int_queue_to_integer(IntQueue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+integer (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_aafe008ef5adc0fd8c4f5c015afee9599}{}\label{s4396122__util__int__queue_8c_aafe008ef5adc0fd8c4f5c015afee9599}
+
+
+Converts an \hyperlink{structIntQueue}{Int\+Queue} of char ints to int. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structIntQueue}{Int\+Queue} to read from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+resulting integer 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d68/s4396122__util__int__queue_8c_aafe008ef5adc0fd8c4f5c015afee9599_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}!s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string}}
+\index{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string@{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string}!s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c@{s4396122\+\_\+util\+\_\+int\+\_\+queue.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string(\+Int\+Queue $\ast$q, char $\ast$buffer)}{s4396122_util_int_queue_to_string(IntQueue *q, char *buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+int\+\_\+queue\+\_\+to\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q, }
+\item[{char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__int__queue_8c_ad77884f0e022ac7b3b3855315fdcfd56}{}\label{s4396122__util__int__queue_8c_ad77884f0e022ac7b3b3855315fdcfd56}
+
+
+Converts \hyperlink{structQueue}{Queue} to string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structQueue}{Queue} to get elements from \\
+\hline
+{\em buffer} & String to write to. Buffer must be big enough to support the whole string \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d68/s4396122__util__int__queue_8c_ad77884f0e022ac7b3b3855315fdcfd56_cgraph}
+\end{center}
+\end{figure}
+
+

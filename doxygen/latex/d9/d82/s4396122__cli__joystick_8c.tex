@@ -1,0 +1,59 @@
+\hypertarget{s4396122__cli__joystick_8c}{}\section{mylib/s4396122\+\_\+cli\+\_\+joystick.c File Reference}
+\label{s4396122__cli__joystick_8c}\index{mylib/s4396122\+\_\+cli\+\_\+joystick.\+c@{mylib/s4396122\+\_\+cli\+\_\+joystick.\+c}}
+
+
+Provides joystick commands for C\+LI.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+cli\+\_\+joystick.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+cli\+\_\+joystick.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d92/s4396122__cli__joystick_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__cli__joystick_8c_a3c5d12dc9250d5381efd75052843df38}{s4396122\+\_\+cli\+\_\+joystick\+\_\+init} ()\hypertarget{s4396122__cli__joystick_8c_a3c5d12dc9250d5381efd75052843df38}{}\label{s4396122__cli__joystick_8c_a3c5d12dc9250d5381efd75052843df38}
+
+\begin{DoxyCompactList}\small\item\em Init function for the joystick commands. Adds all the commands to Free\+R\+T\+OS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__joystick_8c_a969f540204313581bfbc2b9b812ab743}{x\+Joystick}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the joystick command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides joystick commands for C\+LI. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Variable Documentation}
+\index{s4396122\+\_\+cli\+\_\+joystick.\+c@{s4396122\+\_\+cli\+\_\+joystick.\+c}!x\+Joystick@{x\+Joystick}}
+\index{x\+Joystick@{x\+Joystick}!s4396122\+\_\+cli\+\_\+joystick.\+c@{s4396122\+\_\+cli\+\_\+joystick.\+c}}
+\subsubsection[{\texorpdfstring{x\+Joystick}{xJoystick}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Joystick}\hypertarget{s4396122__cli__joystick_8c_a969f540204313581bfbc2b9b812ab743}{}\label{s4396122__cli__joystick_8c_a969f540204313581bfbc2b9b812ab743}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"joystick"},
+    \textcolor{stringliteral}{"joystick:\(\backslash\)n Return the joystick vector.\(\backslash\)n\(\backslash\)n"},
+    prvJoystickCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the joystick command. 
+

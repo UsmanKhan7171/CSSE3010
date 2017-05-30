@@ -1,0 +1,8 @@
+<map id="mylib/s4396122_os_pantilt.h" name="mylib/s4396122_os_pantilt.h">
+<area shape="rect" id="node2" href="$d5/d9d/s4396122__hal__pantilt_8h.html" title="Pan and Tilt control system. " alt="" coords="5,80,160,107"/>
+<area shape="rect" id="node9" href="$d5/d73/s4396122__util__print_8h.html" title="Function for handling the serial print and cursor magic. " alt="" coords="529,80,674,107"/>
+<area shape="rect" id="node17" href="$de/d37/s4396122__hal__util_8h.html" title="External library for utility functions and constants. " alt="" coords="750,80,887,107"/>
+<area shape="rect" id="node18" href="$d8/d60/s4396122__hal__sysmon_8h.html" title="Library for interface between 3 LA channels and the np2. " alt="" coords="185,80,351,107"/>
+<area shape="rect" id="node11" href="$d5/d97/s4396122__os__print_8h.html" title="Library to make console printing easier and less direct task intensive. " alt="" coords="530,155,673,181"/>
+<area shape="rect" id="node13" href="$dc/d52/s4396122__util__queue_8h.html" title="Library for adding Queue functionality. " alt="" coords="637,229,792,256"/>
+</map>

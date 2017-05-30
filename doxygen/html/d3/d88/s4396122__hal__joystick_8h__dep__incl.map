@@ -1,0 +1,6 @@
+<map id="mylib/s4396122_hal_joystick.h" name="mylib/s4396122_hal_joystick.h">
+<area shape="rect" id="node2" href="$d0/d29/main_8c.html" title="Main file for project 2. " alt="" coords="5,191,144,218"/>
+<area shape="rect" id="node3" href="$dc/d8e/s4396122__cli__joystick_8h.html" title="Provides joystick commands for CLI. " alt="" coords="112,95,245,136"/>
+<area shape="rect" id="node5" href="$dc/df1/s4396122__hal__joystick_8c.html" title="Control library for the IR transmitter and receiver. " alt="" coords="270,95,407,136"/>
+<area shape="rect" id="node4" href="$d9/d82/s4396122__cli__joystick_8c.html" title="Provides joystick commands for CLI. " alt="" coords="168,184,301,225"/>
+</map>

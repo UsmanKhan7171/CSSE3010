@@ -1,0 +1,5 @@
+<map id="s4396122_hal_ir_init" name="s4396122_hal_ir_init">
+<area shape="rect" id="node2" href="$df/d52/s4396122__util__queue_8c.html#a9e0c16a9fc2748330210174880f1ea3e" title="s4396122_util_queue\l_create" alt="" coords="207,5,351,47"/>
+<area shape="rect" id="node3" href="$d7/d45/s4396122__hal__ir_8c.html#a79383d1eb7a6461c1ee7748a84c6acae" title="Handles the interrupt for the ir input. The timings will be stored in a queue for processing later on..." alt="" coords="193,71,364,98"/>
+<area shape="rect" id="node4" href="$df/d52/s4396122__util__queue_8c.html#aee17f3aa1ac34664957be690c167c9dc" title="s4396122_util_queue_push" alt="" coords="412,71,591,98"/>
+</map>

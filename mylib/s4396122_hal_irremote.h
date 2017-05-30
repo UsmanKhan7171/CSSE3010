@@ -15,10 +15,8 @@
 #include <stdlib.h>
 
 void s4396122_hal_irremote_init();
-void s4396122_hal_irremote_interrupt();
-int s4396122_hal_irremote_get_last_input();
 int s4396122_hal_irremote_input_available();
-void s4396122_hal_irremote_process();
+void s4396122_hal_irremote_process(Queue *irQueue);
 char s4396122_hal_irremote_get_char();
 
 #endif

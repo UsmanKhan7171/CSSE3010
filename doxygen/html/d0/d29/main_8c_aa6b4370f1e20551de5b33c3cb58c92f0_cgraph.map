@@ -1,0 +1,11 @@
+<map id="num_clear" name="num_clear">
+<area shape="rect" id="node2" href="$df/d92/s4396122__os__draw_8c.html#a447b5c7a8bd3e0a90ab234c668f91345" title="Removes the last added item to the drawList Queue. " alt="" coords="136,122,345,149"/>
+<area shape="rect" id="node3" href="$df/d52/s4396122__util__queue_8c.html#a9e0c16a9fc2748330210174880f1ea3e" title="Creates the queue for reference later on. " alt="" coords="409,5,553,47"/>
+<area shape="rect" id="node4" href="$df/d52/s4396122__util__queue_8c.html#a85cfe4effdfc995c05f68cb757fe9692" title="Gets the size of the Queue. " alt="" coords="393,71,568,98"/>
+<area shape="rect" id="node5" href="$df/d52/s4396122__util__queue_8c.html#aee17f3aa1ac34664957be690c167c9dc" title="Pushes an element to the top of the Queue. " alt="" coords="844,231,1023,258"/>
+<area shape="rect" id="node6" href="$df/d52/s4396122__util__queue_8c.html#a3a6496b5bd03f05d9a1f889cf2f8761f" title="Pops an element from the bottom of the Queue and returns the data. " alt="" coords="395,173,567,199"/>
+<area shape="rect" id="node7" href="$df/d92/s4396122__os__draw_8c.html#a1fd5b859e1426d8e4ce9f933c6c299f9" title="Clears all the content on the screen. " alt="" coords="395,227,566,254"/>
+<area shape="rect" id="node8" href="$db/d03/s4396122__os__mqtt_8c.html#a0a4ced61e78b0ca747a4a4803b8e7a39" title="Publishes a message to the MQTT server. " alt="" coords="616,173,796,199"/>
+<area shape="rect" id="node9" href="$df/d92/s4396122__os__draw_8c.html#a7ea73c99676636e17a5f1c14b75636f2" title="Sets whether the mouse button is down or up. " alt="" coords="616,224,796,265"/>
+<area shape="rect" id="node10" href="$df/d92/s4396122__os__draw_8c.html#a611858e5e69fe15e1605c5ab4cb5af06" title="Moves the cursor to the provided location. " alt="" coords="619,289,793,331"/>
+</map>

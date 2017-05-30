@@ -1,0 +1,67 @@
+\hypertarget{s4396122__hal__pantilt_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+pantilt.h File Reference}
+\label{s4396122__hal__pantilt_8h}\index{mylib/s4396122\+\_\+hal\+\_\+pantilt.\+h@{mylib/s4396122\+\_\+hal\+\_\+pantilt.\+h}}
+
+
+Pan and Tilt control system.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+pantilt.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{d3/d55/s4396122__hal__pantilt_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{dc/d03/s4396122__hal__pantilt_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__hal__pantilt_8h_a0aac52da0a18c9492c4149a99b01fc48}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+pan\+\_\+write}(angle)~\hyperlink{s4396122__hal__pantilt_8c_a360069bc61450ad8f2167425d3d2ce27}{pantilt\+\_\+angle\+\_\+write}(0, angle)\hypertarget{s4396122__hal__pantilt_8h_a0aac52da0a18c9492c4149a99b01fc48}{}\label{s4396122__hal__pantilt_8h_a0aac52da0a18c9492c4149a99b01fc48}
+
+\begin{DoxyCompactList}\small\item\em Sets the pan angle. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__pantilt_8h_a2739166e944a89718826a5f4c42980ab}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+pan\+\_\+read}()~\hyperlink{s4396122__hal__pantilt_8c_a8c92c6c14ee4060106cc4390e16aff6c}{pantilt\+\_\+angle\+\_\+read}(0)\hypertarget{s4396122__hal__pantilt_8h_a2739166e944a89718826a5f4c42980ab}{}\label{s4396122__hal__pantilt_8h_a2739166e944a89718826a5f4c42980ab}
+
+\begin{DoxyCompactList}\small\item\em Gets the pan angle. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__pantilt_8h_afb392cb43393c84c512b7f2eb3656c30}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+tilt\+\_\+write}(angle)~\hyperlink{s4396122__hal__pantilt_8c_a360069bc61450ad8f2167425d3d2ce27}{pantilt\+\_\+angle\+\_\+write}(1, angle)\hypertarget{s4396122__hal__pantilt_8h_afb392cb43393c84c512b7f2eb3656c30}{}\label{s4396122__hal__pantilt_8h_afb392cb43393c84c512b7f2eb3656c30}
+
+\begin{DoxyCompactList}\small\item\em Sets the tilt angle. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__pantilt_8h_a363949161fe9fe6d5ca3f629d8bd647b}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+tilt\+\_\+read}()~\hyperlink{s4396122__hal__pantilt_8c_a8c92c6c14ee4060106cc4390e16aff6c}{pantilt\+\_\+angle\+\_\+read}(1)\hypertarget{s4396122__hal__pantilt_8h_a363949161fe9fe6d5ca3f629d8bd647b}{}\label{s4396122__hal__pantilt_8h_a363949161fe9fe6d5ca3f629d8bd647b}
+
+\begin{DoxyCompactList}\small\item\em Gets the tilt angle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__pantilt_8h_ac4270095fc7c8ed4f65266fca030ad67}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+init} ()\hypertarget{s4396122__hal__pantilt_8h_ac4270095fc7c8ed4f65266fca030ad67}{}\label{s4396122__hal__pantilt_8h_ac4270095fc7c8ed4f65266fca030ad67}
+
+\begin{DoxyCompactList}\small\item\em Initializes all the hardware pins and the server. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__pantilt_8h_a101940c5e04a0221cc1de4217af61541}{s4396122\+\_\+hal\+\_\+pantilt\+\_\+deinit} ()\hypertarget{s4396122__hal__pantilt_8h_a101940c5e04a0221cc1de4217af61541}{}\label{s4396122__hal__pantilt_8h_a101940c5e04a0221cc1de4217af61541}
+
+\begin{DoxyCompactList}\small\item\em De\+Initializes the pantilt peripherals. This includes; stopping the pwm, deinit the pwm, and deinit the G\+P\+IO pins. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+T\+I\+M\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__pantilt_8h_a5f252faf70a20182b1bcddfd215fcb68}{T\+I\+M\+\_\+\+Pan\+Tilt}\hypertarget{s4396122__hal__pantilt_8h_a5f252faf70a20182b1bcddfd215fcb68}{}\label{s4396122__hal__pantilt_8h_a5f252faf70a20182b1bcddfd215fcb68}
+
+\begin{DoxyCompactList}\small\item\em Used to store the information for the pan servo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Pan and Tilt control system. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}

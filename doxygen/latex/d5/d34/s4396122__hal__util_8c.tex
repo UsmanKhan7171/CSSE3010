@@ -1,0 +1,95 @@
+\hypertarget{s4396122__hal__util_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+util.c File Reference}
+\label{s4396122__hal__util_8c}\index{mylib/s4396122\+\_\+hal\+\_\+util.\+c@{mylib/s4396122\+\_\+hal\+\_\+util.\+c}}
+
+
+External library for utility functions and contants.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+util.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+util.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{d7/dfd/s4396122__hal__util_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{s4396122__hal__util_8c_a3b35225944a2b195a274b99fb6d6d113}{map} (int test, int old\+Min, int old\+Max, int new\+Min, int new\+Max)
+\begin{DoxyCompactList}\small\item\em Linear Maps an integer to a new value using min and max of old variables (based on the Arduino map function) \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__hal__util_8c_a7074e7fca134e7857b2f3179e960a58e}{approx} (int test, int expected, int range)
+\begin{DoxyCompactList}\small\item\em Checks to see if the test value is within the expected range. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+External library for utility functions and contants. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+util.\+c@{s4396122\+\_\+hal\+\_\+util.\+c}!approx@{approx}}
+\index{approx@{approx}!s4396122\+\_\+hal\+\_\+util.\+c@{s4396122\+\_\+hal\+\_\+util.\+c}}
+\subsubsection[{\texorpdfstring{approx(int test, int expected, int range)}{approx(int test, int expected, int range)}}]{\setlength{\rightskip}{0pt plus 5cm}int approx (
+\begin{DoxyParamCaption}
+\item[{int}]{test, }
+\item[{int}]{expected, }
+\item[{int}]{range}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__util_8c_a7074e7fca134e7857b2f3179e960a58e}{}\label{s4396122__hal__util_8c_a7074e7fca134e7857b2f3179e960a58e}
+
+
+Checks to see if the test value is within the expected range. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em test} & The value to be tested on \\
+\hline
+{\em expected} & The expected value \\
+\hline
+{\em range} & The range for the value to be tested within \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the test value is within the range of the expected value 
+\end{DoxyReturn}
+\index{s4396122\+\_\+hal\+\_\+util.\+c@{s4396122\+\_\+hal\+\_\+util.\+c}!map@{map}}
+\index{map@{map}!s4396122\+\_\+hal\+\_\+util.\+c@{s4396122\+\_\+hal\+\_\+util.\+c}}
+\subsubsection[{\texorpdfstring{map(int test, int old\+Min, int old\+Max, int new\+Min, int new\+Max)}{map(int test, int oldMin, int oldMax, int newMin, int newMax)}}]{\setlength{\rightskip}{0pt plus 5cm}int map (
+\begin{DoxyParamCaption}
+\item[{int}]{test, }
+\item[{int}]{old\+Min, }
+\item[{int}]{old\+Max, }
+\item[{int}]{new\+Min, }
+\item[{int}]{new\+Max}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__util_8c_a3b35225944a2b195a274b99fb6d6d113}{}\label{s4396122__hal__util_8c_a3b35225944a2b195a274b99fb6d6d113}
+
+
+Linear Maps an integer to a new value using min and max of old variables (based on the Arduino map function) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em test} & The integer to be mapped \\
+\hline
+{\em old\+Min} & The existing minimum value \\
+\hline
+{\em old\+Max} & The existing maximum value \\
+\hline
+{\em new\+Min} & The new minimum value \\
+\hline
+{\em new\+Max} & The new maximum value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value that has been mapped 
+\end{DoxyReturn}

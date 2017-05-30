@@ -1,0 +1,82 @@
+\hypertarget{s4396122__hal__sysmon_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+sysmon.h File Reference}
+\label{s4396122__hal__sysmon_8h}\index{mylib/s4396122\+\_\+hal\+\_\+sysmon.\+h@{mylib/s4396122\+\_\+hal\+\_\+sysmon.\+h}}
+
+
+Library for interface between 3 LA channels and the np2.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+sysmon.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{de/d44/s4396122__hal__sysmon_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{df/d55/s4396122__hal__sysmon_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a5b9a6ac594383fd65dccb3c061d1d1a9}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+O\+RT}~B\+R\+D\+\_\+\+D9\+\_\+\+G\+P\+I\+O\+\_\+\+P\+O\+RT\hypertarget{s4396122__hal__sysmon_8h_a5b9a6ac594383fd65dccb3c061d1d1a9}{}\label{s4396122__hal__sysmon_8h_a5b9a6ac594383fd65dccb3c061d1d1a9}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 0 Port definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a1925e4633909d0c66982ed95e17b5c1e}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+IN}~B\+R\+D\+\_\+\+D9\+\_\+\+P\+IN\hypertarget{s4396122__hal__sysmon_8h_a1925e4633909d0c66982ed95e17b5c1e}{}\label{s4396122__hal__sysmon_8h_a1925e4633909d0c66982ed95e17b5c1e}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 0 Pin definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a14899242f5280b2f263591a96349135c}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+O\+RT}~B\+R\+D\+\_\+\+D10\+\_\+\+G\+P\+I\+O\+\_\+\+P\+O\+RT\hypertarget{s4396122__hal__sysmon_8h_a14899242f5280b2f263591a96349135c}{}\label{s4396122__hal__sysmon_8h_a14899242f5280b2f263591a96349135c}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 1 Port definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_af473b9d5c9756abe7424d1101b8729e3}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+IN}~B\+R\+D\+\_\+\+D10\+\_\+\+P\+IN\hypertarget{s4396122__hal__sysmon_8h_af473b9d5c9756abe7424d1101b8729e3}{}\label{s4396122__hal__sysmon_8h_af473b9d5c9756abe7424d1101b8729e3}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 1 Pin definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_aca887a1839aef55740ea1034b6b55f4b}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+O\+RT}~B\+R\+D\+\_\+\+D12\+\_\+\+G\+P\+I\+O\+\_\+\+P\+O\+RT\hypertarget{s4396122__hal__sysmon_8h_aca887a1839aef55740ea1034b6b55f4b}{}\label{s4396122__hal__sysmon_8h_aca887a1839aef55740ea1034b6b55f4b}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 2 Port definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a8744842bcbc44f02ad17683898b4ffe1}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+IN}~B\+R\+D\+\_\+\+D12\+\_\+\+P\+IN\hypertarget{s4396122__hal__sysmon_8h_a8744842bcbc44f02ad17683898b4ffe1}{}\label{s4396122__hal__sysmon_8h_a8744842bcbc44f02ad17683898b4ffe1}
+
+\begin{DoxyCompactList}\small\item\em LA Channel 2 Pin definition. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_aeffba0949061b95c85d0c391f20fee5e}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan0\+\_\+clr}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_a5b9a6ac594383fd65dccb3c061d1d1a9}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_a1925e4633909d0c66982ed95e17b5c1e}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+IN}, 0)\hypertarget{s4396122__hal__sysmon_8h_aeffba0949061b95c85d0c391f20fee5e}{}\label{s4396122__hal__sysmon_8h_aeffba0949061b95c85d0c391f20fee5e}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 0 low. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_ab20e659e53747e0298b7354f52c1934a}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan0\+\_\+set}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_a5b9a6ac594383fd65dccb3c061d1d1a9}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_a1925e4633909d0c66982ed95e17b5c1e}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+0\+\_\+\+P\+IN}, 1)\hypertarget{s4396122__hal__sysmon_8h_ab20e659e53747e0298b7354f52c1934a}{}\label{s4396122__hal__sysmon_8h_ab20e659e53747e0298b7354f52c1934a}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 0 high. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a84c97e88b5a980887e035e016a64a247}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan1\+\_\+clr}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_a14899242f5280b2f263591a96349135c}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_af473b9d5c9756abe7424d1101b8729e3}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+IN}, 0)\hypertarget{s4396122__hal__sysmon_8h_a84c97e88b5a980887e035e016a64a247}{}\label{s4396122__hal__sysmon_8h_a84c97e88b5a980887e035e016a64a247}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 1 low. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a20da25c45b7b9c0caeea675ee196bd2d}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan1\+\_\+set}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_a14899242f5280b2f263591a96349135c}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_af473b9d5c9756abe7424d1101b8729e3}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+1\+\_\+\+P\+IN}, 1)\hypertarget{s4396122__hal__sysmon_8h_a20da25c45b7b9c0caeea675ee196bd2d}{}\label{s4396122__hal__sysmon_8h_a20da25c45b7b9c0caeea675ee196bd2d}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 1 high. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_ad75ba5073e019c53fc3077d47b21f024}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan2\+\_\+clr}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_aca887a1839aef55740ea1034b6b55f4b}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_a8744842bcbc44f02ad17683898b4ffe1}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+IN}, 0)\hypertarget{s4396122__hal__sysmon_8h_ad75ba5073e019c53fc3077d47b21f024}{}\label{s4396122__hal__sysmon_8h_ad75ba5073e019c53fc3077d47b21f024}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 2 low. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__hal__sysmon_8h_a15e3a4f706f56a31a08c5d4464d37b61}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+chan2\+\_\+set}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Write\+Pin(\hyperlink{s4396122__hal__sysmon_8h_aca887a1839aef55740ea1034b6b55f4b}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+O\+RT}, \hyperlink{s4396122__hal__sysmon_8h_a8744842bcbc44f02ad17683898b4ffe1}{L\+A\+\_\+\+C\+H\+A\+N\+N\+E\+L\+\_\+2\+\_\+\+P\+IN}, 1)\hypertarget{s4396122__hal__sysmon_8h_a15e3a4f706f56a31a08c5d4464d37b61}{}\label{s4396122__hal__sysmon_8h_a15e3a4f706f56a31a08c5d4464d37b61}
+
+\begin{DoxyCompactList}\small\item\em Sets channel 2 high. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__sysmon_8h_a633fd8a05b7215dfa005bb4ec0a5af70}{s4396122\+\_\+hal\+\_\+sysmon\+\_\+init} ()\hypertarget{s4396122__hal__sysmon_8h_a633fd8a05b7215dfa005bb4ec0a5af70}{}\label{s4396122__hal__sysmon_8h_a633fd8a05b7215dfa005bb4ec0a5af70}
+
+\begin{DoxyCompactList}\small\item\em Initializes the sysmon pins for interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for interface between 3 LA channels and the np2. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}

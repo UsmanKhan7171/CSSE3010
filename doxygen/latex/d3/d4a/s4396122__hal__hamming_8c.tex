@@ -1,0 +1,123 @@
+\hypertarget{s4396122__hal__hamming_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+hamming.c File Reference}
+\label{s4396122__hal__hamming_8c}\index{mylib/s4396122\+\_\+hal\+\_\+hamming.\+c@{mylib/s4396122\+\_\+hal\+\_\+hamming.\+c}}
+
+
+Library for encoding and decoding of hamming codes.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+hamming.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+hamming.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d9/de5/s4396122__hal__hamming_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{s4396122__hal__hamming_8c_ae47065534a17887b005d74d2308a1192}{modulate\+\_\+matrix} (int in)
+\begin{DoxyCompactList}\small\item\em To be executed from within a matrix, applies mod 2 to every element in the matrix. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__hamming_8c_a762a36d0dbdeb6574f24f8b52ac33cbd}{s4396122\+\_\+hal\+\_\+hamming\+\_\+init} ()\hypertarget{s4396122__hal__hamming_8c_a762a36d0dbdeb6574f24f8b52ac33cbd}{}\label{s4396122__hal__hamming_8c_a762a36d0dbdeb6574f24f8b52ac33cbd}
+
+\begin{DoxyCompactList}\small\item\em Initializes the Generator and Hamming matrix into memory for quick and easy access later. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{s4396122__hal__hamming_8c_a871d8329fa2b4bcc418acb7e0ecde547}{s4396122\+\_\+hal\+\_\+hamming\+\_\+encode} (unsigned int in)
+\begin{DoxyCompactList}\small\item\em Encodes one nibble of data and returns the hamming encoded nibble. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{s4396122__hal__hamming_8c_ae0aac21fb3c2577bb3f945fddccc967d}{s4396122\+\_\+hal\+\_\+hamming\+\_\+decode} (unsigned int in)
+\begin{DoxyCompactList}\small\item\em Decodes one nibble of data and returns the data corrected data if any one bit errors exist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for encoding and decoding of hamming codes. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}!modulate\+\_\+matrix@{modulate\+\_\+matrix}}
+\index{modulate\+\_\+matrix@{modulate\+\_\+matrix}!s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}}
+\subsubsection[{\texorpdfstring{modulate\+\_\+matrix(int in)}{modulate_matrix(int in)}}]{\setlength{\rightskip}{0pt plus 5cm}int modulate\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{int}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__hamming_8c_ae47065534a17887b005d74d2308a1192}{}\label{s4396122__hal__hamming_8c_ae47065534a17887b005d74d2308a1192}
+
+
+To be executed from within a matrix, applies mod 2 to every element in the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The current value in the matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new value in the matrix 
+\end{DoxyReturn}
+\index{s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}!s4396122\+\_\+hal\+\_\+hamming\+\_\+decode@{s4396122\+\_\+hal\+\_\+hamming\+\_\+decode}}
+\index{s4396122\+\_\+hal\+\_\+hamming\+\_\+decode@{s4396122\+\_\+hal\+\_\+hamming\+\_\+decode}!s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+hamming\+\_\+decode(unsigned int in)}{s4396122_hal_hamming_decode(unsigned int in)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int s4396122\+\_\+hal\+\_\+hamming\+\_\+decode (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__hamming_8c_ae0aac21fb3c2577bb3f945fddccc967d}{}\label{s4396122__hal__hamming_8c_ae0aac21fb3c2577bb3f945fddccc967d}
+
+
+Decodes one nibble of data and returns the data corrected data if any one bit errors exist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Hamming encoded data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The decoded data with any error corrections. If there is 2 errors then 0x\+FF is returned 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d4a/s4396122__hal__hamming_8c_ae0aac21fb3c2577bb3f945fddccc967d_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}!s4396122\+\_\+hal\+\_\+hamming\+\_\+encode@{s4396122\+\_\+hal\+\_\+hamming\+\_\+encode}}
+\index{s4396122\+\_\+hal\+\_\+hamming\+\_\+encode@{s4396122\+\_\+hal\+\_\+hamming\+\_\+encode}!s4396122\+\_\+hal\+\_\+hamming.\+c@{s4396122\+\_\+hal\+\_\+hamming.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+hamming\+\_\+encode(unsigned int in)}{s4396122_hal_hamming_encode(unsigned int in)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int s4396122\+\_\+hal\+\_\+hamming\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__hamming_8c_a871d8329fa2b4bcc418acb7e0ecde547}{}\label{s4396122__hal__hamming_8c_a871d8329fa2b4bcc418acb7e0ecde547}
+
+
+Encodes one nibble of data and returns the hamming encoded nibble. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Nibble to be encoded \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Encoded nibble of data 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d4a/s4396122__hal__hamming_8c_a871d8329fa2b4bcc418acb7e0ecde547_cgraph}
+\end{center}
+\end{figure}
+
+

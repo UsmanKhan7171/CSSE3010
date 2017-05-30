@@ -1,0 +1,26 @@
+<map id="mylib/s4396122_util_queue.h" name="mylib/s4396122_util_queue.h">
+<area shape="rect" id="node2" href="$d5/d97/s4396122__os__print_8h.html" title="Library to make console printing easier and less direct task intensive. " alt="" coords="430,102,607,129"/>
+<area shape="rect" id="node6" href="$db/de1/s4396122__os__draw_8h.html" title="Library for drawing using paint. " alt="" coords="743,370,923,397"/>
+<area shape="rect" id="node19" href="$db/dd7/s4396122__hal__ir_8h.html" title="Control library for the IR transmitter and receiver. " alt="" coords="52,102,215,129"/>
+<area shape="rect" id="node21" href="$d5/d5f/s4396122__hal__ircoms_8h.html" title="Library for encoding and decoding of data to manchester waveforms. " alt="" coords="827,95,965,136"/>
+<area shape="rect" id="node23" href="$de/d96/s4396122__hal__irremote_8h.html" title="Library for processing and reporting of the irremote. " alt="" coords="989,95,1126,136"/>
+<area shape="rect" id="node25" href="$df/d52/s4396122__util__queue_8c.html" title="Library for adding Queue functionality. " alt="" coords="1150,95,1287,136"/>
+<area shape="rect" id="node3" href="$d5/d73/s4396122__util__print_8h.html" title="Function for handling the serial print and cursor magic. " alt="" coords="450,184,587,225"/>
+<area shape="rect" id="node16" href="$d4/de9/s4396122__os__mqtt_8h.html" title="Library for publishing and subscribing to channels using mqtt. " alt="" coords="629,281,808,307"/>
+<area shape="rect" id="node18" href="$de/d1c/s4396122__os__print_8c.html" title="Library to make console printing easier and less direct task intensive. " alt="" coords="249,191,426,218"/>
+<area shape="rect" id="node4" href="$df/d1b/s4396122__util__int__queue_8h.html" title="Library for easily creating and managing a Queue of integers. " alt="" coords="467,273,605,315"/>
+<area shape="rect" id="node10" href="$d9/dde/s4396122__hal__tcp_8h.html" title="Library for reading and writing to a tcp connection. " alt="" coords="318,363,455,404"/>
+<area shape="rect" id="node13" href="$d8/d8f/s4396122__os__pantilt_8h.html" title="OS library for controlling the pantilt. " alt="" coords="43,281,229,307"/>
+<area shape="rect" id="node15" href="$d0/d3c/s4396122__util__print_8c.html" title="Library for handling serial output and cursor magic. " alt="" coords="254,273,391,315"/>
+<area shape="rect" id="node5" href="$d0/d29/main_8c.html" title="Main file for project 2. " alt="" coords="636,549,775,575"/>
+<area shape="rect" id="node12" href="$d4/d68/s4396122__util__int__queue_8c.html" title="Library for easily creating and managing a Queue of integers. " alt="" coords="479,363,617,404"/>
+<area shape="rect" id="node7" href="$d4/d75/s4396122__cli__draw_8h.html" title="Provides drawing commands for CLI. " alt="" coords="1201,452,1335,493"/>
+<area shape="rect" id="node9" href="$df/d92/s4396122__os__draw_8c.html" title="Library for drawing using paint. " alt="" coords="794,459,974,486"/>
+<area shape="rect" id="node8" href="$d2/d7a/s4396122__cli__draw_8c.html" title="Provides drawing commands for CLI. " alt="" coords="1201,541,1335,583"/>
+<area shape="rect" id="node11" href="$df/d90/s4396122__hal__tcp_8c.html" title="Library for reading and writing to a tcp connection. " alt="" coords="318,452,455,493"/>
+<area shape="rect" id="node14" href="$da/d4e/s4396122__os__pantilt_8c.html" title="OS functions for controlling the pantilt. " alt="" coords="43,370,229,397"/>
+<area shape="rect" id="node17" href="$db/d03/s4396122__os__mqtt_8c.html" title="Library for publishing and subscribing to channels using mqtt. " alt="" coords="948,370,1127,397"/>
+<area shape="rect" id="node20" href="$d7/d45/s4396122__hal__ir_8c.html" title="Control library for the IR transmitter and receiver. " alt="" coords="52,191,215,218"/>
+<area shape="rect" id="node22" href="$d0/da1/s4396122__hal__ircoms_8c.html" title="Library for encoding and decoding of data to manchester waveforms. " alt="" coords="827,184,965,225"/>
+<area shape="rect" id="node24" href="$d9/ded/s4396122__hal__irremote_8c.html" title="Library for processing and reporting of the irremote. " alt="" coords="989,184,1126,225"/>
+</map>

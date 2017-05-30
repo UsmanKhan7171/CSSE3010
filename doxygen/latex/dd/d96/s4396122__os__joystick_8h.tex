@@ -1,0 +1,53 @@
+\hypertarget{s4396122__os__joystick_8h}{}\section{mylib/s4396122\+\_\+os\+\_\+joystick.h File Reference}
+\label{s4396122__os__joystick_8h}\index{mylib/s4396122\+\_\+os\+\_\+joystick.\+h@{mylib/s4396122\+\_\+os\+\_\+joystick.\+h}}
+
+
+Library for os interface to joystick peripheral.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+{\ttfamily \#include $<$debug\+\_\+printf.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}semphr.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+os\+\_\+joystick.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d87/s4396122__os__joystick_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d27/s4396122__os__joystick_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__os__joystick_8h_ad081af6c9cc4297de4ade506f51ac4e5}{s4396122\+\_\+os\+\_\+joystick\+\_\+init} ()\hypertarget{s4396122__os__joystick_8h_ad081af6c9cc4297de4ade506f51ac4e5}{}\label{s4396122__os__joystick_8h_ad081af6c9cc4297de4ade506f51ac4e5}
+
+\begin{DoxyCompactList}\small\item\em Initializes the joystick peripherial. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Semaphore\+Handle\+\_\+t \hyperlink{s4396122__os__joystick_8h_a6afa2d8eb75f1ac6b735d72c4870392c}{s4396122\+\_\+\+Semaphore\+JoystickZ}\hypertarget{s4396122__os__joystick_8h_a6afa2d8eb75f1ac6b735d72c4870392c}{}\label{s4396122__os__joystick_8h_a6afa2d8eb75f1ac6b735d72c4870392c}
+
+\begin{DoxyCompactList}\small\item\em Semaphore for the joystick z input interrupt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for os interface to joystick peripheral. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}

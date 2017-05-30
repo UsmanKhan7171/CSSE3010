@@ -1,0 +1,51 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$d0/d29/main_8c.html#aa4b011a27637719b244411fad80d8f57" title="Initializes the systems hardware and calls the libraries init functions. " alt="" coords="150,996,253,1023"/>
+<area shape="rect" id="node12" href="$db/d03/s4396122__os__mqtt_8c.html#af9ea982b29cde3278778e6e802cfa850" title="Assigns the external message handler. " alt="" coords="123,1469,280,1510"/>
+<area shape="rect" id="node13" href="$d0/d29/main_8c.html#a2a94f1a6ce73b5b0e9fa9edc1a5b1084" title="Called whenever there is a command sent over an mqtt connection. " alt="" coords="160,1570,243,1596"/>
+<area shape="rect" id="node19" href="$d0/d29/main_8c.html#a14841334c2e5d74e1def5e9452fbe413" title="Blinking LED Task to ensure a visual feedback that the system is alive. " alt="" coords="159,1747,243,1774"/>
+<area shape="rect" id="node20" href="$d0/d29/main_8c.html#a66b4063998a4a35de99303b124b30ca0" title="Task for handling the network input and sending the input to the process functions. " alt="" coords="158,1696,245,1723"/>
+<area shape="rect" id="node24" href="$df/d92/s4396122__os__draw_8c.html#a36ae5384e2ebf83ea88baf4aade7a617" title="Task that handles drawing on the screen. " alt="" coords="123,1367,279,1394"/>
+<area shape="rect" id="node29" href="$df/d92/s4396122__os__draw_8c.html#a8f94ed5084bedc0dc98fc25b1c75e18b" title="Changes the pen colour to match the parameter. " alt="" coords="588,1402,771,1444"/>
+<area shape="rect" id="node30" href="$d0/d29/main_8c.html#a94cab1aa42c1b15a6c7576f6a0282731" title="Task for handling the ir remote input and calling the required functions. " alt="" coords="165,439,237,466"/>
+<area shape="rect" id="node37" href="$df/d92/s4396122__os__draw_8c.html#a447b5c7a8bd3e0a90ab234c668f91345" title="Removes the last added item to the drawList Queue. " alt="" coords="575,39,784,66"/>
+<area shape="rect" id="node43" href="$d0/d29/main_8c.html#a495c3614989bea2a46cf7c13f01bc0d4" title="Task for handling the joystick input and setting the origin. " alt="" coords="385,140,488,167"/>
+<area shape="rect" id="node45" href="$d0/d29/main_8c.html#a502ddcdb31aa7ab19ae88d61c3e13635" title="Task for handling the accelerometer input and setting the orientation. " alt="" coords="157,1266,246,1292"/>
+<area shape="rect" id="node47" href="$db/d03/s4396122__os__mqtt_8c.html#a2429b9d8dea680083ea54f2cfccb6bc1" title="Initializes the MQTT library peripherals. " alt="" coords="123,870,279,896"/>
+<area shape="rect" id="node48" href="$db/d03/s4396122__os__mqtt_8c.html#a8ec1e36942e29195d0e8ace2d354c2fa" title="Task for handling MQTT functionality. " alt="" coords="389,743,484,770"/>
+<area shape="rect" id="node49" href="$df/d92/s4396122__os__draw_8c.html#a7bc1b8f6decce7742922e4f990a36461" title="Adds a char to the display. " alt="" coords="104,1798,299,1824"/>
+<area shape="rect" id="node50" href="$df/d92/s4396122__os__draw_8c.html#a40ba50ba5201c004cd734ee1d231112f" title="Adds a polygon to the display. " alt="" coords="105,1848,298,1875"/>
+<area shape="rect" id="node3" href="$df/d92/s4396122__os__draw_8c.html#afbbb2120716d72b55bc086c2b989b75e" title="Initializes the drawing tasks and sets the defaults values. " alt="" coords="357,844,516,871"/>
+<area shape="rect" id="node4" href="$d2/d7a/s4396122__cli__draw_8c.html#ac046113876d482709dd25092711322ce" title="Init function for the draw commands. Adds all the commands to FreeRTOS. " alt="" coords="358,794,515,820"/>
+<area shape="rect" id="node6" href="$d9/ded/s4396122__hal__irremote_8c.html#a2418be11cb3fc07d0d66a026accc4452" title="Initializes the pins and timers needed for the irremote. " alt="" coords="347,996,527,1023"/>
+<area shape="rect" id="node7" href="$d7/d45/s4396122__hal__ir_8c.html#ad77fb83f56d03670d3365052699eaadb" title="Initializes the hardware for the ir transmitter. This will also turn the carrier signal on..." alt="" coords="367,946,507,972"/>
+<area shape="rect" id="node8" href="$dc/df1/s4396122__hal__joystick_8c.html#a86b1b90556d8e0f77ef373da4c94ed4e" title="Initializes the joystick hardware and sets A0 as the input for the x of the joystick. " alt="" coords="347,1047,526,1074"/>
+<area shape="rect" id="node9" href="$df/dfd/s4396122__os__joystick_8c.html#ad081af6c9cc4297de4ade506f51ac4e5" title="Initializes the joystick peripherial. " alt="" coords="349,1098,524,1124"/>
+<area shape="rect" id="node10" href="$d9/d82/s4396122__cli__joystick_8c.html#a3c5d12dc9250d5381efd75052843df38" title="Init function for the joystick commands. Adds all the commands to FreeRTOS. " alt="" coords="349,1148,524,1175"/>
+<area shape="rect" id="node11" href="$df/d63/s4396122__hal__accel_8c.html#a32e56f6498515d5b74755c79948f5062" title="Inits the accelerometer and any required hardware. " alt="" coords="355,895,519,922"/>
+<area shape="rect" id="node5" href="$df/d92/s4396122__os__draw_8c.html#a611858e5e69fe15e1605c5ab4cb5af06" title="Moves the cursor to the provided location. " alt="" coords="593,449,766,490"/>
+<area shape="rect" id="node14" href="$d4/d68/s4396122__util__int__queue_8c.html#a32ee4c1f5cca5d9e7a2c06703ecf9420" title="Creates an integer queue. " alt="" coords="597,1765,762,1806"/>
+<area shape="rect" id="node15" href="$d4/d68/s4396122__util__int__queue_8c.html#a233370ae16db84550905e6e382d1d1b7" title="Appends a string to the end of the IntQueue. " alt="" coords="597,1613,762,1654"/>
+<area shape="rect" id="node16" href="$d0/d29/main_8c.html#aded10eb51d4ca5e34c5de551c09a1e37" title="Processes the input cli command and calls the required FreeRTOS Command. " alt="" coords="349,1671,524,1698"/>
+<area shape="rect" id="node18" href="$d4/d68/s4396122__util__int__queue_8c.html#a80a0b7728809b2e3eb95db4da3edbc1f" title="Frees the whole queue from memory, as well as all the elements inside. " alt="" coords="582,1878,777,1904"/>
+<area shape="rect" id="node17" href="$df/d90/s4396122__hal__tcp_8c.html#aec990b849d10fe998ac863b557909be5" title="Prints data to the tcp connection. " alt="" coords="600,1696,759,1723"/>
+<area shape="rect" id="node21" href="$df/d90/s4396122__hal__tcp_8c.html#a69aa6be333d430df2c75e8c71e0c639c" title="Initiates the tcp server preferences. " alt="" coords="361,1975,512,2002"/>
+<area shape="rect" id="node22" href="$df/d90/s4396122__hal__tcp_8c.html#a50ad7015f817c1d886bad465c14c2d59" title="Blocking, accepts a network tcp connection. " alt="" coords="350,1874,523,1900"/>
+<area shape="rect" id="node23" href="$df/d90/s4396122__hal__tcp_8c.html#a1e78bac1a938c52bbb03966f23c77830" title="Blocking, reads input from the tcp struct connection, calls the function parsed with an IntQueue of t..." alt="" coords="357,1924,516,1951"/>
+<area shape="rect" id="node25" href="$df/d92/s4396122__os__draw_8c.html#af7db83af2c137dcfc0be2a4acf9fd9a7" title="Renders the entire drawList Queue into the mouseQueue for the s4396122_DrawerTask to execute on the d..." alt="" coords="347,1367,527,1394"/>
+<area shape="rect" id="node27" href="$df/d52/s4396122__util__queue_8c.html#a85cfe4effdfc995c05f68cb757fe9692" title="Gets the size of the Queue. " alt="" coords="832,1351,1007,1378"/>
+<area shape="rect" id="node28" href="$df/d52/s4396122__util__queue_8c.html#a3a6496b5bd03f05d9a1f889cf2f8761f" title="Pops an element from the bottom of the Queue and returns the data. " alt="" coords="833,674,1005,700"/>
+<area shape="rect" id="node26" href="$db/d03/s4396122__os__mqtt_8c.html#a0a4ced61e78b0ca747a4a4803b8e7a39" title="Publishes a message to the MQTT server. " alt="" coords="589,743,769,770"/>
+<area shape="rect" id="node31" href="$d6/dcd/s4396122__util__map_8c.html#ac918487af0638681d7cda479d88a2490" title="Creates and empty map for adding data. " alt="" coords="348,490,525,516"/>
+<area shape="rect" id="node32" href="$d6/dcd/s4396122__util__map_8c.html#a7c9ff837984d66a2d756cf62b3f7ece2" title="Adds an element to the map, if the key exists in memory than the old pair will be removed from memory..." alt="" coords="355,540,518,567"/>
+<area shape="rect" id="node33" href="$d0/d29/main_8c.html#aa28816a126d784c0deed58e414510a6c" title="Handler for when a user presses a numeric button on the IR Remote. " alt="" coords="395,591,478,618"/>
+<area shape="rect" id="node34" href="$d0/d29/main_8c.html#a6de80721052311b1be7cb837c5db6887" title="Handler for when the user presses a directional button on the IR remote. " alt="" coords="393,642,480,668"/>
+<area shape="rect" id="node35" href="$d0/d29/main_8c.html#a58bfbee9c8d80c18cd11f84d16177818" title="Handler for when the user presses the back button. " alt="" coords="388,692,485,719"/>
+<area shape="rect" id="node36" href="$d0/d29/main_8c.html#aa6b4370f1e20551de5b33c3cb58c92f0" title="Handler for when the user presses the play button. " alt="" coords="395,39,478,66"/>
+<area shape="rect" id="node38" href="$d9/ded/s4396122__hal__irremote_8c.html#ad97ed52adab214a43817926a886c1694" title="Processes an data stored inside the IRQueue and calculates the ir address and command. " alt="" coords="601,90,757,132"/>
+<area shape="rect" id="node39" href="$d7/d45/s4396122__hal__ir_8c.html#a32206e24b83574e02595e1edc1132db1" title="Gets the IRQueue and returns it for referencing to external libraries and functions. " alt="" coords="366,192,507,233"/>
+<area shape="rect" id="node40" href="$d9/ded/s4396122__hal__irremote_8c.html#a8ca9bca01e1e0173ca8214c9bab87445" title="Checks if there a IR message command pending to be read. " alt="" coords="359,257,515,298"/>
+<area shape="rect" id="node41" href="$d9/ded/s4396122__hal__irremote_8c.html#a2782b44c130017999c330b33e2506439" title="Reads the IR message command and transforms it to a character symbolized by the remote. " alt="" coords="359,322,515,364"/>
+<area shape="rect" id="node42" href="$d6/dcd/s4396122__util__map_8c.html#a663a2acefafda6b772c6eb856f49e79a" title="Gets the data referenced with the key. " alt="" coords="357,388,516,415"/>
+<area shape="rect" id="node44" href="$df/d92/s4396122__os__draw_8c.html#a301ecad13de4aef4700e719817e4caea" title="Moves the origin of the canvas. " alt="" coords="593,156,766,197"/>
+<area shape="rect" id="node46" href="$df/d63/s4396122__hal__accel_8c.html#a7c6ddaf7d43db64f178bcf2f416d4ad6" title="Returns the result if the system is portrait or landscape. " alt="" coords="367,1200,507,1241"/>
+</map>

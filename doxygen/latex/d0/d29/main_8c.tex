@@ -1,0 +1,562 @@
+\hypertarget{main_8c}{}\section{assignment2/main.c File Reference}
+\label{main_8c}\index{assignment2/main.\+c@{assignment2/main.\+c}}
+
+
+Main file for project 2.  
+
+
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S\+Config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+tcp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+draw.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+cli\+\_\+draw.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+irremote.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+ir.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+map.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+int\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+joystick.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+joystick.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+cli\+\_\+joystick.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+accel.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+mqtt.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S\+\_\+\+C\+L\+I.\+h\char`\"{}}\\*
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d10/main_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structTaskHolder}{Task\+Holder}
+\begin{DoxyCompactList}\small\item\em Struct for holder all the information required to re-\/create a task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{main_8c_a4fa0dea8934493e58ecab60099247911}{main\+L\+E\+D\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 4)\hypertarget{main_8c_a4fa0dea8934493e58ecab60099247911}{}\label{main_8c_a4fa0dea8934493e58ecab60099247911}
+
+\begin{DoxyCompactList}\small\item\em Main L\+ED priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_abea22f101a2ab2988b4daf0d8d14c7c6}{main\+L\+E\+D\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 2)\hypertarget{main_8c_abea22f101a2ab2988b4daf0d8d14c7c6}{}\label{main_8c_abea22f101a2ab2988b4daf0d8d14c7c6}
+
+\begin{DoxyCompactList}\small\item\em Main L\+ED stack size. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_a94c5125c6e09fec149dcecb5612f342f}{main\+Task\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 3)\hypertarget{main_8c_a94c5125c6e09fec149dcecb5612f342f}{}\label{main_8c_a94c5125c6e09fec149dcecb5612f342f}
+
+\begin{DoxyCompactList}\small\item\em Main C\+LI task priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_ac15a0ecb5846c2e0fba03e6a806bfea4}{main\+Task\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 8)\hypertarget{main_8c_ac15a0ecb5846c2e0fba03e6a806bfea4}{}\label{main_8c_ac15a0ecb5846c2e0fba03e6a806bfea4}
+
+\begin{DoxyCompactList}\small\item\em Main C\+LI task stack size. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_abb4deec5ed0637ea3e9da85c9cc6839a}{drawer\+Task\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 3)\hypertarget{main_8c_abb4deec5ed0637ea3e9da85c9cc6839a}{}\label{main_8c_abb4deec5ed0637ea3e9da85c9cc6839a}
+
+\begin{DoxyCompactList}\small\item\em Drawer task priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_aa6fe14df4bf785b5075ce702dee35155}{drawer\+Task\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 2)\hypertarget{main_8c_aa6fe14df4bf785b5075ce702dee35155}{}\label{main_8c_aa6fe14df4bf785b5075ce702dee35155}
+
+\begin{DoxyCompactList}\small\item\em Drawer task stack size. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_aeb7e6acd99e281e53dadac24c8d3bbc9}{I\+R\+Task\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 2)\hypertarget{main_8c_aeb7e6acd99e281e53dadac24c8d3bbc9}{}\label{main_8c_aeb7e6acd99e281e53dadac24c8d3bbc9}
+
+\begin{DoxyCompactList}\small\item\em IR task priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_a2705eaec87619d5effd4fd149c4af5d5}{I\+R\+Task\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 5)\hypertarget{main_8c_a2705eaec87619d5effd4fd149c4af5d5}{}\label{main_8c_a2705eaec87619d5effd4fd149c4af5d5}
+
+\begin{DoxyCompactList}\small\item\em IR task stack size. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_a291d62083d42675555973954ff77a7d5}{joystick\+Task\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 2)\hypertarget{main_8c_a291d62083d42675555973954ff77a7d5}{}\label{main_8c_a291d62083d42675555973954ff77a7d5}
+
+\begin{DoxyCompactList}\small\item\em Joystick priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_ae8fe6b98f76d8ca6155c766d21de9539}{joystick\+Task\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 5)\hypertarget{main_8c_ae8fe6b98f76d8ca6155c766d21de9539}{}\label{main_8c_ae8fe6b98f76d8ca6155c766d21de9539}
+
+\begin{DoxyCompactList}\small\item\em Joystick task stack size. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_a8b935a3aae000c62d138f5cd2cc7af36}{accel\+Task\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 2)\hypertarget{main_8c_a8b935a3aae000c62d138f5cd2cc7af36}{}\label{main_8c_a8b935a3aae000c62d138f5cd2cc7af36}
+
+\begin{DoxyCompactList}\small\item\em Accel priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{main_8c_ae05153edd3f677d9383339b54debd3fc}{accel\+Task\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 5)\hypertarget{main_8c_ae05153edd3f677d9383339b54debd3fc}{}\label{main_8c_ae05153edd3f677d9383339b54debd3fc}
+
+\begin{DoxyCompactList}\small\item\em Accel task stack size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_a1bc5ef5ec7d463a3dc0691215800487e}{V\+C\+P\+\_\+txflush} ()\hypertarget{main_8c_a1bc5ef5ec7d463a3dc0691215800487e}{}\label{main_8c_a1bc5ef5ec7d463a3dc0691215800487e}
+
+\begin{DoxyCompactList}\small\item\em Fix for the V\+C\+P\+\_\+txflush function call in mqtt library. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_aa4b011a27637719b244411fad80d8f57}{Hardware\+\_\+init} ()\hypertarget{main_8c_aa4b011a27637719b244411fad80d8f57}{}\label{main_8c_aa4b011a27637719b244411fad80d8f57}
+
+\begin{DoxyCompactList}\small\item\em Initializes the systems hardware and calls the libraries init functions. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_af82984987d75dcade423623c8f343413}{v\+Application\+Stack\+Overflow\+Hook} (x\+Task\+Handle px\+Task, signed char $\ast$pc\+Task\+Name)
+\begin{DoxyCompactList}\small\item\em Called whenever the system stack overflows. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_aded10eb51d4ca5e34c5de551c09a1e37}{process\+\_\+command\+\_\+queue} (\hyperlink{structIntQueue}{Int\+Queue} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Processes the input cli command and calls the required Free\+R\+T\+OS Command. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a2a94f1a6ce73b5b0e9fa9edc1a5b1084}{mqtt\+\_\+input} (char $\ast$\hyperlink{s4396122__os__print_8c_aad2786d594039e6f1ab082f7a9ea816f}{buffer})
+\begin{DoxyCompactList}\small\item\em Called whenever there is a command sent over an mqtt connection. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a66b4063998a4a35de99303b124b30ca0}{main\+\_\+\+Task} ()\hypertarget{main_8c_a66b4063998a4a35de99303b124b30ca0}{}\label{main_8c_a66b4063998a4a35de99303b124b30ca0}
+
+\begin{DoxyCompactList}\small\item\em Task for handling the network input and sending the input to the process functions. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_aa28816a126d784c0deed58e414510a6c}{num\+\_\+enter} (char c)
+\begin{DoxyCompactList}\small\item\em Handler for when a user presses a numeric button on the IR Remote. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a6de80721052311b1be7cb837c5db6887}{num\+\_\+move} (char c)
+\begin{DoxyCompactList}\small\item\em Handler for when the user presses a directional button on the IR remote. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a58bfbee9c8d80c18cd11f84d16177818}{num\+\_\+commit} (char c)
+\begin{DoxyCompactList}\small\item\em Handler for when the user presses the back button. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_aa6b4370f1e20551de5b33c3cb58c92f0}{num\+\_\+clear} (char c)
+\begin{DoxyCompactList}\small\item\em Handler for when the user presses the play button. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a94cab1aa42c1b15a6c7576f6a0282731}{I\+R\+\_\+\+Task} ()\hypertarget{main_8c_a94cab1aa42c1b15a6c7576f6a0282731}{}\label{main_8c_a94cab1aa42c1b15a6c7576f6a0282731}
+
+\begin{DoxyCompactList}\small\item\em Task for handling the ir remote input and calling the required functions. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a495c3614989bea2a46cf7c13f01bc0d4}{joystick\+\_\+\+Task} ()\hypertarget{main_8c_a495c3614989bea2a46cf7c13f01bc0d4}{}\label{main_8c_a495c3614989bea2a46cf7c13f01bc0d4}
+
+\begin{DoxyCompactList}\small\item\em Task for handling the joystick input and setting the origin. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a502ddcdb31aa7ab19ae88d61c3e13635}{accel\+\_\+\+Task} ()\hypertarget{main_8c_a502ddcdb31aa7ab19ae88d61c3e13635}{}\label{main_8c_a502ddcdb31aa7ab19ae88d61c3e13635}
+
+\begin{DoxyCompactList}\small\item\em Task for handling the accelerometer input and setting the orientation. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a14841334c2e5d74e1def5e9452fbe413}{L\+E\+D\+\_\+\+Task} ()\hypertarget{main_8c_a14841334c2e5d74e1def5e9452fbe413}{}\label{main_8c_a14841334c2e5d74e1def5e9452fbe413}
+
+\begin{DoxyCompactList}\small\item\em Blinking L\+ED Task to ensure a visual feedback that the system is alive. \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\begin{DoxyCompactList}\small\item\em The main function, this is called at system boot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtcpConnection}{tcp\+Connection} \hyperlink{main_8c_ad14b5825ad582852e927eb85d1f213a0}{current\+Conn}\hypertarget{main_8c_ad14b5825ad582852e927eb85d1f213a0}{}\label{main_8c_ad14b5825ad582852e927eb85d1f213a0}
+
+\begin{DoxyCompactList}\small\item\em Struct for current network connection. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{main_8c_a1422339ce52ac9775bb6bbbc60c41ddb}{pc\+Output\+String}\hypertarget{main_8c_a1422339ce52ac9775bb6bbbc60c41ddb}{}\label{main_8c_a1422339ce52ac9775bb6bbbc60c41ddb}
+
+\begin{DoxyCompactList}\small\item\em Buffer for the output from cli command. \end{DoxyCompactList}\item 
+struct \hyperlink{structTaskHolder}{Task\+Holder} \hyperlink{main_8c_a836a4a2c55c8073cecd87cb86de2c8cb}{tasks} \mbox{[}20\mbox{]}\hypertarget{main_8c_a836a4a2c55c8073cecd87cb86de2c8cb}{}\label{main_8c_a836a4a2c55c8073cecd87cb86de2c8cb}
+
+\begin{DoxyCompactList}\small\item\em Array of tasks that can be created. \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_af33d45671153ccdcef341a9494b7e83e}{tasks\+Pos}\hypertarget{main_8c_af33d45671153ccdcef341a9494b7e83e}{}\label{main_8c_af33d45671153ccdcef341a9494b7e83e}
+
+\begin{DoxyCompactList}\small\item\em The current position in tasks array. \end{DoxyCompactList}\item 
+char \hyperlink{main_8c_a62ec9438e35f32bf6095c59a7195e358}{last\+Char} = \textquotesingle{}C\textquotesingle{}\hypertarget{main_8c_a62ec9438e35f32bf6095c59a7195e358}{}\label{main_8c_a62ec9438e35f32bf6095c59a7195e358}
+
+\begin{DoxyCompactList}\small\item\em The last received char from the IR remote. \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_aa2c4781a37b4037920b5c9d83a8e0dfa}{num\+Occur} = 0\hypertarget{main_8c_aa2c4781a37b4037920b5c9d83a8e0dfa}{}\label{main_8c_aa2c4781a37b4037920b5c9d83a8e0dfa}
+
+\begin{DoxyCompactList}\small\item\em The number of times the same char has occured from the IR remote. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a6d87341119374942b9240d07ad06062f}{x\+Time}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for time command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a50d7e2916f836420788253310e3a93a0}{x\+Top}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for top command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_ab08258c60fefc7dea0630027f7009f98}{x\+Suspend}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for suspend command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a6273e15578b1a534c739ae81307ad7d3}{x\+Resume}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for resume command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_aa4021bccff839bb23b1d2dabf7885ae4}{x\+Delete}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for delete command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a120969c3f3b0ab1a0695c0981a13811b}{x\+Create}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for create command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a7aa85a9e2c0db0c3c9ed26907092c2c9}{x\+Char}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for char command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a39b07388892ed15845498794ad99235f}{x\+Colour}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for colour command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a6b7973fc30ca825b5e9514cec40de2b0}{x\+Text}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for text command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_a40d863d8c7a385acffa0662848481be6}{x\+Poly}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for poly command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{main_8c_aa29c81f0e2db1c0d049227983352b554}{x\+Clear}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for clear command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main file for project 2. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/30 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{main.\+c@{main.\+c}!main@{main}}
+\index{main@{main}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+The main function, this is called at system boot. 
+
+\begin{DoxyReturn}{Returns}
+The exit code for the system 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d0/d29/main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!mqtt\+\_\+input@{mqtt\+\_\+input}}
+\index{mqtt\+\_\+input@{mqtt\+\_\+input}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{mqtt\+\_\+input(char $\ast$buffer)}{mqtt_input(char *buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}void mqtt\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a2a94f1a6ce73b5b0e9fa9edc1a5b1084}{}\label{main_8c_a2a94f1a6ce73b5b0e9fa9edc1a5b1084}
+
+
+Called whenever there is a command sent over an mqtt connection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & C\+LI input that was received \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_a2a94f1a6ce73b5b0e9fa9edc1a5b1084_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!num\+\_\+clear@{num\+\_\+clear}}
+\index{num\+\_\+clear@{num\+\_\+clear}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{num\+\_\+clear(char c)}{num_clear(char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void num\+\_\+clear (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_aa6b4370f1e20551de5b33c3cb58c92f0}{}\label{main_8c_aa6b4370f1e20551de5b33c3cb58c92f0}
+
+
+Handler for when the user presses the play button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Character that was pressed on the remote \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_aa6b4370f1e20551de5b33c3cb58c92f0_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!num\+\_\+commit@{num\+\_\+commit}}
+\index{num\+\_\+commit@{num\+\_\+commit}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{num\+\_\+commit(char c)}{num_commit(char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void num\+\_\+commit (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a58bfbee9c8d80c18cd11f84d16177818}{}\label{main_8c_a58bfbee9c8d80c18cd11f84d16177818}
+
+
+Handler for when the user presses the back button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Character that was pressed on the remote \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_a58bfbee9c8d80c18cd11f84d16177818_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!num\+\_\+enter@{num\+\_\+enter}}
+\index{num\+\_\+enter@{num\+\_\+enter}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{num\+\_\+enter(char c)}{num_enter(char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void num\+\_\+enter (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_aa28816a126d784c0deed58e414510a6c}{}\label{main_8c_aa28816a126d784c0deed58e414510a6c}
+
+
+Handler for when a user presses a numeric button on the IR Remote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & character representing the character pressed \\
+\hline
+\end{DoxyParams}
+$<$ The resulting incoded char of the input 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_aa28816a126d784c0deed58e414510a6c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!num\+\_\+move@{num\+\_\+move}}
+\index{num\+\_\+move@{num\+\_\+move}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{num\+\_\+move(char c)}{num_move(char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void num\+\_\+move (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a6de80721052311b1be7cb837c5db6887}{}\label{main_8c_a6de80721052311b1be7cb837c5db6887}
+
+
+Handler for when the user presses a directional button on the IR remote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Character that was pressed on the remote \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_a6de80721052311b1be7cb837c5db6887_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!process\+\_\+command\+\_\+queue@{process\+\_\+command\+\_\+queue}}
+\index{process\+\_\+command\+\_\+queue@{process\+\_\+command\+\_\+queue}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+command\+\_\+queue(\+Int\+Queue $\ast$q)}{process_command_queue(IntQueue *q)}}]{\setlength{\rightskip}{0pt plus 5cm}void process\+\_\+command\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{{\bf Int\+Queue} $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_aded10eb51d4ca5e34c5de551c09a1e37}{}\label{main_8c_aded10eb51d4ca5e34c5de551c09a1e37}
+
+
+Processes the input cli command and calls the required Free\+R\+T\+OS Command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structIntQueue}{Int\+Queue} of the input received from the C\+LI \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d29/main_8c_aded10eb51d4ca5e34c5de551c09a1e37_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{main.\+c@{main.\+c}!v\+Application\+Stack\+Overflow\+Hook@{v\+Application\+Stack\+Overflow\+Hook}}
+\index{v\+Application\+Stack\+Overflow\+Hook@{v\+Application\+Stack\+Overflow\+Hook}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Application\+Stack\+Overflow\+Hook(x\+Task\+Handle px\+Task, signed char $\ast$pc\+Task\+Name)}{vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Application\+Stack\+Overflow\+Hook (
+\begin{DoxyParamCaption}
+\item[{x\+Task\+Handle}]{px\+Task, }
+\item[{signed char $\ast$}]{pc\+Task\+Name}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_af82984987d75dcade423623c8f343413}{}\label{main_8c_af82984987d75dcade423623c8f343413}
+
+
+Called whenever the system stack overflows. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em px\+Task} & Task Handler for the overflowed task \\
+\hline
+{\em pc\+Task\+Name} & Task Name of the overflowed task \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\index{main.\+c@{main.\+c}!x\+Char@{x\+Char}}
+\index{x\+Char@{x\+Char}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Char}{xChar}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Char}\hypertarget{main_8c_a7aa85a9e2c0db0c3c9ed26907092c2c9}{}\label{main_8c_a7aa85a9e2c0db0c3c9ed26907092c2c9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"char"},
+    \textcolor{stringliteral}{"char:\(\backslash\)n Draw an alphanumeric character. (x, y, c)\(\backslash\)n\(\backslash\)n"},
+    prvCharCommand,
+    3
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for char command. 
+
+\index{main.\+c@{main.\+c}!x\+Clear@{x\+Clear}}
+\index{x\+Clear@{x\+Clear}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Clear}{xClear}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Clear}\hypertarget{main_8c_aa29c81f0e2db1c0d049227983352b554}{}\label{main_8c_aa29c81f0e2db1c0d049227983352b554}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"clear"},
+    \textcolor{stringliteral}{"clear:\(\backslash\)n Clear the last drawn command\(\backslash\)n\(\backslash\)n"},
+    prvClearCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for clear command. 
+
+\index{main.\+c@{main.\+c}!x\+Colour@{x\+Colour}}
+\index{x\+Colour@{x\+Colour}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Colour}{xColour}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Colour}\hypertarget{main_8c_a39b07388892ed15845498794ad99235f}{}\label{main_8c_a39b07388892ed15845498794ad99235f}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"colour"},
+    \textcolor{stringliteral}{"colour:\(\backslash\)n Change the colour of the pen\(\backslash\)n\(\backslash\)n"},
+    prvColourCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for colour command. 
+
+\index{main.\+c@{main.\+c}!x\+Create@{x\+Create}}
+\index{x\+Create@{x\+Create}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Create}{xCreate}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Create}\hypertarget{main_8c_a120969c3f3b0ab1a0695c0981a13811b}{}\label{main_8c_a120969c3f3b0ab1a0695c0981a13811b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"create"},
+    \textcolor{stringliteral}{"create:\(\backslash\)n Create a mylib OS peripheral task with a given name\(\backslash\)n\(\backslash\)n"},
+    prvCreateCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for create command. 
+
+\index{main.\+c@{main.\+c}!x\+Delete@{x\+Delete}}
+\index{x\+Delete@{x\+Delete}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Delete}{xDelete}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Delete}\hypertarget{main_8c_aa4021bccff839bb23b1d2dabf7885ae4}{}\label{main_8c_aa4021bccff839bb23b1d2dabf7885ae4}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"delete"},
+    \textcolor{stringliteral}{"delete:\(\backslash\)n Delete a mylib OS peripheral task with a given name\(\backslash\)n\(\backslash\)n"},
+    prvDeleteCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for delete command. 
+
+\index{main.\+c@{main.\+c}!x\+Poly@{x\+Poly}}
+\index{x\+Poly@{x\+Poly}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Poly}{xPoly}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Poly}\hypertarget{main_8c_a40d863d8c7a385acffa0662848481be6}{}\label{main_8c_a40d863d8c7a385acffa0662848481be6}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"poly"},
+    \textcolor{stringliteral}{"poly:\(\backslash\)n Draw a regular polygon. (x, y, l, o)\(\backslash\)n\(\backslash\)n"},
+    prvPolyCommand,
+    4
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for poly command. 
+
+\index{main.\+c@{main.\+c}!x\+Resume@{x\+Resume}}
+\index{x\+Resume@{x\+Resume}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Resume}{xResume}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Resume}\hypertarget{main_8c_a6273e15578b1a534c739ae81307ad7d3}{}\label{main_8c_a6273e15578b1a534c739ae81307ad7d3}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"resume"},
+    \textcolor{stringliteral}{"resume:\(\backslash\)n Resume a mylib OS peripheral task with a given name\(\backslash\)n\(\backslash\)n"},
+    prvResumeCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for resume command. 
+
+\index{main.\+c@{main.\+c}!x\+Suspend@{x\+Suspend}}
+\index{x\+Suspend@{x\+Suspend}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Suspend}{xSuspend}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Suspend}\hypertarget{main_8c_ab08258c60fefc7dea0630027f7009f98}{}\label{main_8c_ab08258c60fefc7dea0630027f7009f98}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"suspend"},
+    \textcolor{stringliteral}{"suspend:\(\backslash\)n Suspend a mylib OS peripheral task with a given name\(\backslash\)n\(\backslash\)n"},
+    prvSuspendCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for suspend command. 
+
+\index{main.\+c@{main.\+c}!x\+Text@{x\+Text}}
+\index{x\+Text@{x\+Text}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Text}{xText}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Text}\hypertarget{main_8c_a6b7973fc30ca825b5e9514cec40de2b0}{}\label{main_8c_a6b7973fc30ca825b5e9514cec40de2b0}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"text"},
+    \textcolor{stringliteral}{"text:\(\backslash\)n Draw a text string, up to 10 characters long. (x, y, str)\(\backslash\)n\(\backslash\)n"},
+    prvTextCommand,
+    3
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for text command. 
+
+\index{main.\+c@{main.\+c}!x\+Time@{x\+Time}}
+\index{x\+Time@{x\+Time}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Time}{xTime}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Time}\hypertarget{main_8c_a6d87341119374942b9240d07ad06062f}{}\label{main_8c_a6d87341119374942b9240d07ad06062f}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"time"},
+    \textcolor{stringliteral}{"time:\(\backslash\)n Display how long the program has been running for.\(\backslash\)n\(\backslash\)n"},
+    prvTimeCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for time command. 
+
+\index{main.\+c@{main.\+c}!x\+Top@{x\+Top}}
+\index{x\+Top@{x\+Top}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Top}{xTop}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Top}\hypertarget{main_8c_a50d7e2916f836420788253310e3a93a0}{}\label{main_8c_a50d7e2916f836420788253310e3a93a0}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"top"},
+    \textcolor{stringliteral}{"top:\(\backslash\)n List the current number of tasks running.\(\backslash\)n\(\backslash\)n"},
+    prvTopCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for top command. 
+

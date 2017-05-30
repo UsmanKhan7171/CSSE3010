@@ -1,0 +1,131 @@
+\hypertarget{s4396122__os__print_8h}{}\section{mylib/s4396122\+\_\+os\+\_\+print.h File Reference}
+\label{s4396122__os__print_8h}\index{mylib/s4396122\+\_\+os\+\_\+print.\+h@{mylib/s4396122\+\_\+os\+\_\+print.\+h}}
+
+
+Library to make console printing easier and less direct task intensive.  
+
+
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}semphr.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+print.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$debug\+\_\+printf.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+os\+\_\+print.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddf/s4396122__os__print_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/da3/s4396122__os__print_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structDisplayPair}{Display\+Pair}
+\begin{DoxyCompactList}\small\item\em Used to display a pair of string and integer auto updating pairs at the top of the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__os__print_8h_aa7187597a3d6504418f5d4da67dde1de}{print\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~(tsk\+I\+D\+L\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY + 6)\hypertarget{s4396122__os__print_8h_aa7187597a3d6504418f5d4da67dde1de}{}\label{s4396122__os__print_8h_aa7187597a3d6504418f5d4da67dde1de}
+
+\begin{DoxyCompactList}\small\item\em Print Task Priority. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__print_8h_a0eb3002e69c241c6065645d6a9838b27}{print\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(config\+M\+I\+N\+I\+M\+A\+L\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE $\ast$ 2)\hypertarget{s4396122__os__print_8h_a0eb3002e69c241c6065645d6a9838b27}{}\label{s4396122__os__print_8h_a0eb3002e69c241c6065645d6a9838b27}
+
+\begin{DoxyCompactList}\small\item\em Print Task Stack Size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__os__print_8h_a3648a33e24065e8b288920fa972742f4}{s4396122\+\_\+os\+\_\+print\+\_\+init} ()\hypertarget{s4396122__os__print_8h_a3648a33e24065e8b288920fa972742f4}{}\label{s4396122__os__print_8h_a3648a33e24065e8b288920fa972742f4}
+
+\begin{DoxyCompactList}\small\item\em Initializes the print library. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__print_8h_a7aadccdb2b8229afed078e9ed3ad76fd}{s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail} (char $\ast$name, int $\ast$val)
+\begin{DoxyCompactList}\small\item\em Adds a detail to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__print_8h_a8b1e4c78d3c9b46e28e36857a9dfc880}{s4396122\+\_\+os\+\_\+print} (char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a message to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library to make console printing easier and less direct task intensive. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+os\+\_\+print.\+h@{s4396122\+\_\+os\+\_\+print.\+h}!s4396122\+\_\+os\+\_\+print@{s4396122\+\_\+os\+\_\+print}}
+\index{s4396122\+\_\+os\+\_\+print@{s4396122\+\_\+os\+\_\+print}!s4396122\+\_\+os\+\_\+print.\+h@{s4396122\+\_\+os\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+print(char $\ast$format,...)}{s4396122_os_print(char *format,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__print_8h_a8b1e4c78d3c9b46e28e36857a9dfc880}{}\label{s4396122__os__print_8h_a8b1e4c78d3c9b46e28e36857a9dfc880}
+
+
+Prints a message to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & Follows the same format as printf \\
+\hline
+{\em ...} & Data to follow similar to printf \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{d5/d97/s4396122__os__print_8h_a8b1e4c78d3c9b46e28e36857a9dfc880_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+print.\+h@{s4396122\+\_\+os\+\_\+print.\+h}!s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail@{s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail}}
+\index{s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail@{s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail}!s4396122\+\_\+os\+\_\+print.\+h@{s4396122\+\_\+os\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail(char $\ast$name, int $\ast$val)}{s4396122_os_print_add_detail(char *name, int *val)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+print\+\_\+add\+\_\+detail (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{int $\ast$}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__print_8h_a7aadccdb2b8229afed078e9ed3ad76fd}{}\label{s4396122__os__print_8h_a7aadccdb2b8229afed078e9ed3ad76fd}
+
+
+Adds a detail to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of detail to add \\
+\hline
+{\em val} & Pointer to integer to read from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d97/s4396122__os__print_8h_a7aadccdb2b8229afed078e9ed3ad76fd_cgraph}
+\end{center}
+\end{figure}
+
+

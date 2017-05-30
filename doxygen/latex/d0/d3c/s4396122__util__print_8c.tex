@@ -1,0 +1,289 @@
+\hypertarget{s4396122__util__print_8c}{}\section{mylib/s4396122\+\_\+util\+\_\+print.c File Reference}
+\label{s4396122__util__print_8c}\index{mylib/s4396122\+\_\+util\+\_\+print.\+c@{mylib/s4396122\+\_\+util\+\_\+print.\+c}}
+
+
+Library for handling serial output and cursor magic.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+print.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+print.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d6b/s4396122__util__print_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__util__print_8c_a790f930c7986869eba9e97750d63da23}{s4396122\+\_\+util\+\_\+print\+\_\+move} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves the cursor to (x, y) \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_adac6a06c621f953c69b357f093255194}{s4396122\+\_\+util\+\_\+print\+\_\+clear} ()\hypertarget{s4396122__util__print_8c_adac6a06c621f953c69b357f093255194}{}\label{s4396122__util__print_8c_adac6a06c621f953c69b357f093255194}
+
+\begin{DoxyCompactList}\small\item\em Clears the serial screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_adc592204023d6e6353e86cd9e91f4ef5}{s4396122\+\_\+util\+\_\+print\+\_\+color} (int sgr)
+\begin{DoxyCompactList}\small\item\em Changes the terminal color, either foreground or background. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_ac3f6614554a8ee8f8408881840ea7d83}{s4396122\+\_\+util\+\_\+print\+\_\+reset} ()\hypertarget{s4396122__util__print_8c_ac3f6614554a8ee8f8408881840ea7d83}{}\label{s4396122__util__print_8c_ac3f6614554a8ee8f8408881840ea7d83}
+
+\begin{DoxyCompactList}\small\item\em Resets the cursor back to default. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_afa9c8867529d8161aed4e94357001938}{s4396122\+\_\+util\+\_\+print\+\_\+bold} ()\hypertarget{s4396122__util__print_8c_afa9c8867529d8161aed4e94357001938}{}\label{s4396122__util__print_8c_afa9c8867529d8161aed4e94357001938}
+
+\begin{DoxyCompactList}\small\item\em Bolds the cursor. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_a720c2ee1d7fc95a57e6ff36860ad3a10}{s4396122\+\_\+util\+\_\+print\+\_\+reverse} ()\hypertarget{s4396122__util__print_8c_a720c2ee1d7fc95a57e6ff36860ad3a10}{}\label{s4396122__util__print_8c_a720c2ee1d7fc95a57e6ff36860ad3a10}
+
+\begin{DoxyCompactList}\small\item\em Inverts the cursor color. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_a670b4f55564b325528dd3a6566cd1116}{error} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints an error to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_abc951604d70a9fcc7757bf866238e056}{warn} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints a warning to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_a4231dde7b180707073fdaada90efcb7a}{info} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints an info statement to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_a4c0843b16cf26737156f07f67d3cdb18}{debug} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints a debug statement to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8c_af7533e1beef5aa5167184f32b569d56a}{print} (int error\+Type, const char $\ast$file\+Name, int line\+No, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a error/warn/info/debug to the screen based on the error\+Type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for handling serial output and cursor magic. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/04-\/30 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!debug@{debug}}
+\index{debug@{debug}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{debug(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{debug(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void debug (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_a4c0843b16cf26737156f07f67d3cdb18}{}\label{s4396122__util__print_8c_a4c0843b16cf26737156f07f67d3cdb18}
+
+
+Prints a debug statement to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the debug \\
+\hline
+{\em line\+No} & Macro of the origin of the debug \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_a4c0843b16cf26737156f07f67d3cdb18_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!error@{error}}
+\index{error@{error}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{error(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{error(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_a670b4f55564b325528dd3a6566cd1116}{}\label{s4396122__util__print_8c_a670b4f55564b325528dd3a6566cd1116}
+
+
+Prints an error to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of origin of the error \\
+\hline
+{\em line\+No} & Macro of origin of the error \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_a670b4f55564b325528dd3a6566cd1116_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!info@{info}}
+\index{info@{info}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{info(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{info(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void info (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_a4231dde7b180707073fdaada90efcb7a}{}\label{s4396122__util__print_8c_a4231dde7b180707073fdaada90efcb7a}
+
+
+Prints an info statement to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the info \\
+\hline
+{\em line\+No} & Macro of the origin of the info \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_a4231dde7b180707073fdaada90efcb7a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!print@{print}}
+\index{print@{print}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{print(int error\+Type, const char $\ast$file\+Name, int line\+No, const char $\ast$format,...)}{print(int errorType, const char *fileName, int lineNo, const char *format,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void print (
+\begin{DoxyParamCaption}
+\item[{int}]{error\+Type, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No, }
+\item[{const char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_af7533e1beef5aa5167184f32b569d56a}{}\label{s4396122__util__print_8c_af7533e1beef5aa5167184f32b569d56a}
+
+
+Prints a error/warn/info/debug to the screen based on the error\+Type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+Type} & The level of threat the message poses, (0=error, 3=debug) \\
+\hline
+{\em file\+Name} & Macro of the origin of the message \\
+\hline
+{\em line\+No} & Macro of the origin of the message \\
+\hline
+{\em format} & Supports printf style input formatting \\
+\hline
+{\em ...} & \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_af7533e1beef5aa5167184f32b569d56a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!s4396122\+\_\+util\+\_\+print\+\_\+color@{s4396122\+\_\+util\+\_\+print\+\_\+color}}
+\index{s4396122\+\_\+util\+\_\+print\+\_\+color@{s4396122\+\_\+util\+\_\+print\+\_\+color}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+print\+\_\+color(int sgr)}{s4396122_util_print_color(int sgr)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+print\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{int}]{sgr}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_adc592204023d6e6353e86cd9e91f4ef5}{}\label{s4396122__util__print_8c_adc592204023d6e6353e86cd9e91f4ef5}
+
+
+Changes the terminal color, either foreground or background. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sgr} & The color to set to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_adc592204023d6e6353e86cd9e91f4ef5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!s4396122\+\_\+util\+\_\+print\+\_\+move@{s4396122\+\_\+util\+\_\+print\+\_\+move}}
+\index{s4396122\+\_\+util\+\_\+print\+\_\+move@{s4396122\+\_\+util\+\_\+print\+\_\+move}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+print\+\_\+move(int x, int y)}{s4396122_util_print_move(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+print\+\_\+move (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_a790f930c7986869eba9e97750d63da23}{}\label{s4396122__util__print_8c_a790f930c7986869eba9e97750d63da23}
+
+
+Moves the cursor to (x, y) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & position on the x to move the cursor to \\
+\hline
+{\em y} & position on the y to move the cursor to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_a790f930c7986869eba9e97750d63da23_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}!warn@{warn}}
+\index{warn@{warn}!s4396122\+\_\+util\+\_\+print.\+c@{s4396122\+\_\+util\+\_\+print.\+c}}
+\subsubsection[{\texorpdfstring{warn(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{warn(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void warn (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8c_abc951604d70a9fcc7757bf866238e056}{}\label{s4396122__util__print_8c_abc951604d70a9fcc7757bf866238e056}
+
+
+Prints a warning to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the warning \\
+\hline
+{\em line\+No} & Macro of the origin of the warning \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d3c/s4396122__util__print_8c_abc951604d70a9fcc7757bf866238e056_cgraph}
+\end{center}
+\end{figure}
+
+

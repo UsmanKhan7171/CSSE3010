@@ -1,0 +1,5 @@
+<map id="s4396122_util_matrix_multi" name="s4396122_util_matrix_multi">
+<area shape="rect" id="node2" href="$dc/daa/s4396122__util__matrix_8c.html#a2cf1e02ec9752d414ca3be9d2f30698d" title="Creates an empty matrix of specified width and height. " alt="" coords="211,5,357,47"/>
+<area shape="rect" id="node3" href="$dc/daa/s4396122__util__matrix_8c.html#a208e7a94f7bc0764177932a94d1b3657" title="Gets the value at (x, y) from Matrix m. " alt="" coords="199,71,369,98"/>
+<area shape="rect" id="node4" href="$dc/daa/s4396122__util__matrix_8c.html#a7036e77b92f748b969cd5266b69130ee" title="Sets the value at position (x, y) of Matrix m. " alt="" coords="199,122,369,149"/>
+</map>

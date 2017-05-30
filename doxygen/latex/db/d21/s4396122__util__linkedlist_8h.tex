@@ -1,0 +1,168 @@
+\hypertarget{s4396122__util__linkedlist_8h}{}\section{mylib/s4396122\+\_\+util\+\_\+linkedlist.h File Reference}
+\label{s4396122__util__linkedlist_8h}\index{mylib/s4396122\+\_\+util\+\_\+linkedlist.\+h@{mylib/s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+
+
+Library for adding linkedlist functionality.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+linkedlist.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{d8/df5/s4396122__util__linkedlist_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/db5/s4396122__util__linkedlist_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlinkedlist}{linkedlist}
+\begin{DoxyCompactList}\small\item\em A linkedlist element. \end{DoxyCompactList}\item 
+struct \hyperlink{structLinkedList}{Linked\+List}
+\begin{DoxyCompactList}\small\item\em Structure containing all the information needed for a linkedlist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structLinkedList}{Linked\+List} $\ast$ \hyperlink{s4396122__util__linkedlist_8h_a08a1515bb4610cdef36787712fbcd7f6}{s4396122\+\_\+util\+\_\+list\+\_\+create} ()
+\begin{DoxyCompactList}\small\item\em Creates and empty \hyperlink{structLinkedList}{Linked\+List} in memory. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__linkedlist_8h_af241713f1d3c0efbdb42c82cb3cfbb6a}{s4396122\+\_\+util\+\_\+list\+\_\+free} (\hyperlink{structLinkedList}{Linked\+List} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Frees up the \hyperlink{structLinkedList}{Linked\+List} and any list elements from memory. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__linkedlist_8h_aeef0139982c32529246bde9cd7193d37}{s4396122\+\_\+util\+\_\+list\+\_\+add} (\hyperlink{structLinkedList}{Linked\+List} $\ast$list, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Adds an element to the \hyperlink{structLinkedList}{Linked\+List}. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{s4396122__util__linkedlist_8h_a30d84e82ecca32a59e3f063d6982046b}{s4396122\+\_\+util\+\_\+list\+\_\+get} (\hyperlink{structLinkedList}{Linked\+List} $\ast$list, int pos)
+\begin{DoxyCompactList}\small\item\em Gets an element from the position in the \hyperlink{structLinkedList}{Linked\+List}. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__linkedlist_8h_acf9c6c583cf7df704fa6328c715a0e33}{s4396122\+\_\+util\+\_\+list\+\_\+remove} (\hyperlink{structLinkedList}{Linked\+List} $\ast$list, int pos)
+\begin{DoxyCompactList}\small\item\em Removes an element from the \hyperlink{structLinkedList}{Linked\+List} from position. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__util__linkedlist_8h_a89d8a600b70e6242814774c7c09a6431}{s4396122\+\_\+util\+\_\+list\+\_\+size} (\hyperlink{structLinkedList}{Linked\+List} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Returns the size of the \hyperlink{structLinkedList}{Linked\+List}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for adding linkedlist functionality. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+add@{s4396122\+\_\+util\+\_\+list\+\_\+add}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+add@{s4396122\+\_\+util\+\_\+list\+\_\+add}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+add(\+Linked\+List $\ast$list, void $\ast$data)}{s4396122_util_list_add(LinkedList *list, void *data)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+list\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf Linked\+List} $\ast$}]{list, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_aeef0139982c32529246bde9cd7193d37}{}\label{s4396122__util__linkedlist_8h_aeef0139982c32529246bde9cd7193d37}
+
+
+Adds an element to the \hyperlink{structLinkedList}{Linked\+List}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \hyperlink{structLinkedList}{Linked\+List} for data to be added to \\
+\hline
+{\em data} & Pointer to data to be added to the list \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+create@{s4396122\+\_\+util\+\_\+list\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+create@{s4396122\+\_\+util\+\_\+list\+\_\+create}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+create()}{s4396122_util_list_create()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Linked\+List}$\ast$ s4396122\+\_\+util\+\_\+list\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_a08a1515bb4610cdef36787712fbcd7f6}{}\label{s4396122__util__linkedlist_8h_a08a1515bb4610cdef36787712fbcd7f6}
+
+
+Creates and empty \hyperlink{structLinkedList}{Linked\+List} in memory. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to \hyperlink{structLinkedList}{Linked\+List} 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+free@{s4396122\+\_\+util\+\_\+list\+\_\+free}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+free@{s4396122\+\_\+util\+\_\+list\+\_\+free}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+free(\+Linked\+List $\ast$list)}{s4396122_util_list_free(LinkedList *list)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+list\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Linked\+List} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_af241713f1d3c0efbdb42c82cb3cfbb6a}{}\label{s4396122__util__linkedlist_8h_af241713f1d3c0efbdb42c82cb3cfbb6a}
+
+
+Frees up the \hyperlink{structLinkedList}{Linked\+List} and any list elements from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \hyperlink{structLinkedList}{Linked\+List} to be freed from memory \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+get@{s4396122\+\_\+util\+\_\+list\+\_\+get}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+get@{s4396122\+\_\+util\+\_\+list\+\_\+get}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+get(\+Linked\+List $\ast$list, int pos)}{s4396122_util_list_get(LinkedList *list, int pos)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ s4396122\+\_\+util\+\_\+list\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{{\bf Linked\+List} $\ast$}]{list, }
+\item[{int}]{pos}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_a30d84e82ecca32a59e3f063d6982046b}{}\label{s4396122__util__linkedlist_8h_a30d84e82ecca32a59e3f063d6982046b}
+
+
+Gets an element from the position in the \hyperlink{structLinkedList}{Linked\+List}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \hyperlink{structLinkedList}{Linked\+List} to retreve the element from \\
+\hline
+{\em pos} & Position in list to return \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+remove@{s4396122\+\_\+util\+\_\+list\+\_\+remove}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+remove@{s4396122\+\_\+util\+\_\+list\+\_\+remove}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+remove(\+Linked\+List $\ast$list, int pos)}{s4396122_util_list_remove(LinkedList *list, int pos)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+list\+\_\+remove (
+\begin{DoxyParamCaption}
+\item[{{\bf Linked\+List} $\ast$}]{list, }
+\item[{int}]{pos}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_acf9c6c583cf7df704fa6328c715a0e33}{}\label{s4396122__util__linkedlist_8h_acf9c6c583cf7df704fa6328c715a0e33}
+
+
+Removes an element from the \hyperlink{structLinkedList}{Linked\+List} from position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \hyperlink{structLinkedList}{Linked\+List} to remove the element from \\
+\hline
+{\em pos} & Position in \hyperlink{structLinkedList}{Linked\+List} to remove from \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}!s4396122\+\_\+util\+\_\+list\+\_\+size@{s4396122\+\_\+util\+\_\+list\+\_\+size}}
+\index{s4396122\+\_\+util\+\_\+list\+\_\+size@{s4396122\+\_\+util\+\_\+list\+\_\+size}!s4396122\+\_\+util\+\_\+linkedlist.\+h@{s4396122\+\_\+util\+\_\+linkedlist.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+list\+\_\+size(\+Linked\+List $\ast$list)}{s4396122_util_list_size(LinkedList *list)}}]{\setlength{\rightskip}{0pt plus 5cm}int s4396122\+\_\+util\+\_\+list\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{{\bf Linked\+List} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__linkedlist_8h_a89d8a600b70e6242814774c7c09a6431}{}\label{s4396122__util__linkedlist_8h_a89d8a600b70e6242814774c7c09a6431}
+
+
+Returns the size of the \hyperlink{structLinkedList}{Linked\+List}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & \hyperlink{structLinkedList}{Linked\+List} for the size to be collected from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of elements in \hyperlink{structLinkedList}{Linked\+List} 
+\end{DoxyReturn}

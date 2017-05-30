@@ -1,0 +1,193 @@
+\hypertarget{s4396122__os__mqtt_8c}{}\section{mylib/s4396122\+\_\+os\+\_\+mqtt.c File Reference}
+\label{s4396122__os__mqtt_8c}\index{mylib/s4396122\+\_\+os\+\_\+mqtt.\+c@{mylib/s4396122\+\_\+os\+\_\+mqtt.\+c}}
+
+
+Library for publishing and subscribing to channels using mqtt.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+mqtt.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+os\+\_\+mqtt.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dc3/s4396122__os__mqtt_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__os__mqtt_8c_a21be94ef1c44155cdd303b5f8d54f326}{mqtt\+\_\+messagehandler} (Message\+Data $\ast$data)
+\begin{DoxyCompactList}\small\item\em Message handler for incoming (published) messages. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_a2429b9d8dea680083ea54f2cfccb6bc1}{s4396122\+\_\+os\+\_\+mqtt\+\_\+init} ()\hypertarget{s4396122__os__mqtt_8c_a2429b9d8dea680083ea54f2cfccb6bc1}{}\label{s4396122__os__mqtt_8c_a2429b9d8dea680083ea54f2cfccb6bc1}
+
+\begin{DoxyCompactList}\small\item\em Initializes the M\+Q\+TT library peripherals. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_aa72a5cc965675dc7f6dff97eb7a416c2}{connect\+\_\+network} (Network $\ast$n, char $\ast$addr, int port)
+\begin{DoxyCompactList}\small\item\em Handles connecting to a network, this was adapted from the provided source. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__mqtt_8c_a7e9a714786e3bc7197573a48a668bde2}{network\+\_\+read} (Network $\ast$n, char $\ast$\hyperlink{s4396122__os__print_8c_aad2786d594039e6f1ab082f7a9ea816f}{buffer}, int len, int timeout)
+\begin{DoxyCompactList}\small\item\em Handles reading a packet of data from the input. This is overridden to prevent errors occurring. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_a8ec1e36942e29195d0e8ace2d354c2fa}{M\+Q\+T\+T\+\_\+\+Task} (void)\hypertarget{s4396122__os__mqtt_8c_a8ec1e36942e29195d0e8ace2d354c2fa}{}\label{s4396122__os__mqtt_8c_a8ec1e36942e29195d0e8ace2d354c2fa}
+
+\begin{DoxyCompactList}\small\item\em Task for handling M\+Q\+TT functionality. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_a0a4ced61e78b0ca747a4a4803b8e7a39}{s4396122\+\_\+os\+\_\+mqtt\+\_\+publish} (char $\ast$in\+Topic, char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Publishes a message to the M\+Q\+TT server. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_af9ea982b29cde3278778e6e802cfa850}{s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler} (void($\ast$handler)(char $\ast$))
+\begin{DoxyCompactList}\small\item\em Assigns the external message handler. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__mqtt_8c_a0bcf9fb3b0386d280063e2eec3449a96}{s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe} (char $\ast$in\+Topic)
+\begin{DoxyCompactList}\small\item\em Subscribes to a channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Client \hyperlink{s4396122__os__mqtt_8c_afb3a99353e3c50b4339ceb1efd4e00b1}{client}\hypertarget{s4396122__os__mqtt_8c_afb3a99353e3c50b4339ceb1efd4e00b1}{}\label{s4396122__os__mqtt_8c_afb3a99353e3c50b4339ceb1efd4e00b1}
+
+\begin{DoxyCompactList}\small\item\em Client connection to mqtt server. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__mqtt_8c_a9709aefe4930807392898aecb0cb8a79}{connected} = 0\hypertarget{s4396122__os__mqtt_8c_a9709aefe4930807392898aecb0cb8a79}{}\label{s4396122__os__mqtt_8c_a9709aefe4930807392898aecb0cb8a79}
+
+\begin{DoxyCompactList}\small\item\em If connected to mqtt server. \end{DoxyCompactList}\item 
+void($\ast$ \hyperlink{s4396122__os__mqtt_8c_aa3d0ea604c1f6ca8fcad83b558b70b72}{msg\+Handler} )(char $\ast$)\hypertarget{s4396122__os__mqtt_8c_aa3d0ea604c1f6ca8fcad83b558b70b72}{}\label{s4396122__os__mqtt_8c_aa3d0ea604c1f6ca8fcad83b558b70b72}
+
+\begin{DoxyCompactList}\small\item\em External handler for incoming messages. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for publishing and subscribing to channels using mqtt. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!connect\+\_\+network@{connect\+\_\+network}}
+\index{connect\+\_\+network@{connect\+\_\+network}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{connect\+\_\+network(\+Network $\ast$n, char $\ast$addr, int port)}{connect_network(Network *n, char *addr, int port)}}]{\setlength{\rightskip}{0pt plus 5cm}void connect\+\_\+network (
+\begin{DoxyParamCaption}
+\item[{Network $\ast$}]{n, }
+\item[{char $\ast$}]{addr, }
+\item[{int}]{port}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_aa72a5cc965675dc7f6dff97eb7a416c2}{}\label{s4396122__os__mqtt_8c_aa72a5cc965675dc7f6dff97eb7a416c2}
+
+
+Handles connecting to a network, this was adapted from the provided source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Network structure to connect with \\
+\hline
+{\em addr} & Address to connect to \\
+\hline
+{\em port} & Port to connect on \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!mqtt\+\_\+messagehandler@{mqtt\+\_\+messagehandler}}
+\index{mqtt\+\_\+messagehandler@{mqtt\+\_\+messagehandler}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{mqtt\+\_\+messagehandler(\+Message\+Data $\ast$data)}{mqtt_messagehandler(MessageData *data)}}]{\setlength{\rightskip}{0pt plus 5cm}void mqtt\+\_\+messagehandler (
+\begin{DoxyParamCaption}
+\item[{Message\+Data $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_a21be94ef1c44155cdd303b5f8d54f326}{}\label{s4396122__os__mqtt_8c_a21be94ef1c44155cdd303b5f8d54f326}
+
+
+Message handler for incoming (published) messages. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Message\+Data struct pointer. Contains Qos info and payload \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!network\+\_\+read@{network\+\_\+read}}
+\index{network\+\_\+read@{network\+\_\+read}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{network\+\_\+read(\+Network $\ast$n, char $\ast$buffer, int len, int timeout)}{network_read(Network *n, char *buffer, int len, int timeout)}}]{\setlength{\rightskip}{0pt plus 5cm}int network\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{Network $\ast$}]{n, }
+\item[{char $\ast$}]{buffer, }
+\item[{int}]{len, }
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_a7e9a714786e3bc7197573a48a668bde2}{}\label{s4396122__os__mqtt_8c_a7e9a714786e3bc7197573a48a668bde2}
+
+
+Handles reading a packet of data from the input. This is overridden to prevent errors occurring. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Network connection to read from \\
+\hline
+{\em buffer} & Buffer to add input to \\
+\hline
+{\em len} & Amount of data to read \\
+\hline
+{\em timeout} & Not currently used\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Not currently used 
+\end{DoxyReturn}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!s4396122\+\_\+os\+\_\+mqtt\+\_\+publish@{s4396122\+\_\+os\+\_\+mqtt\+\_\+publish}}
+\index{s4396122\+\_\+os\+\_\+mqtt\+\_\+publish@{s4396122\+\_\+os\+\_\+mqtt\+\_\+publish}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+mqtt\+\_\+publish(char $\ast$in\+Topic, char $\ast$message)}{s4396122_os_mqtt_publish(char *inTopic, char *message)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+mqtt\+\_\+publish (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{in\+Topic, }
+\item[{char $\ast$}]{message}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_a0a4ced61e78b0ca747a4a4803b8e7a39}{}\label{s4396122__os__mqtt_8c_a0a4ced61e78b0ca747a4a4803b8e7a39}
+
+
+Publishes a message to the M\+Q\+TT server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in\+Topic} & Topic to public the message under \\
+\hline
+{\em message} & Message to send \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler@{s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler}}
+\index{s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler@{s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler(void($\ast$handler)(char $\ast$))}{s4396122_os_mqtt_set_handler(void(*handler)(char *))}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+mqtt\+\_\+set\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{void($\ast$)(char $\ast$)}]{handler}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_af9ea982b29cde3278778e6e802cfa850}{}\label{s4396122__os__mqtt_8c_af9ea982b29cde3278778e6e802cfa850}
+
+
+Assigns the external message handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em handler} & New external handler to be assigned \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}!s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe@{s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe}}
+\index{s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe@{s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe}!s4396122\+\_\+os\+\_\+mqtt.\+c@{s4396122\+\_\+os\+\_\+mqtt.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe(char $\ast$in\+Topic)}{s4396122_os_mqtt_subscribe(char *inTopic)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+mqtt\+\_\+subscribe (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{in\+Topic}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__mqtt_8c_a0bcf9fb3b0386d280063e2eec3449a96}{}\label{s4396122__os__mqtt_8c_a0bcf9fb3b0386d280063e2eec3449a96}
+
+
+Subscribes to a channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in\+Topic} & Channel to subscribe to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d03/s4396122__os__mqtt_8c_a0bcf9fb3b0386d280063e2eec3449a96_cgraph}
+\end{center}
+\end{figure}
+
+

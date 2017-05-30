@@ -1,0 +1,363 @@
+\hypertarget{s4396122__util__print_8h}{}\section{mylib/s4396122\+\_\+util\+\_\+print.h File Reference}
+\label{s4396122__util__print_8h}\index{mylib/s4396122\+\_\+util\+\_\+print.\+h@{mylib/s4396122\+\_\+util\+\_\+print.\+h}}
+
+
+Function for handling the serial print and cursor magic.  
+
+
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+print.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+print.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d8f/s4396122__util__print_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d68/s4396122__util__print_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__util__print_8h_a731b6370db28c90d3ee34b3d9cac8e09}{s4396122\+\_\+util\+\_\+print\+\_\+black}~30\hypertarget{s4396122__util__print_8h_a731b6370db28c90d3ee34b3d9cac8e09}{}\label{s4396122__util__print_8h_a731b6370db28c90d3ee34b3d9cac8e09}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to black. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a21119702f7c69c7de066b6a1f6573acb}{s4396122\+\_\+util\+\_\+print\+\_\+red}~31\hypertarget{s4396122__util__print_8h_a21119702f7c69c7de066b6a1f6573acb}{}\label{s4396122__util__print_8h_a21119702f7c69c7de066b6a1f6573acb}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to red. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a6327ddf448a19a7ef9ebfd4cd96aaac4}{s4396122\+\_\+util\+\_\+print\+\_\+green}~32\hypertarget{s4396122__util__print_8h_a6327ddf448a19a7ef9ebfd4cd96aaac4}{}\label{s4396122__util__print_8h_a6327ddf448a19a7ef9ebfd4cd96aaac4}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to green. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a7291dc0230c2dec96115aa4f25632a9a}{s4396122\+\_\+util\+\_\+print\+\_\+yellow}~33\hypertarget{s4396122__util__print_8h_a7291dc0230c2dec96115aa4f25632a9a}{}\label{s4396122__util__print_8h_a7291dc0230c2dec96115aa4f25632a9a}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to yellow. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a2cd94301e7c0ffd1bb632c1c326e6e62}{s4396122\+\_\+util\+\_\+print\+\_\+blue}~34\hypertarget{s4396122__util__print_8h_a2cd94301e7c0ffd1bb632c1c326e6e62}{}\label{s4396122__util__print_8h_a2cd94301e7c0ffd1bb632c1c326e6e62}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to blue. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a79612b09703a7b014da3f5901b16bbb5}{s4396122\+\_\+util\+\_\+print\+\_\+purple}~35\hypertarget{s4396122__util__print_8h_a79612b09703a7b014da3f5901b16bbb5}{}\label{s4396122__util__print_8h_a79612b09703a7b014da3f5901b16bbb5}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to purple. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a9bde7b48e2f6fcd9f96fa232f9572a43}{s4396122\+\_\+util\+\_\+print\+\_\+teal}~36\hypertarget{s4396122__util__print_8h_a9bde7b48e2f6fcd9f96fa232f9572a43}{}\label{s4396122__util__print_8h_a9bde7b48e2f6fcd9f96fa232f9572a43}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to teal. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_ab02beb579498be78fecf77cd0b17ea0a}{s4396122\+\_\+util\+\_\+print\+\_\+white}~37\hypertarget{s4396122__util__print_8h_ab02beb579498be78fecf77cd0b17ea0a}{}\label{s4396122__util__print_8h_ab02beb579498be78fecf77cd0b17ea0a}
+
+\begin{DoxyCompactList}\small\item\em Set the foreground color to white. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a29dc24fd4e4f66b846fd0f16050739b5}{s4396122\+\_\+util\+\_\+print\+\_\+black\+\_\+background}~30\hypertarget{s4396122__util__print_8h_a29dc24fd4e4f66b846fd0f16050739b5}{}\label{s4396122__util__print_8h_a29dc24fd4e4f66b846fd0f16050739b5}
+
+\begin{DoxyCompactList}\small\item\em Set background to black. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_ae4877b263528efe44f81145532079fe6}{s4396122\+\_\+util\+\_\+print\+\_\+red\+\_\+background}~31\hypertarget{s4396122__util__print_8h_ae4877b263528efe44f81145532079fe6}{}\label{s4396122__util__print_8h_ae4877b263528efe44f81145532079fe6}
+
+\begin{DoxyCompactList}\small\item\em Set background to red. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_abe4d5e44efa1e9959bf188495e66f1d0}{s4396122\+\_\+util\+\_\+print\+\_\+green\+\_\+background}~32\hypertarget{s4396122__util__print_8h_abe4d5e44efa1e9959bf188495e66f1d0}{}\label{s4396122__util__print_8h_abe4d5e44efa1e9959bf188495e66f1d0}
+
+\begin{DoxyCompactList}\small\item\em Set background to green. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a70af05f5d14759319a0f03f655b8413d}{s4396122\+\_\+util\+\_\+print\+\_\+yellow\+\_\+background}~33\hypertarget{s4396122__util__print_8h_a70af05f5d14759319a0f03f655b8413d}{}\label{s4396122__util__print_8h_a70af05f5d14759319a0f03f655b8413d}
+
+\begin{DoxyCompactList}\small\item\em Set background to yellow. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a53ed0b6065dc4b5c2938a8535cbeabe7}{s4396122\+\_\+util\+\_\+print\+\_\+blue\+\_\+background}~34\hypertarget{s4396122__util__print_8h_a53ed0b6065dc4b5c2938a8535cbeabe7}{}\label{s4396122__util__print_8h_a53ed0b6065dc4b5c2938a8535cbeabe7}
+
+\begin{DoxyCompactList}\small\item\em Set background to blue. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_aa3ac210b0e579652afcea6e0f0325906}{s4396122\+\_\+util\+\_\+print\+\_\+purple\+\_\+background}~35\hypertarget{s4396122__util__print_8h_aa3ac210b0e579652afcea6e0f0325906}{}\label{s4396122__util__print_8h_aa3ac210b0e579652afcea6e0f0325906}
+
+\begin{DoxyCompactList}\small\item\em Set background to purple. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_af89ffed1e24fb77f85ff70720b1fe31d}{s4396122\+\_\+util\+\_\+print\+\_\+teal\+\_\+background}~36\hypertarget{s4396122__util__print_8h_af89ffed1e24fb77f85ff70720b1fe31d}{}\label{s4396122__util__print_8h_af89ffed1e24fb77f85ff70720b1fe31d}
+
+\begin{DoxyCompactList}\small\item\em Set background to teal. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a4041490f2e1079aae548dbb03033d64a}{s4396122\+\_\+util\+\_\+print\+\_\+white\+\_\+background}~37\hypertarget{s4396122__util__print_8h_a4041490f2e1079aae548dbb03033d64a}{}\label{s4396122__util__print_8h_a4041490f2e1079aae548dbb03033d64a}
+
+\begin{DoxyCompactList}\small\item\em Set background to white. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a2303b411690cf72458b928052612b386}{s4396122\+\_\+util\+\_\+print\+\_\+error}(s)~\hyperlink{s4396122__util__print_8h_a670b4f55564b325528dd3a6566cd1116}{error}(s, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)\hypertarget{s4396122__util__print_8h_a2303b411690cf72458b928052612b386}{}\label{s4396122__util__print_8h_a2303b411690cf72458b928052612b386}
+
+\begin{DoxyCompactList}\small\item\em Print out an error message with the correct file\+Name and line\+No. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a563f25c797d2674003c78dece19937cb}{s4396122\+\_\+util\+\_\+print\+\_\+warn}(s)~\hyperlink{s4396122__util__print_8h_abc951604d70a9fcc7757bf866238e056}{warn}(s, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)\hypertarget{s4396122__util__print_8h_a563f25c797d2674003c78dece19937cb}{}\label{s4396122__util__print_8h_a563f25c797d2674003c78dece19937cb}
+
+\begin{DoxyCompactList}\small\item\em Print out a warning message with the correct file\+Name and line\+No. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_a3a00d7579fa078dff212f4b1988ddf88}{s4396122\+\_\+util\+\_\+print\+\_\+info}(s)~\hyperlink{s4396122__util__print_8h_a4231dde7b180707073fdaada90efcb7a}{info}(s, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)\hypertarget{s4396122__util__print_8h_a3a00d7579fa078dff212f4b1988ddf88}{}\label{s4396122__util__print_8h_a3a00d7579fa078dff212f4b1988ddf88}
+
+\begin{DoxyCompactList}\small\item\em Print out an info message with the correct file\+Name and line\+No. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_ad3e3003f8f75c3a0c634cbee34f3e000}{s4396122\+\_\+util\+\_\+print\+\_\+debug}(s)~\hyperlink{s4396122__util__print_8h_a4c0843b16cf26737156f07f67d3cdb18}{debug}(s, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)\hypertarget{s4396122__util__print_8h_ad3e3003f8f75c3a0c634cbee34f3e000}{}\label{s4396122__util__print_8h_ad3e3003f8f75c3a0c634cbee34f3e000}
+
+\begin{DoxyCompactList}\small\item\em Print out a debug message with the correct file\+Name and line\+No. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__util__print_8h_af75a3958dd9e5d02f24d2f7303003fb4}{s4396122\+\_\+util\+\_\+print}(s,  f,  args...)~\hyperlink{s4396122__util__print_8h_af7533e1beef5aa5167184f32b569d56a}{print}(s, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, f, args)\hypertarget{s4396122__util__print_8h_af75a3958dd9e5d02f24d2f7303003fb4}{}\label{s4396122__util__print_8h_af75a3958dd9e5d02f24d2f7303003fb4}
+
+\begin{DoxyCompactList}\small\item\em Print out a message with the correct file\+Name and line\+No. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__util__print_8h_a790f930c7986869eba9e97750d63da23}{s4396122\+\_\+util\+\_\+print\+\_\+move} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves the cursor to (x, y) \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_adac6a06c621f953c69b357f093255194}{s4396122\+\_\+util\+\_\+print\+\_\+clear} ()\hypertarget{s4396122__util__print_8h_adac6a06c621f953c69b357f093255194}{}\label{s4396122__util__print_8h_adac6a06c621f953c69b357f093255194}
+
+\begin{DoxyCompactList}\small\item\em Clears the serial screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_adc592204023d6e6353e86cd9e91f4ef5}{s4396122\+\_\+util\+\_\+print\+\_\+color} (int sgr)
+\begin{DoxyCompactList}\small\item\em Changes the terminal color, either foreground or background. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_ac3f6614554a8ee8f8408881840ea7d83}{s4396122\+\_\+util\+\_\+print\+\_\+reset} ()\hypertarget{s4396122__util__print_8h_ac3f6614554a8ee8f8408881840ea7d83}{}\label{s4396122__util__print_8h_ac3f6614554a8ee8f8408881840ea7d83}
+
+\begin{DoxyCompactList}\small\item\em Resets the cursor back to default. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_afa9c8867529d8161aed4e94357001938}{s4396122\+\_\+util\+\_\+print\+\_\+bold} ()\hypertarget{s4396122__util__print_8h_afa9c8867529d8161aed4e94357001938}{}\label{s4396122__util__print_8h_afa9c8867529d8161aed4e94357001938}
+
+\begin{DoxyCompactList}\small\item\em Bolds the cursor. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_a720c2ee1d7fc95a57e6ff36860ad3a10}{s4396122\+\_\+util\+\_\+print\+\_\+reverse} ()\hypertarget{s4396122__util__print_8h_a720c2ee1d7fc95a57e6ff36860ad3a10}{}\label{s4396122__util__print_8h_a720c2ee1d7fc95a57e6ff36860ad3a10}
+
+\begin{DoxyCompactList}\small\item\em Inverts the cursor color. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_a670b4f55564b325528dd3a6566cd1116}{error} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints an error to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_abc951604d70a9fcc7757bf866238e056}{warn} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints a warning to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_a4231dde7b180707073fdaada90efcb7a}{info} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints an info statement to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_a4c0843b16cf26737156f07f67d3cdb18}{debug} (const char $\ast$s, const char $\ast$file\+Name, int line\+No)
+\begin{DoxyCompactList}\small\item\em Prints a debug statement to the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__print_8h_af7533e1beef5aa5167184f32b569d56a}{print} (int error\+Type, const char $\ast$file\+Name, int line\+No, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a error/warn/info/debug to the screen based on the error\+Type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Function for handling the serial print and cursor magic. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/04-\/30 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!debug@{debug}}
+\index{debug@{debug}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{debug(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{debug(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void debug (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_a4c0843b16cf26737156f07f67d3cdb18}{}\label{s4396122__util__print_8h_a4c0843b16cf26737156f07f67d3cdb18}
+
+
+Prints a debug statement to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the debug \\
+\hline
+{\em line\+No} & Macro of the origin of the debug \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_a4c0843b16cf26737156f07f67d3cdb18_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!error@{error}}
+\index{error@{error}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{error(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{error(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_a670b4f55564b325528dd3a6566cd1116}{}\label{s4396122__util__print_8h_a670b4f55564b325528dd3a6566cd1116}
+
+
+Prints an error to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of origin of the error \\
+\hline
+{\em line\+No} & Macro of origin of the error \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_a670b4f55564b325528dd3a6566cd1116_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!info@{info}}
+\index{info@{info}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{info(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{info(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void info (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_a4231dde7b180707073fdaada90efcb7a}{}\label{s4396122__util__print_8h_a4231dde7b180707073fdaada90efcb7a}
+
+
+Prints an info statement to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the info \\
+\hline
+{\em line\+No} & Macro of the origin of the info \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_a4231dde7b180707073fdaada90efcb7a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!print@{print}}
+\index{print@{print}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{print(int error\+Type, const char $\ast$file\+Name, int line\+No, const char $\ast$format,...)}{print(int errorType, const char *fileName, int lineNo, const char *format,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void print (
+\begin{DoxyParamCaption}
+\item[{int}]{error\+Type, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No, }
+\item[{const char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_af7533e1beef5aa5167184f32b569d56a}{}\label{s4396122__util__print_8h_af7533e1beef5aa5167184f32b569d56a}
+
+
+Prints a error/warn/info/debug to the screen based on the error\+Type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+Type} & The level of threat the message poses, (0=error, 3=debug) \\
+\hline
+{\em file\+Name} & Macro of the origin of the message \\
+\hline
+{\em line\+No} & Macro of the origin of the message \\
+\hline
+{\em format} & Supports printf style input formatting \\
+\hline
+{\em ...} & \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_af7533e1beef5aa5167184f32b569d56a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!s4396122\+\_\+util\+\_\+print\+\_\+color@{s4396122\+\_\+util\+\_\+print\+\_\+color}}
+\index{s4396122\+\_\+util\+\_\+print\+\_\+color@{s4396122\+\_\+util\+\_\+print\+\_\+color}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+print\+\_\+color(int sgr)}{s4396122_util_print_color(int sgr)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+print\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{int}]{sgr}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_adc592204023d6e6353e86cd9e91f4ef5}{}\label{s4396122__util__print_8h_adc592204023d6e6353e86cd9e91f4ef5}
+
+
+Changes the terminal color, either foreground or background. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sgr} & The color to set to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_adc592204023d6e6353e86cd9e91f4ef5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!s4396122\+\_\+util\+\_\+print\+\_\+move@{s4396122\+\_\+util\+\_\+print\+\_\+move}}
+\index{s4396122\+\_\+util\+\_\+print\+\_\+move@{s4396122\+\_\+util\+\_\+print\+\_\+move}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+print\+\_\+move(int x, int y)}{s4396122_util_print_move(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+print\+\_\+move (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_a790f930c7986869eba9e97750d63da23}{}\label{s4396122__util__print_8h_a790f930c7986869eba9e97750d63da23}
+
+
+Moves the cursor to (x, y) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & position on the x to move the cursor to \\
+\hline
+{\em y} & position on the y to move the cursor to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_a790f930c7986869eba9e97750d63da23_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}!warn@{warn}}
+\index{warn@{warn}!s4396122\+\_\+util\+\_\+print.\+h@{s4396122\+\_\+util\+\_\+print.\+h}}
+\subsubsection[{\texorpdfstring{warn(const char $\ast$s, const char $\ast$file\+Name, int line\+No)}{warn(const char *s, const char *fileName, int lineNo)}}]{\setlength{\rightskip}{0pt plus 5cm}void warn (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line\+No}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__print_8h_abc951604d70a9fcc7757bf866238e056}{}\label{s4396122__util__print_8h_abc951604d70a9fcc7757bf866238e056}
+
+
+Prints a warning to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & String to print to the screen \\
+\hline
+{\em file\+Name} & Macro of the origin of the warning \\
+\hline
+{\em line\+No} & Macro of the origin of the warning \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d73/s4396122__util__print_8h_abc951604d70a9fcc7757bf866238e056_cgraph}
+\end{center}
+\end{figure}
+
+

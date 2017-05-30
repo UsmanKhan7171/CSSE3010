@@ -1,0 +1,56 @@
+\hypertarget{s4396122__os__pantilt_8c}{}\section{mylib/s4396122\+\_\+os\+\_\+pantilt.c File Reference}
+\label{s4396122__os__pantilt_8c}\index{mylib/s4396122\+\_\+os\+\_\+pantilt.\+c@{mylib/s4396122\+\_\+os\+\_\+pantilt.\+c}}
+
+
+OS functions for controlling the pantilt.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+pantilt.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+os\+\_\+pantilt.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/dfd/s4396122__os__pantilt_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__os__pantilt_8c_a3bc3977e0827ee69a5d47d0b83bf162a}{s4396122\+\_\+\+Task\+Pan\+Tilt} ()\hypertarget{s4396122__os__pantilt_8c_a3bc3977e0827ee69a5d47d0b83bf162a}{}\label{s4396122__os__pantilt_8c_a3bc3977e0827ee69a5d47d0b83bf162a}
+
+\begin{DoxyCompactList}\small\item\em Task for controlling the pantilt by reading the input from the semaphores and queues. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__pantilt_8c_aaa4513841cd627778650fce28aa08900}{s4396122\+\_\+os\+\_\+pantilt\+\_\+init} ()\hypertarget{s4396122__os__pantilt_8c_aaa4513841cd627778650fce28aa08900}{}\label{s4396122__os__pantilt_8c_aaa4513841cd627778650fce28aa08900}
+
+\begin{DoxyCompactList}\small\item\em Initializer for the pantilt. This also calls the hal init as well. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__pantilt_8c_a624d13b2dacbb4e251b570649d878223}{s4396122\+\_\+os\+\_\+pantilt\+\_\+deinit} ()\hypertarget{s4396122__os__pantilt_8c_a624d13b2dacbb4e251b570649d878223}{}\label{s4396122__os__pantilt_8c_a624d13b2dacbb4e251b570649d878223}
+
+\begin{DoxyCompactList}\small\item\em Deinitializes the pantilt os functions and calls the deinit for the hal pantilt as well. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Task\+Handle\+\_\+t \hyperlink{s4396122__os__pantilt_8c_a03cd4598a79d8edcfacd63e49c3d0fc4}{s4396122\+\_\+\+Task\+Pan\+Tilt\+Handle}\hypertarget{s4396122__os__pantilt_8c_a03cd4598a79d8edcfacd63e49c3d0fc4}{}\label{s4396122__os__pantilt_8c_a03cd4598a79d8edcfacd63e49c3d0fc4}
+
+\begin{DoxyCompactList}\small\item\em Pan\+Tilt Task Handle. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__pantilt_8c_a07340e57e4d57336448a0f6d25ca4b9e}{metronome\+Mode} = 0\hypertarget{s4396122__os__pantilt_8c_a07340e57e4d57336448a0f6d25ca4b9e}{}\label{s4396122__os__pantilt_8c_a07340e57e4d57336448a0f6d25ca4b9e}
+
+\begin{DoxyCompactList}\small\item\em If the Pan\+Tilt is in metronome\+Mode. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__pantilt_8c_a04d9dcaf50400b61999131934a72fd12}{pan\+Val} = 0\hypertarget{s4396122__os__pantilt_8c_a04d9dcaf50400b61999131934a72fd12}{}\label{s4396122__os__pantilt_8c_a04d9dcaf50400b61999131934a72fd12}
+
+\begin{DoxyCompactList}\small\item\em Current Pan Value. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__pantilt_8c_a271a5f0833e1b44085f312c497a54a77}{tilt\+Val} = 0\hypertarget{s4396122__os__pantilt_8c_a271a5f0833e1b44085f312c497a54a77}{}\label{s4396122__os__pantilt_8c_a271a5f0833e1b44085f312c497a54a77}
+
+\begin{DoxyCompactList}\small\item\em Current Tilt Value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+OS functions for controlling the pantilt. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/04-\/30 
+\end{DoxyDate}

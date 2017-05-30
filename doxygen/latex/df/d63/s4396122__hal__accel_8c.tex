@@ -1,0 +1,92 @@
+\hypertarget{s4396122__hal__accel_8c}{}\section{mylib/s4396122\+\_\+hal\+\_\+accel.c File Reference}
+\label{s4396122__hal__accel_8c}\index{mylib/s4396122\+\_\+hal\+\_\+accel.\+c@{mylib/s4396122\+\_\+hal\+\_\+accel.\+c}}
+
+
+Library for accessing and controlling the accelerometer.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+hal\+\_\+accel.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+accel.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{d7/d77/s4396122__hal__accel_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{s4396122__hal__accel_8c_a4727344fadd3035818b45c6b949eb5b5}{read\+Register} (int addr)
+\begin{DoxyCompactList}\small\item\em Reads a particular register from the I2C device. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__hal__accel_8c_a32e56f6498515d5b74755c79948f5062}{s4396122\+\_\+hal\+\_\+accel\+\_\+init} ()\hypertarget{s4396122__hal__accel_8c_a32e56f6498515d5b74755c79948f5062}{}\label{s4396122__hal__accel_8c_a32e56f6498515d5b74755c79948f5062}
+
+\begin{DoxyCompactList}\small\item\em Inits the accelerometer and any required hardware. \end{DoxyCompactList}\item 
+struct \hyperlink{structPortLand}{Port\+Land} \hyperlink{s4396122__hal__accel_8c_a7c6ddaf7d43db64f178bcf2f416d4ad6}{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl} ()
+\begin{DoxyCompactList}\small\item\em Returns the result if the system is portrait or landscape. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+I2\+C\+\_\+\+Handle\+Type\+Def \hyperlink{s4396122__hal__accel_8c_a55a03c76876b7a442bac67ab50bcbc11}{I2\+C\+Handle}\hypertarget{s4396122__hal__accel_8c_a55a03c76876b7a442bac67ab50bcbc11}{}\label{s4396122__hal__accel_8c_a55a03c76876b7a442bac67ab50bcbc11}
+
+\begin{DoxyCompactList}\small\item\em Handler for the I2C interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for accessing and controlling the accelerometer. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+accel.\+c@{s4396122\+\_\+hal\+\_\+accel.\+c}!read\+Register@{read\+Register}}
+\index{read\+Register@{read\+Register}!s4396122\+\_\+hal\+\_\+accel.\+c@{s4396122\+\_\+hal\+\_\+accel.\+c}}
+\subsubsection[{\texorpdfstring{read\+Register(int addr)}{readRegister(int addr)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+Register (
+\begin{DoxyParamCaption}
+\item[{int}]{addr}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__accel_8c_a4727344fadd3035818b45c6b949eb5b5}{}\label{s4396122__hal__accel_8c_a4727344fadd3035818b45c6b949eb5b5}
+
+
+Reads a particular register from the I2C device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Register address to read from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value read from the register 
+\end{DoxyReturn}
+\index{s4396122\+\_\+hal\+\_\+accel.\+c@{s4396122\+\_\+hal\+\_\+accel.\+c}!s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl@{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl}}
+\index{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl@{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl}!s4396122\+\_\+hal\+\_\+accel.\+c@{s4396122\+\_\+hal\+\_\+accel.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl()}{s4396122_hal_accel_get_pl()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Port\+Land} s4396122\+\_\+hal\+\_\+accel\+\_\+get\+\_\+pl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__accel_8c_a7c6ddaf7d43db64f178bcf2f416d4ad6}{}\label{s4396122__hal__accel_8c_a7c6ddaf7d43db64f178bcf2f416d4ad6}
+
+
+Returns the result if the system is portrait or landscape. 
+
+\begin{DoxyReturn}{Returns}
+Struct containing the result if the system is landscape or portrait 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{df/d63/s4396122__hal__accel_8c_a7c6ddaf7d43db64f178bcf2f416d4ad6_cgraph}
+\end{center}
+\end{figure}
+
+

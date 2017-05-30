@@ -1,0 +1,3 @@
+<map id="s4396122_hal_irremote_get_char" name="s4396122_hal_irremote_get_char">
+<area shape="rect" id="node2" href="$d9/ded/s4396122__hal__irremote_8c.html#ad81e5511ebf45d585af9846ea994b514" title="Returns the IR Command that was last received and sets the message to 0, can only be used once per co..." alt="" coords="209,5,365,47"/>
+</map>

@@ -1,0 +1,179 @@
+\hypertarget{s4396122__util__map_8c}{}\section{mylib/s4396122\+\_\+util\+\_\+map.c File Reference}
+\label{s4396122__util__map_8c}\index{mylib/s4396122\+\_\+util\+\_\+map.\+c@{mylib/s4396122\+\_\+util\+\_\+map.\+c}}
+
+
+Library for adding Hash\+Map functionality.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+map.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+util\+\_\+map.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{d1/d49/s4396122__util__map_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{s4396122__util__map_8c_aedaafcda13e14d4232e1083c7b8c321e}{generate\+Hash} (int key)
+\begin{DoxyCompactList}\small\item\em Creates a number between 0 and M\+A\+P\+\_\+\+S\+I\+ZE for hashing key values. \end{DoxyCompactList}\item 
+\hyperlink{structMap}{Map} $\ast$ \hyperlink{s4396122__util__map_8c_ac918487af0638681d7cda479d88a2490}{s4396122\+\_\+util\+\_\+map\+\_\+create} ()
+\begin{DoxyCompactList}\small\item\em Creates and empty map for adding data. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__map_8c_abb269c66756165215be0de06a61e8268}{s4396122\+\_\+util\+\_\+map\+\_\+free} (\hyperlink{structMap}{Map} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Frees the \hyperlink{structMap}{Map} from memory. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__util__map_8c_a7c9ff837984d66a2d756cf62b3f7ece2}{s4396122\+\_\+util\+\_\+map\+\_\+add} (\hyperlink{structMap}{Map} $\ast$m, int key, void $\ast$d)
+\begin{DoxyCompactList}\small\item\em Adds an element to the map, if the key exists in memory than the old pair will be removed from memory. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{s4396122__util__map_8c_a663a2acefafda6b772c6eb856f49e79a}{s4396122\+\_\+util\+\_\+map\+\_\+get} (\hyperlink{structMap}{Map} $\ast$m, int key)
+\begin{DoxyCompactList}\small\item\em Gets the data referenced with the key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for adding Hash\+Map functionality. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}!generate\+Hash@{generate\+Hash}}
+\index{generate\+Hash@{generate\+Hash}!s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}}
+\subsubsection[{\texorpdfstring{generate\+Hash(int key)}{generateHash(int key)}}]{\setlength{\rightskip}{0pt plus 5cm}int generate\+Hash (
+\begin{DoxyParamCaption}
+\item[{int}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__map_8c_aedaafcda13e14d4232e1083c7b8c321e}{}\label{s4396122__util__map_8c_aedaafcda13e14d4232e1083c7b8c321e}
+
+
+Creates a number between 0 and M\+A\+P\+\_\+\+S\+I\+ZE for hashing key values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to be hashed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The hashed key 
+\end{DoxyReturn}
+\index{s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}!s4396122\+\_\+util\+\_\+map\+\_\+add@{s4396122\+\_\+util\+\_\+map\+\_\+add}}
+\index{s4396122\+\_\+util\+\_\+map\+\_\+add@{s4396122\+\_\+util\+\_\+map\+\_\+add}!s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+map\+\_\+add(\+Map $\ast$m, int key, void $\ast$d)}{s4396122_util_map_add(Map *m, int key, void *d)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+map\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf Map} $\ast$}]{m, }
+\item[{int}]{key, }
+\item[{void $\ast$}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__map_8c_a7c9ff837984d66a2d756cf62b3f7ece2}{}\label{s4396122__util__map_8c_a7c9ff837984d66a2d756cf62b3f7ece2}
+
+
+Adds an element to the map, if the key exists in memory than the old pair will be removed from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The \hyperlink{structMap}{Map} to add the data to \\
+\hline
+{\em key} & The key for the new data to be referenced from \\
+\hline
+{\em d} & Data to be added with the key \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/dcd/s4396122__util__map_8c_a7c9ff837984d66a2d756cf62b3f7ece2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}!s4396122\+\_\+util\+\_\+map\+\_\+create@{s4396122\+\_\+util\+\_\+map\+\_\+create}}
+\index{s4396122\+\_\+util\+\_\+map\+\_\+create@{s4396122\+\_\+util\+\_\+map\+\_\+create}!s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+map\+\_\+create()}{s4396122_util_map_create()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Map}$\ast$ s4396122\+\_\+util\+\_\+map\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__map_8c_ac918487af0638681d7cda479d88a2490}{}\label{s4396122__util__map_8c_ac918487af0638681d7cda479d88a2490}
+
+
+Creates and empty map for adding data. 
+
+\begin{DoxyReturn}{Returns}
+The \hyperlink{structMap}{Map} pointer that was created 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d6/dcd/s4396122__util__map_8c_ac918487af0638681d7cda479d88a2490_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}!s4396122\+\_\+util\+\_\+map\+\_\+free@{s4396122\+\_\+util\+\_\+map\+\_\+free}}
+\index{s4396122\+\_\+util\+\_\+map\+\_\+free@{s4396122\+\_\+util\+\_\+map\+\_\+free}!s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+map\+\_\+free(\+Map $\ast$m)}{s4396122_util_map_free(Map *m)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+util\+\_\+map\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Map} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__map_8c_abb269c66756165215be0de06a61e8268}{}\label{s4396122__util__map_8c_abb269c66756165215be0de06a61e8268}
+
+
+Frees the \hyperlink{structMap}{Map} from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The \hyperlink{structMap}{Map} to be freed from memory \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/dcd/s4396122__util__map_8c_abb269c66756165215be0de06a61e8268_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}!s4396122\+\_\+util\+\_\+map\+\_\+get@{s4396122\+\_\+util\+\_\+map\+\_\+get}}
+\index{s4396122\+\_\+util\+\_\+map\+\_\+get@{s4396122\+\_\+util\+\_\+map\+\_\+get}!s4396122\+\_\+util\+\_\+map.\+c@{s4396122\+\_\+util\+\_\+map.\+c}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+util\+\_\+map\+\_\+get(\+Map $\ast$m, int key)}{s4396122_util_map_get(Map *m, int key)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ s4396122\+\_\+util\+\_\+map\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{{\bf Map} $\ast$}]{m, }
+\item[{int}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__util__map_8c_a663a2acefafda6b772c6eb856f49e79a}{}\label{s4396122__util__map_8c_a663a2acefafda6b772c6eb856f49e79a}
+
+
+Gets the data referenced with the key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \hyperlink{structMap}{Map} to get the data from \\
+\hline
+{\em key} & Key to get the data from \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{d6/dcd/s4396122__util__map_8c_a663a2acefafda6b772c6eb856f49e79a_cgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,71 @@
+\hypertarget{s4396122__hal__time_8h}{}\section{mylib/s4396122\+\_\+hal\+\_\+time.h File Reference}
+\label{s4396122__hal__time_8h}\index{mylib/s4396122\+\_\+hal\+\_\+time.\+h@{mylib/s4396122\+\_\+hal\+\_\+time.\+h}}
+
+
+Library for time related functions.  
+
+
+{\ttfamily \#include $<$board.\+h$>$}\\*
+{\ttfamily \#include $<$stm32f4xx\+\_\+hal\+\_\+conf.\+h$>$}\\*
+Include dependency graph for s4396122\+\_\+hal\+\_\+time.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{d7/dfe/s4396122__hal__time_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{da/de3/s4396122__hal__time_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__hal__time_8h_aa6cf7fca2fdb203a59e1170b3d4d05f3}{s4396122\+\_\+hal\+\_\+time\+\_\+init} ()
+\item 
+unsigned int \hyperlink{s4396122__hal__time_8h_a2f6e113bc9dd5c4fcc52b056adedd6bc}{s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro} ()
+\item 
+void \hyperlink{s4396122__hal__time_8h_a499e227c0a7e4e57e5d22d6ecd226ac6}{s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for time related functions. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice = 43961229 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+120417 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}!s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro@{s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro}}
+\index{s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro@{s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro}!s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro()}{s4396122_hal_time_clear_micro()}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+hal\+\_\+time\+\_\+clear\+\_\+micro (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__time_8h_a499e227c0a7e4e57e5d22d6ecd226ac6}{}\label{s4396122__hal__time_8h_a499e227c0a7e4e57e5d22d6ecd226ac6}
+Resets the micro timer to zero \index{s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}!s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro@{s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro}}
+\index{s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro@{s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro}!s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro()}{s4396122_hal_time_get_micro()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int s4396122\+\_\+hal\+\_\+time\+\_\+get\+\_\+micro (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__time_8h_a2f6e113bc9dd5c4fcc52b056adedd6bc}{}\label{s4396122__hal__time_8h_a2f6e113bc9dd5c4fcc52b056adedd6bc}
+Returns the value of the micro timer \begin{DoxyReturn}{Returns}
+Time since the clear function was last called 
+\end{DoxyReturn}
+\index{s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}!s4396122\+\_\+hal\+\_\+time\+\_\+init@{s4396122\+\_\+hal\+\_\+time\+\_\+init}}
+\index{s4396122\+\_\+hal\+\_\+time\+\_\+init@{s4396122\+\_\+hal\+\_\+time\+\_\+init}!s4396122\+\_\+hal\+\_\+time.\+h@{s4396122\+\_\+hal\+\_\+time.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+hal\+\_\+time\+\_\+init()}{s4396122_hal_time_init()}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+hal\+\_\+time\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__hal__time_8h_aa6cf7fca2fdb203a59e1170b3d4d05f3}{}\label{s4396122__hal__time_8h_aa6cf7fca2fdb203a59e1170b3d4d05f3}
+Initializes the micro timer for counting microseconds 

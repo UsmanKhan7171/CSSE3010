@@ -1,0 +1,608 @@
+\hypertarget{s4396122__os__draw_8h}{}\section{mylib/s4396122\+\_\+os\+\_\+draw.h File Reference}
+\label{s4396122__os__draw_8h}\index{mylib/s4396122\+\_\+os\+\_\+draw.\+h@{mylib/s4396122\+\_\+os\+\_\+draw.\+h}}
+
+
+Library for drawing using paint.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+int\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+util\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}s4396122\+\_\+os\+\_\+mqtt.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}semphr.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}usbd\+\_\+hid.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usbd\+\_\+conf.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usbd\+\_\+core.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usbd\+\_\+desc.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+os\+\_\+draw.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d52/s4396122__os__draw_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d92/s4396122__os__draw_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structMouseCommand}{Mouse\+Command}
+\begin{DoxyCompactList}\small\item\em Simple mouse command struct used for basic things like mouse movement and mouse buttons. \end{DoxyCompactList}\item 
+struct \hyperlink{structDrawChar}{Draw\+Char}
+\begin{DoxyCompactList}\small\item\em Used to store information about a display character. \end{DoxyCompactList}\item 
+struct \hyperlink{structDrawPoly}{Draw\+Poly}
+\begin{DoxyCompactList}\small\item\em Used to store information about a display polygon. \end{DoxyCompactList}\item 
+struct \hyperlink{structDrawCmd}{Draw\+Cmd}
+\begin{DoxyCompactList}\small\item\em A general draw command that can be either character or polygon. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{s4396122__os__draw_8h_a01bdc641910206db5d3530e744cf06ba}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+P\+A\+D\+D\+I\+NG}~1\hypertarget{s4396122__os__draw_8h_a01bdc641910206db5d3530e744cf06ba}{}\label{s4396122__os__draw_8h_a01bdc641910206db5d3530e744cf06ba}
+
+\begin{DoxyCompactList}\small\item\em Space between characters. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_ad010f6b8b462c1c723bd13a0d665cb6a}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+L\+E\+N\+G\+TH}~7\hypertarget{s4396122__os__draw_8h_ad010f6b8b462c1c723bd13a0d665cb6a}{}\label{s4396122__os__draw_8h_ad010f6b8b462c1c723bd13a0d665cb6a}
+
+\begin{DoxyCompactList}\small\item\em Length of a single line on a character. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_ae6412665263f32dcd375502df01f303c}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+W\+I\+D\+TH}~(\hyperlink{s4396122__os__draw_8h_ad010f6b8b462c1c723bd13a0d665cb6a}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+L\+E\+N\+G\+TH} + \hyperlink{s4396122__os__draw_8h_a01bdc641910206db5d3530e744cf06ba}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+P\+A\+D\+D\+I\+NG})\hypertarget{s4396122__os__draw_8h_ae6412665263f32dcd375502df01f303c}{}\label{s4396122__os__draw_8h_ae6412665263f32dcd375502df01f303c}
+
+\begin{DoxyCompactList}\small\item\em The total width of a character plus padding. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a25213170b6760924e3b3114ec60ff140}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+H\+E\+I\+G\+HT}~(\hyperlink{s4396122__os__draw_8h_ad010f6b8b462c1c723bd13a0d665cb6a}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+L\+E\+N\+G\+TH} $\ast$ 2 + \hyperlink{s4396122__os__draw_8h_a01bdc641910206db5d3530e744cf06ba}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+I\+N\+E\+\_\+\+P\+A\+D\+D\+I\+NG})\hypertarget{s4396122__os__draw_8h_a25213170b6760924e3b3114ec60ff140}{}\label{s4396122__os__draw_8h_a25213170b6760924e3b3114ec60ff140}
+
+\begin{DoxyCompactList}\small\item\em The total height of a character plus padding. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a029fd5c862ab8ee4b80a2e180ab8f691}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}~1\hypertarget{s4396122__os__draw_8h_a029fd5c862ab8ee4b80a2e180ab8f691}{}\label{s4396122__os__draw_8h_a029fd5c862ab8ee4b80a2e180ab8f691}
+
+\begin{DoxyCompactList}\small\item\em The original X canvas offset. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a6b9a149cbe14581566049e535d64e2b4}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}~18\hypertarget{s4396122__os__draw_8h_a6b9a149cbe14581566049e535d64e2b4}{}\label{s4396122__os__draw_8h_a6b9a149cbe14581566049e535d64e2b4}
+
+\begin{DoxyCompactList}\small\item\em The original Y canvas offset. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a74fbcd487f52e243c28237c44938b8e1}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+W\+I\+D\+TH}~125\hypertarget{s4396122__os__draw_8h_a74fbcd487f52e243c28237c44938b8e1}{}\label{s4396122__os__draw_8h_a74fbcd487f52e243c28237c44938b8e1}
+
+\begin{DoxyCompactList}\small\item\em The width of the canvas. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_afb115aa3a65efaf4950cd34bfdcfb2a9}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+H\+E\+I\+G\+HT}~118\hypertarget{s4396122__os__draw_8h_afb115aa3a65efaf4950cd34bfdcfb2a9}{}\label{s4396122__os__draw_8h_afb115aa3a65efaf4950cd34bfdcfb2a9}
+
+\begin{DoxyCompactList}\small\item\em The height of the canvas. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a343c4e335735d10ca571741bbb04f87c}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+M\+U\+L\+T\+I\+\_\+\+F\+A\+C\+T\+OR}~(1.\+8)\hypertarget{s4396122__os__draw_8h_a343c4e335735d10ca571741bbb04f87c}{}\label{s4396122__os__draw_8h_a343c4e335735d10ca571741bbb04f87c}
+
+\begin{DoxyCompactList}\small\item\em Multiplication factor for square relativity. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a3f3e6d972818a815b4ec83b562f16c02}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+L\+A\+N\+D\+S\+C\+A\+PE}~1\hypertarget{s4396122__os__draw_8h_a3f3e6d972818a815b4ec83b562f16c02}{}\label{s4396122__os__draw_8h_a3f3e6d972818a815b4ec83b562f16c02}
+
+\begin{DoxyCompactList}\small\item\em Landscape orientation. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a1777c69cf438ad545606c0bf712026e9}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+P\+O\+R\+T\+R\+A\+IT}~0\hypertarget{s4396122__os__draw_8h_a1777c69cf438ad545606c0bf712026e9}{}\label{s4396122__os__draw_8h_a1777c69cf438ad545606c0bf712026e9}
+
+\begin{DoxyCompactList}\small\item\em Portrait orientation. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a28bd7a4eb8f9e3bc423515267bd34ca8}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+R\+E\+C\+T\+A\+N\+G\+L\+E\+\_\+X}~29\hypertarget{s4396122__os__draw_8h_a28bd7a4eb8f9e3bc423515267bd34ca8}{}\label{s4396122__os__draw_8h_a28bd7a4eb8f9e3bc423515267bd34ca8}
+
+\begin{DoxyCompactList}\small\item\em X location of rectangle tool. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_afa0864e21a0189a554144579c41c5cf3}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+R\+E\+C\+T\+A\+N\+G\+L\+E\+\_\+Y}~7\hypertarget{s4396122__os__draw_8h_afa0864e21a0189a554144579c41c5cf3}{}\label{s4396122__os__draw_8h_afa0864e21a0189a554144579c41c5cf3}
+
+\begin{DoxyCompactList}\small\item\em Y location of rectangle tool. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_ab6fe724d0f276b92397ad5e757a30009}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+P\+E\+N\+\_\+X}~16\hypertarget{s4396122__os__draw_8h_ab6fe724d0f276b92397ad5e757a30009}{}\label{s4396122__os__draw_8h_ab6fe724d0f276b92397ad5e757a30009}
+
+\begin{DoxyCompactList}\small\item\em X location of pen tool. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a7deb2c915b5b42ee5d856cff6b108113}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+P\+E\+N\+\_\+Y}~8\hypertarget{s4396122__os__draw_8h_a7deb2c915b5b42ee5d856cff6b108113}{}\label{s4396122__os__draw_8h_a7deb2c915b5b42ee5d856cff6b108113}
+
+\begin{DoxyCompactList}\small\item\em Y location of pen tool. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a9ed46cdbd8794b0aeb570cb045f457e6}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+L\+A\+C\+K\+\_\+X}~50\hypertarget{s4396122__os__draw_8h_a9ed46cdbd8794b0aeb570cb045f457e6}{}\label{s4396122__os__draw_8h_a9ed46cdbd8794b0aeb570cb045f457e6}
+
+\begin{DoxyCompactList}\small\item\em X location of black colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a55314316f82e4807bf48c95ba2c96629}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+L\+A\+C\+K\+\_\+Y}~7\hypertarget{s4396122__os__draw_8h_a55314316f82e4807bf48c95ba2c96629}{}\label{s4396122__os__draw_8h_a55314316f82e4807bf48c95ba2c96629}
+
+\begin{DoxyCompactList}\small\item\em Y location of black colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_af86fcfb0687332239af44e3227bdf963}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+W\+H\+I\+T\+E\+\_\+X}~50\hypertarget{s4396122__os__draw_8h_af86fcfb0687332239af44e3227bdf963}{}\label{s4396122__os__draw_8h_af86fcfb0687332239af44e3227bdf963}
+
+\begin{DoxyCompactList}\small\item\em X location of white colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a017580456af7dba070556b9ecab36326}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+W\+H\+I\+T\+E\+\_\+Y}~10\hypertarget{s4396122__os__draw_8h_a017580456af7dba070556b9ecab36326}{}\label{s4396122__os__draw_8h_a017580456af7dba070556b9ecab36326}
+
+\begin{DoxyCompactList}\small\item\em Y location of white colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a5f1ef907776db79504f59a1d64690f4b}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+D\+\_\+X}~55\hypertarget{s4396122__os__draw_8h_a5f1ef907776db79504f59a1d64690f4b}{}\label{s4396122__os__draw_8h_a5f1ef907776db79504f59a1d64690f4b}
+
+\begin{DoxyCompactList}\small\item\em X location of red colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_ad8001e8859a28ac50f9a462e4fd7e482}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+D\+\_\+Y}~7\hypertarget{s4396122__os__draw_8h_ad8001e8859a28ac50f9a462e4fd7e482}{}\label{s4396122__os__draw_8h_ad8001e8859a28ac50f9a462e4fd7e482}
+
+\begin{DoxyCompactList}\small\item\em Y location of red colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a6f146ce03d534bc829dadbb191b85789}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+L\+U\+E\+\_\+X}~62\hypertarget{s4396122__os__draw_8h_a6f146ce03d534bc829dadbb191b85789}{}\label{s4396122__os__draw_8h_a6f146ce03d534bc829dadbb191b85789}
+
+\begin{DoxyCompactList}\small\item\em X location of blue colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_ae0f34632f12a3a28aa7136eb532b8b5a}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+L\+U\+E\+\_\+Y}~7\hypertarget{s4396122__os__draw_8h_ae0f34632f12a3a28aa7136eb532b8b5a}{}\label{s4396122__os__draw_8h_ae0f34632f12a3a28aa7136eb532b8b5a}
+
+\begin{DoxyCompactList}\small\item\em Y location of blue colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_acbb2f6fbf87e453da03677ea7670bed5}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+O\+R\+A\+N\+G\+E\+\_\+X}~56\hypertarget{s4396122__os__draw_8h_acbb2f6fbf87e453da03677ea7670bed5}{}\label{s4396122__os__draw_8h_acbb2f6fbf87e453da03677ea7670bed5}
+
+\begin{DoxyCompactList}\small\item\em X location of orange colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a20fc2f6bd4e956611593a548df100540}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+O\+L\+O\+R\+\_\+\+O\+R\+A\+N\+G\+E\+\_\+Y}~7\hypertarget{s4396122__os__draw_8h_a20fc2f6bd4e956611593a548df100540}{}\label{s4396122__os__draw_8h_a20fc2f6bd4e956611593a548df100540}
+
+\begin{DoxyCompactList}\small\item\em Y location of orange colour. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a94aea8aa5e035ce8be609dfbf70464ca}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK}(x,  y)
+\begin{DoxyCompactList}\small\item\em Way of easily declaring a simple mouse click at the coords (x, y) \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a6f02a5c267f9f3486f26308e1ca2b931}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+P\+O\+L\+Y\+\_\+\+M\+O\+DE}~1\hypertarget{s4396122__os__draw_8h_a6f02a5c267f9f3486f26308e1ca2b931}{}\label{s4396122__os__draw_8h_a6f02a5c267f9f3486f26308e1ca2b931}
+
+\begin{DoxyCompactList}\small\item\em The mode for a command to be a polygon. \end{DoxyCompactList}\item 
+\#define \hyperlink{s4396122__os__draw_8h_a3282de886e29048874d54d437c41a4d8}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+H\+A\+R\+\_\+\+M\+O\+DE}~2\hypertarget{s4396122__os__draw_8h_a3282de886e29048874d54d437c41a4d8}{}\label{s4396122__os__draw_8h_a3282de886e29048874d54d437c41a4d8}
+
+\begin{DoxyCompactList}\small\item\em The mode for a command to be a character. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4}{Mouse\+Color} \{ \\*
+\hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af77fb67151d0c18d397069ad8c271ba3}{B\+L\+A\+CK}, 
+\hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a283fc479650da98250635b9c3c0e7e50}{W\+H\+I\+TE}, 
+\hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af80f9a890089d211842d59625e561f88}{R\+ED}, 
+\hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a35d6719cb4d7577c031b3d79057a1b79}{B\+L\+UE}, 
+\\*
+\hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4ace9ee4c1a6b777940c7f3a766a9a88d4}{O\+R\+A\+N\+GE}
+ \}\begin{DoxyCompactList}\small\item\em Enum for controlling the pen colour. \end{DoxyCompactList}
+\item 
+enum \hyperlink{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708}{Mouse\+Type} \{ \hyperlink{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708ae552ab0a96c0384a6e918e726b7f6102}{R\+E\+C\+T\+A\+N\+G\+LE}, 
+\hyperlink{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708a15e3b19cffd6a5fc6224a35d106bb3a5}{P\+EN}
+ \}\begin{DoxyCompactList}\small\item\em Enum for controlling the pen type. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__os__draw_8h_a36ae5384e2ebf83ea88baf4aade7a617}{s4396122\+\_\+\+Drawer\+Task} ()\hypertarget{s4396122__os__draw_8h_a36ae5384e2ebf83ea88baf4aade7a617}{}\label{s4396122__os__draw_8h_a36ae5384e2ebf83ea88baf4aade7a617}
+
+\begin{DoxyCompactList}\small\item\em Task that handles drawing on the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_afbbb2120716d72b55bc086c2b989b75e}{s4396122\+\_\+os\+\_\+draw\+\_\+init} ()\hypertarget{s4396122__os__draw_8h_afbbb2120716d72b55bc086c2b989b75e}{}\label{s4396122__os__draw_8h_afbbb2120716d72b55bc086c2b989b75e}
+
+\begin{DoxyCompactList}\small\item\em Initializes the drawing tasks and sets the defaults values. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a7bc1b8f6decce7742922e4f990a36461}{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char} (int x, int y, char c)
+\begin{DoxyCompactList}\small\item\em Adds a char to the display. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a40ba50ba5201c004cd734ee1d231112f}{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly} (int x, int y, int length, int degree)
+\begin{DoxyCompactList}\small\item\em Adds a polygon to the display. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a0fd78e44a19ab769afe5e658ef36351a}{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line} (int x1, int y1, int x2, int y2)
+\begin{DoxyCompactList}\small\item\em Draws a line on the display, respects display ratio and display orientation. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a76b0af14916f5b49dfb8935158b541ba}{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color} (enum \hyperlink{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4}{Mouse\+Color})
+\begin{DoxyCompactList}\small\item\em Changes the pen colour to match the parameter. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a9d8c35ef0d1ed85aef97a51fcc717e59}{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type} (enum \hyperlink{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708}{Mouse\+Type})
+\begin{DoxyCompactList}\small\item\em Changes the pen type to match the parameter. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_af7db83af2c137dcfc0be2a4acf9fd9a7}{s4396122\+\_\+os\+\_\+draw\+\_\+redraw} ()\hypertarget{s4396122__os__draw_8h_af7db83af2c137dcfc0be2a4acf9fd9a7}{}\label{s4396122__os__draw_8h_af7db83af2c137dcfc0be2a4acf9fd9a7}
+
+\begin{DoxyCompactList}\small\item\em Renders the entire draw\+List \hyperlink{structQueue}{Queue} into the mouse\+Queue for the s4396122\+\_\+\+Drawer\+Task to execute on the display. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a1fd5b859e1426d8e4ce9f933c6c299f9}{s4396122\+\_\+os\+\_\+draw\+\_\+reset} ()\hypertarget{s4396122__os__draw_8h_a1fd5b859e1426d8e4ce9f933c6c299f9}{}\label{s4396122__os__draw_8h_a1fd5b859e1426d8e4ce9f933c6c299f9}
+
+\begin{DoxyCompactList}\small\item\em Clears all the content on the screen. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a447b5c7a8bd3e0a90ab234c668f91345}{s4396122\+\_\+os\+\_\+draw\+\_\+remove\+\_\+top} ()\hypertarget{s4396122__os__draw_8h_a447b5c7a8bd3e0a90ab234c668f91345}{}\label{s4396122__os__draw_8h_a447b5c7a8bd3e0a90ab234c668f91345}
+
+\begin{DoxyCompactList}\small\item\em Removes the last added item to the draw\+List \hyperlink{structQueue}{Queue}. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06}{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse} (int x\+Movement, int y\+Movement)
+\begin{DoxyCompactList}\small\item\em Moves the cursor to the provided location. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button} (int left\+Mouse)
+\begin{DoxyCompactList}\small\item\em Sets whether the mouse button is down or up. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a09bb906ae04f27725ad746a6b8d12ddd}{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char} (char c)
+\begin{DoxyCompactList}\small\item\em Sets the temp\+Char to the character c and if not enabled, also enables the temp\+Char. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_afb76086361c24ad30baddcef7f7b1014}{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves the temp\+Char relative to it\textquotesingle{}s current coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_aafd301c523c50a11600db1b3ccdec0e5}{s4396122\+\_\+os\+\_\+draw\+\_\+commit\+\_\+temp\+\_\+char} ()\hypertarget{s4396122__os__draw_8h_aafd301c523c50a11600db1b3ccdec0e5}{}\label{s4396122__os__draw_8h_aafd301c523c50a11600db1b3ccdec0e5}
+
+\begin{DoxyCompactList}\small\item\em Commits the temp\+Char to be apart of draw\+List. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a301ecad13de4aef4700e719817e4caea}{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves the origin of the canvas. \end{DoxyCompactList}\item 
+void \hyperlink{s4396122__os__draw_8h_a8bf64f76d739a6ead40e5622358aa0fc}{s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation} (int orient)
+\begin{DoxyCompactList}\small\item\em Sets the canvas orientation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{s4396122__os__draw_8h_abe7831925da28c4d622bbf0b186509ff}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}
+\begin{DoxyCompactList}\small\item\em Variable to track the position of the x offset. \end{DoxyCompactList}\item 
+int \hyperlink{s4396122__os__draw_8h_a0efc621ab5aaafccbec3d1f89001f1b9}{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}
+\begin{DoxyCompactList}\small\item\em Variable to track the position of the y offset. \end{DoxyCompactList}\item 
+char \hyperlink{s4396122__os__draw_8h_ac5a1a3c1636471f81447e6e8a988b9de}{s4396122\+\_\+os\+\_\+draw\+\_\+number\+\_\+to\+\_\+segment} \mbox{[}10\mbox{]}\hypertarget{s4396122__os__draw_8h_ac5a1a3c1636471f81447e6e8a988b9de}{}\label{s4396122__os__draw_8h_ac5a1a3c1636471f81447e6e8a988b9de}
+
+\begin{DoxyCompactList}\small\item\em Used to convert a number to a segment representation. \end{DoxyCompactList}\item 
+char \hyperlink{s4396122__os__draw_8h_a400056b7f3436fe4898ede6f329baa06}{s4396122\+\_\+os\+\_\+draw\+\_\+letter\+\_\+to\+\_\+segment} \mbox{[}26\mbox{]}\hypertarget{s4396122__os__draw_8h_a400056b7f3436fe4898ede6f329baa06}{}\label{s4396122__os__draw_8h_a400056b7f3436fe4898ede6f329baa06}
+
+\begin{DoxyCompactList}\small\item\em Used to convert a letter to a segment representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Library for drawing using paint. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Macro Definition Documentation}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK}}
+\index{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK}{OS_DRAW_MOVE_AND_CLICK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+M\+O\+V\+E\+\_\+\+A\+N\+D\+\_\+\+C\+L\+I\+CK(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a94aea8aa5e035ce8be609dfbf70464ca}{}\label{s4396122__os__draw_8h_a94aea8aa5e035ce8be609dfbf70464ca}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{s4396122\_os\_draw\_mouse\_button}(0); \hyperlink{s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06}{\(\backslash\)}
+\hyperlink{s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06}{    s4396122\_os\_draw\_move\_mouse}(x, y); 
+      \hyperlink{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{s4396122\_os\_draw\_mouse\_button}(1); \hyperlink{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{\(\backslash\)}
+\hyperlink{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{    s4396122\_os\_draw\_mouse\_button}(0);
+\end{DoxyCode}
+
+
+Way of easily declaring a simple mouse click at the coords (x, y) 
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!Mouse\+Color@{Mouse\+Color}}
+\index{Mouse\+Color@{Mouse\+Color}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{Mouse\+Color}{MouseColor}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Mouse\+Color}}\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4}
+
+
+Enum for controlling the pen colour. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{B\+L\+A\+CK@{B\+L\+A\+CK}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!B\+L\+A\+CK@{B\+L\+A\+CK}}\item[{\em 
+B\+L\+A\+CK\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af77fb67151d0c18d397069ad8c271ba3}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af77fb67151d0c18d397069ad8c271ba3}
+}]Colour Black. \index{W\+H\+I\+TE@{W\+H\+I\+TE}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!W\+H\+I\+TE@{W\+H\+I\+TE}}\item[{\em 
+W\+H\+I\+TE\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a283fc479650da98250635b9c3c0e7e50}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a283fc479650da98250635b9c3c0e7e50}
+}]Colour White. \index{R\+ED@{R\+ED}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!R\+ED@{R\+ED}}\item[{\em 
+R\+ED\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af80f9a890089d211842d59625e561f88}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4af80f9a890089d211842d59625e561f88}
+}]Colour Red. \index{B\+L\+UE@{B\+L\+UE}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!B\+L\+UE@{B\+L\+UE}}\item[{\em 
+B\+L\+UE\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a35d6719cb4d7577c031b3d79057a1b79}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4a35d6719cb4d7577c031b3d79057a1b79}
+}]Colour Blue. \index{O\+R\+A\+N\+GE@{O\+R\+A\+N\+GE}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!O\+R\+A\+N\+GE@{O\+R\+A\+N\+GE}}\item[{\em 
+O\+R\+A\+N\+GE\hypertarget{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4ace9ee4c1a6b777940c7f3a766a9a88d4}{}\label{s4396122__os__draw_8h_a5fbae3ca85fb9acf7a146955bc6b69c4ace9ee4c1a6b777940c7f3a766a9a88d4}
+}]Colour Orange. \end{description}
+\end{Desc}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!Mouse\+Type@{Mouse\+Type}}
+\index{Mouse\+Type@{Mouse\+Type}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{Mouse\+Type}{MouseType}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Mouse\+Type}}\hypertarget{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708}{}\label{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708}
+
+
+Enum for controlling the pen type. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{R\+E\+C\+T\+A\+N\+G\+LE@{R\+E\+C\+T\+A\+N\+G\+LE}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!R\+E\+C\+T\+A\+N\+G\+LE@{R\+E\+C\+T\+A\+N\+G\+LE}}\item[{\em 
+R\+E\+C\+T\+A\+N\+G\+LE\hypertarget{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708ae552ab0a96c0384a6e918e726b7f6102}{}\label{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708ae552ab0a96c0384a6e918e726b7f6102}
+}]Rectangle tool. \index{P\+EN@{P\+EN}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!P\+EN@{P\+EN}}\item[{\em 
+P\+EN\hypertarget{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708a15e3b19cffd6a5fc6224a35d106bb3a5}{}\label{s4396122__os__draw_8h_a1a15f1712ba14a6877038ffe9c6f7708a15e3b19cffd6a5fc6224a35d106bb3a5}
+}]Pen tool. \end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char(int x, int y, char c)}{s4396122_os_draw_add_char(int x, int y, char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a7bc1b8f6decce7742922e4f990a36461}{}\label{s4396122__os__draw_8h_a7bc1b8f6decce7742922e4f990a36461}
+
+
+Adds a char to the display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coord of top left corner to draw to \\
+\hline
+{\em y} & Y coord of top left corner to draw to \\
+\hline
+{\em c} & character segment to add \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a7bc1b8f6decce7742922e4f990a36461_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line(int x1, int y1, int x2, int y2)}{s4396122_os_draw_add_line(int x1, int y1, int x2, int y2)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+line (
+\begin{DoxyParamCaption}
+\item[{int}]{x1, }
+\item[{int}]{y1, }
+\item[{int}]{x2, }
+\item[{int}]{y2}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a0fd78e44a19ab769afe5e658ef36351a}{}\label{s4396122__os__draw_8h_a0fd78e44a19ab769afe5e658ef36351a}
+
+
+Draws a line on the display, respects display ratio and display orientation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & Line origin \\
+\hline
+{\em y1} & Line origin \\
+\hline
+{\em x2} & Line end point \\
+\hline
+{\em y2} & Line end point \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a0fd78e44a19ab769afe5e658ef36351a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly(int x, int y, int length, int degree)}{s4396122_os_draw_add_poly(int x, int y, int length, int degree)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+poly (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{length, }
+\item[{int}]{degree}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a40ba50ba5201c004cd734ee1d231112f}{}\label{s4396122__os__draw_8h_a40ba50ba5201c004cd734ee1d231112f}
+
+
+Adds a polygon to the display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coord of top left corner to draw to \\
+\hline
+{\em y} & Y coord of top left corner to draw to \\
+\hline
+{\em length} & Length of the sides \\
+\hline
+{\em degree} & Number of sides to draw \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a40ba50ba5201c004cd734ee1d231112f_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char(char c)}{s4396122_os_draw_add_temp_char(char c)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+add\+\_\+temp\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a09bb906ae04f27725ad746a6b8d12ddd}{}\label{s4396122__os__draw_8h_a09bb906ae04f27725ad746a6b8d12ddd}
+
+
+Sets the temp\+Char to the character c and if not enabled, also enables the temp\+Char. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Character segment map to be drawn \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a09bb906ae04f27725ad746a6b8d12ddd_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color@{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color@{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color(enum Mouse\+Color)}{s4396122_os_draw_change_pen_color(enum MouseColor)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{enum {\bf Mouse\+Color}}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a76b0af14916f5b49dfb8935158b541ba}{}\label{s4396122__os__draw_8h_a76b0af14916f5b49dfb8935158b541ba}
+
+
+Changes the pen colour to match the parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & New colour for the pen to be \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type@{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type@{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type(enum Mouse\+Type)}{s4396122_os_draw_change_pen_type(enum MouseType)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+change\+\_\+pen\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{enum {\bf Mouse\+Type}}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a9d8c35ef0d1ed85aef97a51fcc717e59}{}\label{s4396122__os__draw_8h_a9d8c35ef0d1ed85aef97a51fcc717e59}
+
+
+Changes the pen type to match the parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & New pen type for the pen to be \\
+\hline
+\end{DoxyParams}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button@{s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button@{s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button(int left\+Mouse)}{s4396122_os_draw_mouse_button(int leftMouse)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+mouse\+\_\+button (
+\begin{DoxyParamCaption}
+\item[{int}]{left\+Mouse}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}{}\label{s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2}
+
+
+Sets whether the mouse button is down or up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+Mouse} & Sets the mouse button status \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a7ea73c99676636e17a5f1c14b75636f2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse(int x\+Movement, int y\+Movement)}{s4396122_os_draw_move_mouse(int xMovement, int yMovement)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+mouse (
+\begin{DoxyParamCaption}
+\item[{int}]{x\+Movement, }
+\item[{int}]{y\+Movement}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06}{}\label{s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06}
+
+
+Moves the cursor to the provided location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Movement} & X coord to move to \\
+\hline
+{\em y\+Movement} & Y coord to move to \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a611858e5e69fe15e1605c5ab4cb5af06_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin(int x, int y)}{s4396122_os_draw_move_origin(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+origin (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a301ecad13de4aef4700e719817e4caea}{}\label{s4396122__os__draw_8h_a301ecad13de4aef4700e719817e4caea}
+
+
+Moves the origin of the canvas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & New X coordinate to set as the origin \\
+\hline
+{\em y} & New Y coordinate to set as the origin \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a301ecad13de4aef4700e719817e4caea_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char@{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char(int x, int y)}{s4396122_os_draw_move_temp_char(int x, int y)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+move\+\_\+temp\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_afb76086361c24ad30baddcef7f7b1014}{}\label{s4396122__os__draw_8h_afb76086361c24ad30baddcef7f7b1014}
+
+
+Moves the temp\+Char relative to it\textquotesingle{}s current coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coord relative value \\
+\hline
+{\em y} & Y coord relative value \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_afb76086361c24ad30baddcef7f7b1014_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation@{s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation}}
+\index{s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation@{s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation(int orient)}{s4396122_os_draw_set_orientation(int orient)}}]{\setlength{\rightskip}{0pt plus 5cm}void s4396122\+\_\+os\+\_\+draw\+\_\+set\+\_\+orientation (
+\begin{DoxyParamCaption}
+\item[{int}]{orient}
+\end{DoxyParamCaption}
+)}\hypertarget{s4396122__os__draw_8h_a8bf64f76d739a6ead40e5622358aa0fc}{}\label{s4396122__os__draw_8h_a8bf64f76d739a6ead40e5622358aa0fc}
+
+
+Sets the canvas orientation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em orient} & New orientation for the display to be \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/de1/s4396122__os__draw_8h_a8bf64f76d739a6ead40e5622358aa0fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}}
+\index{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}{OS_DRAW_CANVAS_OFFSET_X}}]{\setlength{\rightskip}{0pt plus 5cm}int O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+X}\hypertarget{s4396122__os__draw_8h_abe7831925da28c4d622bbf0b186509ff}{}\label{s4396122__os__draw_8h_abe7831925da28c4d622bbf0b186509ff}
+
+
+Variable to track the position of the x offset. 
+
+Variable to track the position of the x offset. \index{s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}!O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}}
+\index{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y@{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}!s4396122\+\_\+os\+\_\+draw.\+h@{s4396122\+\_\+os\+\_\+draw.\+h}}
+\subsubsection[{\texorpdfstring{O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}{OS_DRAW_CANVAS_OFFSET_Y}}]{\setlength{\rightskip}{0pt plus 5cm}int O\+S\+\_\+\+D\+R\+A\+W\+\_\+\+C\+A\+N\+V\+A\+S\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+Y}\hypertarget{s4396122__os__draw_8h_a0efc621ab5aaafccbec3d1f89001f1b9}{}\label{s4396122__os__draw_8h_a0efc621ab5aaafccbec3d1f89001f1b9}
+
+
+Variable to track the position of the y offset. 
+
+Variable to track the position of the y offset. 

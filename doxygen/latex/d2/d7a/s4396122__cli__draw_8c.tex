@@ -1,0 +1,185 @@
+\hypertarget{s4396122__cli__draw_8c}{}\section{mylib/s4396122\+\_\+cli\+\_\+draw.c File Reference}
+\label{s4396122__cli__draw_8c}\index{mylib/s4396122\+\_\+cli\+\_\+draw.\+c@{mylib/s4396122\+\_\+cli\+\_\+draw.\+c}}
+
+
+Provides drawing commands for C\+LI.  
+
+
+{\ttfamily \#include \char`\"{}s4396122\+\_\+cli\+\_\+draw.\+h\char`\"{}}\\*
+Include dependency graph for s4396122\+\_\+cli\+\_\+draw.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d00/s4396122__cli__draw_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{s4396122__cli__draw_8c_ac046113876d482709dd25092711322ce}{s4396122\+\_\+cli\+\_\+draw\+\_\+init} ()\hypertarget{s4396122__cli__draw_8c_ac046113876d482709dd25092711322ce}{}\label{s4396122__cli__draw_8c_ac046113876d482709dd25092711322ce}
+
+\begin{DoxyCompactList}\small\item\em Init function for the draw commands. Adds all the commands to Free\+R\+T\+OS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a703fe14e78e9274c62e285e7e8c1f004}{x\+Move}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the move command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a0bbf1f58a384038b644f04a029210ae7}{x\+Pen\+Down}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the pendown command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a12f286597dc033040f7b69f0e344824c}{x\+Pen\+Up}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the penup command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a7f00f5ae22651ea80ed6c0e1175197d5}{x\+Box}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the box command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a092af686c934dca8f9c868855a963b74}{x\+Line}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the line command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_a55ac17ca54e87f6e4f9c9a45c02befaa}{x\+Reset}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the reset command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_afef7211ac1797958876a7aefadcd9180}{x\+Pen}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the pen command. \end{DoxyCompactList}\item 
+C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t \hyperlink{s4396122__cli__draw_8c_ac6d6240194b16683e24d20a358b10eda}{x\+Rotate}
+\begin{DoxyCompactList}\small\item\em C\+LI struct for the rotate command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides drawing commands for C\+LI. 
+
+\begin{DoxyAuthor}{Author}
+Daniel Fitzmaurice -\/ 43961229 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2017-\/05-\/31 
+\end{DoxyDate}
+
+
+\subsection{Variable Documentation}
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Box@{x\+Box}}
+\index{x\+Box@{x\+Box}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Box}{xBox}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Box}\hypertarget{s4396122__cli__draw_8c_a7f00f5ae22651ea80ed6c0e1175197d5}{}\label{s4396122__cli__draw_8c_a7f00f5ae22651ea80ed6c0e1175197d5}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"box"},
+    \textcolor{stringliteral}{"box:\(\backslash\)n Draw a box on the screen in the center.\(\backslash\)n\(\backslash\)n"},
+    prvBoxCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the box command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Line@{x\+Line}}
+\index{x\+Line@{x\+Line}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Line}{xLine}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Line}\hypertarget{s4396122__cli__draw_8c_a092af686c934dca8f9c868855a963b74}{}\label{s4396122__cli__draw_8c_a092af686c934dca8f9c868855a963b74}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"line"},
+    \textcolor{stringliteral}{"line:\(\backslash\)n Draw a line from x1 y1 to x2 y2. \{(x1 y1) (x2 y2)\}\(\backslash\)n\(\backslash\)n"},
+    prvLineCommand,
+    4
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the line command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Move@{x\+Move}}
+\index{x\+Move@{x\+Move}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Move}{xMove}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Move}\hypertarget{s4396122__cli__draw_8c_a703fe14e78e9274c62e285e7e8c1f004}{}\label{s4396122__cli__draw_8c_a703fe14e78e9274c62e285e7e8c1f004}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"move"},
+    \textcolor{stringliteral}{"move:\(\backslash\)n Move the cursor by the x and y position.\(\backslash\)n\(\backslash\)n"},
+    prvMoveCommand,
+    2
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the move command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Pen@{x\+Pen}}
+\index{x\+Pen@{x\+Pen}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Pen}{xPen}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Pen}\hypertarget{s4396122__cli__draw_8c_afef7211ac1797958876a7aefadcd9180}{}\label{s4396122__cli__draw_8c_afef7211ac1797958876a7aefadcd9180}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"pen"},
+    \textcolor{stringliteral}{"pen:\(\backslash\)n Sets the type of pen for drawing with.\(\backslash\)n\(\backslash\)n"},
+    prvPenCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the pen command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Pen\+Down@{x\+Pen\+Down}}
+\index{x\+Pen\+Down@{x\+Pen\+Down}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Pen\+Down}{xPenDown}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Pen\+Down}\hypertarget{s4396122__cli__draw_8c_a0bbf1f58a384038b644f04a029210ae7}{}\label{s4396122__cli__draw_8c_a0bbf1f58a384038b644f04a029210ae7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"pendown"},
+    \textcolor{stringliteral}{"pendown:\(\backslash\)n Puts the pen down on the screen.\(\backslash\)n\(\backslash\)n"},
+    prvPenDownCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the pendown command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Pen\+Up@{x\+Pen\+Up}}
+\index{x\+Pen\+Up@{x\+Pen\+Up}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Pen\+Up}{xPenUp}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Pen\+Up}\hypertarget{s4396122__cli__draw_8c_a12f286597dc033040f7b69f0e344824c}{}\label{s4396122__cli__draw_8c_a12f286597dc033040f7b69f0e344824c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"penup"},
+    \textcolor{stringliteral}{"penup:\(\backslash\)n Releases the pen from the screen.\(\backslash\)n\(\backslash\)n"},
+    prvPenUpCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the penup command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Reset@{x\+Reset}}
+\index{x\+Reset@{x\+Reset}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Reset}{xReset}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Reset}\hypertarget{s4396122__cli__draw_8c_a55ac17ca54e87f6e4f9c9a45c02befaa}{}\label{s4396122__cli__draw_8c_a55ac17ca54e87f6e4f9c9a45c02befaa}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"reset"},
+    \textcolor{stringliteral}{"reset:\(\backslash\)n Clears the canvas for a fresh drawing\(\backslash\)n\(\backslash\)n"},
+    prvResetCommand,
+    0
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the reset command. 
+
+\index{s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}!x\+Rotate@{x\+Rotate}}
+\index{x\+Rotate@{x\+Rotate}!s4396122\+\_\+cli\+\_\+draw.\+c@{s4396122\+\_\+cli\+\_\+draw.\+c}}
+\subsubsection[{\texorpdfstring{x\+Rotate}{xRotate}}]{\setlength{\rightskip}{0pt plus 5cm}C\+L\+I\+\_\+\+Command\+\_\+\+Definition\+\_\+t x\+Rotate}\hypertarget{s4396122__cli__draw_8c_ac6d6240194b16683e24d20a358b10eda}{}\label{s4396122__cli__draw_8c_ac6d6240194b16683e24d20a358b10eda}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"rotate"},
+    \textcolor{stringliteral}{"rotate:\(\backslash\)n Changes the drawing orientation\(\backslash\)n\(\backslash\)n"},
+    prvRotateCommand,
+    1
+\}
+\end{DoxyCode}
+
+
+C\+LI struct for the rotate command. 
+
